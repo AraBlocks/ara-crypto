@@ -1,0 +1,34 @@
+{
+  "name": "ara-crypto",
+  "version": "1.0.0",
+  "description": "Cryptographic functions used in Ara modules",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AraBlocks/ara-crypto.git"
+  },
+  "keywords": [
+    "ara",
+    "crypto"
+  ],
+  "author": "Joseph Werle <werle@littlstar.com>",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/AraBlocks/ara-crypto/issues"
+  },
+  "homepage": "https://github.com/AraBlocks/ara-crypto#readme",
+  "dependencies": {
+    "buffer-alloc-unsafe": "^1.0.0",
+    "buffer-from": "^1.0.0",
+    "is-buffer": "^2.0.2",
+    "sodium-universal": "^2.0.0",
+    "to-buffer": "^1.1.1",
+    "uint64be": "^2.0.2"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0"
+  }
+}
