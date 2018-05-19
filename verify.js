@@ -13,19 +13,13 @@ const {
  * public key. This function calls `crypto_sign_verify_detached`
  * internally.
  * @public
- * @param {Buffer} message
  * @param {Buffer} signature
+ * @param {Buffer} message
  * @param {Buffer} publicKey
  * @return {Boolean}
  * @throws TypeError
  */
-function verify(message, signature, publicKey) {
-  if (false == isBuffer(message)) {
-    throw new TypeError("verify: Expecting message to be a buffer.")
-  } else if (0 == message.length) {
-    throw new TypeError("verify: Cannot verify an empty message buffer.")
-  }
-
+function verify(signature, message, publicKey) {
   if (false == isBuffer(signature)) {
     throw new TypeError("verify: Expecting signature to be a buffer.")
   } else if (0 == signature.length) {
@@ -34,6 +28,12 @@ function verify(message, signature, publicKey) {
     throw new TypeError("verify: Signature buffer too small.")
   } else if (signature.length > crypto_sign_BYTES) {
     throw new TypeError("verify: Signature buffer too large.")
+  }
+
+  if (false == isBuffer(message)) {
+    throw new TypeError("verify: Expecting message to be a buffer.")
+  } else if (0 == message.length) {
+    throw new TypeError("verify: Cannot verify an empty message buffer.")
   }
 
   if (false == isBuffer(publicKey)) {
