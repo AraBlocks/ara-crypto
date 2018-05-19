@@ -19,7 +19,7 @@ const bytes = crypto.randomBytes(32)
 const hash = crypto.blake2b(Buffer.from("message"))
 const { publicKey, secretKey } = crypto.keyPair()
 const signature = crypto.sign(message, secretKey)
-const verified = crypto.verify(message, signature, publicKey)
+const verified = crypto.verify(signature, message, publicKey)
 const buffer = crypto.uint64.encode(80)
 const number = crypto.uint64.decode(buffer) // 80
 ```
@@ -85,7 +85,7 @@ const { publicKey, secretKey } = crypto.keyPair()
 const signature = crypto.sign(Buffer.from("hello"), secretKey)
 ```
 
-### `crypto.verify(message, signature, publicKey)`
+### `crypto.verify(signature, message, publicKey)`
 
 Verify signature for a message signed with a given
 public key. This function will throw a `TypeError` if given incorrect
@@ -96,7 +96,7 @@ internally.
 const { publicKey, secretKey } = crypto.keyPair()
 const message = Buffer.from("hello")
 const signature = crypto.sign(message, secretKey)
-const verified = crypto.verify(message, signature, publicKey)
+const verified = crypto.verify(signature, message, publicKey)
 if (verified) {
   // message was signed with secret key corresponding to the
   // given public that generated the given signature
