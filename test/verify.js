@@ -6,7 +6,7 @@ const { sign } = require('../sign')
 const isBuffer = require('is-buffer')
 const test = require('ava')
 
-test("verify(message, signature, publicKey)", async (t) => {
+test("verify(signature, message, publicKey)", async (t) => {
   const { publicKey, secretKey } = keyPair()
 
   t.throws(() => verify(0, 0, 0), TypeError)
@@ -18,20 +18,20 @@ test("verify(message, signature, publicKey)", async (t) => {
 
   const message = Buffer.from('message')
 
-  t.throws(() => verify(message, 0, 0), TypeError)
-  t.throws(() => verify(message, null, 0), TypeError)
-  t.throws(() => verify(message, true, 0), TypeError)
-  t.throws(() => verify(message, "", 0), TypeError)
-  t.throws(() => verify(message, Buffer.alloc(0), 0), TypeError)
-  t.throws(() => verify(message, Buffer.alloc(8), 0), TypeError)
+  t.throws(() => verify(0, message, 0, 0), TypeError)
+  t.throws(() => verify(0, message, null, 0), TypeError)
+  t.throws(() => verify(0, message, true, 0), TypeError)
+  t.throws(() => verify(0, message, "", 0), TypeError)
+  t.throws(() => verify(0, message, Buffer.alloc(0), 0), TypeError)
+  t.throws(() => verify(0, message, Buffer.alloc(8), 0), TypeError)
 
   const signature = sign(message, secretKey)
 
-  t.throws(() => verify(message, signature, 0), TypeError)
-  t.throws(() => verify(message, signature, null), TypeError)
-  t.throws(() => verify(message, signature, []), TypeError)
-  t.throws(() => verify(message, signature, true), TypeError)
-  t.throws(() => verify(message, signature, ""), TypeError)
+  t.throws(() => verify(signature, message, 0), TypeError)
+  t.throws(() => verify(signature, message, null), TypeError)
+  t.throws(() => verify(signature, message, []), TypeError)
+  t.throws(() => verify(signature, message, true), TypeError)
+  t.throws(() => verify(signature, message, ""), TypeError)
 
-  t.true(verify(message, signature, publicKey))
+  t.true(verify(signature, message, publicKey))
 })
