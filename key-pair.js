@@ -22,20 +22,20 @@ const {
  */
 function keyPair(seed) {
   if (null === seed) {
-    throw new TypeError("keyPair: Seed cannot be null.")
+    throw new TypeError("crypto.keyPair: Seed cannot be null.")
   } else if (null != seed) {
     if (false == isBuffer(seed)) {
-      throw new TypeError("keyPair: Expecting seed to be a buffer.")
+      throw new TypeError("crypto.keyPair: Expecting seed to be a buffer.")
     } else if (0 == seed.length) {
-      throw new TypeError("keyPair: Cannot use empty buffer as seed.")
+      throw new TypeError("crypto.keyPair: Cannot use empty buffer as seed.")
     } else if (seed.length < crypto_sign_SEEDBYTES) {
       throw new TypeError(
-        `keyPair: Seed buffer length too small. `+
+        `crypto.keyPair: Seed buffer length too small. `+
         `Expecting size ${crypto_sign_SEEDBYTES}.`
       )
     } else if (seed.length > crypto_sign_SEEDBYTES) {
       throw new TypeError(
-        `keyPair: Seed buffer length too large. `+
+        `crypto.keyPair: Seed buffer length too large. `+
         `Expecting size ${crypto_sign_SEEDBYTES}.`
       )
     }
