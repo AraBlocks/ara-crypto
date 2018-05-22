@@ -26,7 +26,8 @@
     "is-buffer": "^2.0.2",
     "sodium-universal": "^2.0.0",
     "to-buffer": "^1.1.1",
-    "uint64be": "^2.0.2"
+    "uint64be": "^2.0.2",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "ava": "^0.25.0"
