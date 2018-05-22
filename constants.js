@@ -1,5 +1,16 @@
 'use strict'
 
+const { version } = require('./package')
+
+const versions = version.split('.').map((v) => parseInt(v))
+const [
+  kVersionMajor,
+  kVersionMinor,
+  kVersionPatch,
+] = versions
+
+const kVersion = versions[0] << 16 | versions[1] << 8 | versions[2]
+
 // blake2b()
 const kDefaultBlake2bSize = 32
 
@@ -22,4 +33,9 @@ module.exports = {
   kDefaultDigest,
 
   kMinUInt64Size,
+
+  kVersionMajor,
+  kVersionMinor,
+  kVersionPatch,
+  kVersion,
 }
