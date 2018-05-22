@@ -4,8 +4,10 @@ const isBuffer = require('is-buffer')
 const uint64be = require('uint64be')
 const alloc = require('buffer-alloc-unsafe')
 
-const kMinUInt64Size = 8
-const kDefaultUInt64Size = kMinUInt64Size
+const {
+  kMinUInt64Size,
+  kDefaultUInt64Size,
+} = require('./constants')
 
 /**
  * Encode an unsigned 64-bit big endian number into a buffer
@@ -19,11 +21,11 @@ const kDefaultUInt64Size = kMinUInt64Size
 function encode(value, size) {
   if (null == size) { size = kDefaultUInt64Size }
   if ('number' != typeof size || size < kMinUInt64Size) {
-    throw new TypeError("uint64.encode: Expecting size to greater than 8.")
+    throw new TypeError("crypto.uint64.encode: Expecting size to greater than 8.")
   } else if (value != value) {
-    throw new TypeError("uint64.encode: Cannot encode NaN.")
+    throw new TypeError("crypto.uint64.encode: Cannot encode NaN.")
   } else if ('number' != typeof value) {
-    throw new TypeError("uint64.encode: Expecting number.")
+    throw new TypeError("crypto.uint64.encode: Expecting number.")
   }
   return uint64be.encode(value, alloc(size))
 }
@@ -37,9 +39,9 @@ function encode(value, size) {
  */
 function decode(buffer) {
   if (false == isBuffer(buffer)) {
-    throw new TypeError("uint64.decode: Expecting buffer.")
+    throw new TypeError("crypto.uint64.decode: Expecting buffer.")
   } else if (0 == buffer.length) {
-    throw new TypeError("uint64.decode: Cannot decode buffer of 0 length.")
+    throw new TypeError("crypto.uint64.decode: Cannot decode buffer of 0 length.")
   }
   return uint64be.decode(buffer)
 }
