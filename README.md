@@ -121,6 +121,48 @@ const buffer = crypto.uint64.encode(80)
 const number = crypto.uint64.decode(buffer) // 80
 ```
 
+### `crypto.encrypt(value, opts)`
+
+Encrypts value into a "crypto" object configured by
+an initialization vector (iv) and secret key (key) with
+optional cipher and digest algorithms.
+
+
+```js
+const message = Buffer.from('hello')
+const key = Buffer.alloc(16).fill('key')
+const iv = crypto.randomBytes(16)
+const enc = crypto.encrypt(message, {key, iv})
+console.log(enc)
+```
+
+Should output:
+
+```js
+{ id: 'a83f4ea0-f486-4d32-82ec-8a047bd085a7',
+  version: 0,
+  crypto:
+    { cipherparams: { iv: 'a292924998b67cf8d1abcb5f1174e7de' },
+      ciphertext: '5e46475c92',
+      cipher: 'aes-128-ctr',
+      mac: '702deecad7b3bf12ae9bcff7cfd13ee24e43cd13' } }
+
+```
+
+### `crypto.decrypt(value, opts)`
+
+Decrypt an encrypted "crypto" object into the originally
+encoded buffer.
+
+```js
+const message = Buffer.from('hello')
+const key = Buffer.alloc(16).fill('key')
+const iv = crypto.randomBytes(16)
+const enc = crypto.encrypt(message, {key, iv})
+const dec = crypto.decrypt(enc, {key, iv})
+assert(0 == Buffer.compare(dec, message))
+```
+
 ## License
 
 LGPL-3.0
