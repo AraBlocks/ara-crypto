@@ -3,13 +3,17 @@
 const isBuffer = require('is-buffer')
 const alloc = require('buffer-alloc-unsafe')
 
+const { kDefaultDiscoveryKeySize } = require('./constants')
+
 const {
   crypto_generichash,
   crypto_generichash_KEYBYTES_MIN,
 } = require('sodium-universal')
 
-const kDefaultDiscoveryKeyMessageKey = alloc(crypto_generichash_KEYBYTES_MIN).fill('ara')
-const kDefaultDiscoveryKeySize = 32
+
+const defaultDiscoveryKeyMessageKey = alloc(
+  crypto_generichash_KEYBYTES_MIN
+).fill('ara')
 
 /**
  * Generate a discovery digest useful for network
@@ -24,17 +28,17 @@ function discoveryKey(buffer, size, key) {
   if (null == size || 'number' != typeof size) {
     size = kDefaultDiscoveryKeySize
   } else if (size <= 0) {
-    throw new TypeError("discoveryKey: Expecting size to be greater than 0.")
+    throw new TypeError("crypto.discoveryKey: Expecting size to be greater than 0.")
   }
 
   if (null == key) {
-    key = kDefaultDiscoveryKeyMessageKey
+    key = defaultDiscoveryKeyMessageKey
   } else if (false == isBuffer(key)) {
-    throw new TypeError("discoveryKey: Expecting key to be a buffer")
+    throw new TypeError("crypto.discoveryKey: Expecting key to be a buffer")
   }
 
   if (false == isBuffer(buffer)) {
-    throw new TypeError("discoveryKey: Expecting buffer.")
+    throw new TypeError("crypto.discoveryKey: Expecting buffer.")
   }
 
   const digest = alloc(size)
