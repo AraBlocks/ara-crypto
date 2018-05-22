@@ -13,11 +13,11 @@ const alloc = require('buffer-alloc-unsafe')
  */
 function randomBytes(size) {
   if (null == size || 'number' != typeof size) {
-    throw new TypeError("randomBytes: Expecting size to be a number.")
+    throw new TypeError("crypto.randomBytes: Expecting size to be a number.")
   } else if (size != size) {
-    throw new TypeError("randomBytes: Size cannot be NaN.")
+    throw new TypeError("crypto.randomBytes: Size cannot be NaN.")
   } else if (size <= 0) {
-    throw new TypeError("randomBytes: Size must be larger than 0.")
+    throw new TypeError("crypto.randomBytes: Size must be larger than 0.")
   }
 
   const buffer = alloc(size)
