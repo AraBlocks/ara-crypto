@@ -21,29 +21,29 @@ const {
  */
 function verify(signature, message, publicKey) {
   if (false == isBuffer(signature)) {
-    throw new TypeError("verify: Expecting signature to be a buffer.")
+    throw new TypeError("crypto.verify: Expecting signature to be a buffer.")
   } else if (0 == signature.length) {
-    throw new TypeError("verify: Cannot verify message with an signature buffer.")
+    throw new TypeError("crypto.verify: Cannot verify message with an signature buffer.")
   } else if (signature.length < crypto_sign_BYTES) {
-    throw new TypeError("verify: Signature buffer too small.")
+    throw new TypeError("crypto.verify: Signature buffer too small.")
   } else if (signature.length > crypto_sign_BYTES) {
-    throw new TypeError("verify: Signature buffer too large.")
+    throw new TypeError("crypto.verify: Signature buffer too large.")
   }
 
   if (false == isBuffer(message)) {
-    throw new TypeError("verify: Expecting message to be a buffer.")
+    throw new TypeError("crypto.verify: Expecting message to be a buffer.")
   } else if (0 == message.length) {
-    throw new TypeError("verify: Cannot verify an empty message buffer.")
+    throw new TypeError("crypto.verify: Cannot verify an empty message buffer.")
   }
 
   if (false == isBuffer(publicKey)) {
-    throw new TypeError("verify: Expecting publicKey to be a buffer.")
+    throw new TypeError("crypto.verify: Expecting publicKey to be a buffer.")
   } else if (0 == publicKey.length) {
-    throw new TypeError("verify: Cannot verify message with an publicKey buffer.")
+    throw new TypeError("crypto.verify: Cannot verify message with an publicKey buffer.")
   } else if (publicKey.length < crypto_sign_PUBLICKEYBYTES) {
-    throw new TypeError("verify: Public key buffer too small.")
+    throw new TypeError("crypto.verify: Public key buffer too small.")
   } else if (publicKey.length > crypto_sign_PUBLICKEYBYTES) {
-    throw new TypeError("verify: Public key buffer too large.")
+    throw new TypeError("crypto.verify: Public key buffer too large.")
   }
 
   return crypto_sign_verify_detached(signature, message, publicKey)
