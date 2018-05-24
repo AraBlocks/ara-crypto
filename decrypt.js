@@ -56,13 +56,6 @@ function decrypt(value, opts) {
       "crypto.decrypt: Expecting decryption key to be a string or buffer.")
   }
 
-  if (null == opts.iv) {
-    throw new TypeError("crypto.decrypt: Expecting decryption iv.")
-  } else if ('string' != typeof opts.iv && false == isBuffer(opts.iv)) {
-    throw new TypeError(
-      "crypto.decrypt: Expecting decryption iv to be a string or buffer.")
-  }
-
   if (!opts.cipher || 'string' != typeof opts.cipher) {
     opts.cipher = kDefaultCipher
   }
@@ -84,7 +77,22 @@ function decrypt(value, opts) {
     throw new TypeError("crypto.decrypt: Encryption version does not match.")
   }
 
-  const { cipher, digest, key, iv } = opts
+  let { iv = opts.iv } = value.crypto.cipherparams
+  const { digest = opts.digest } = value.crypto
+  const { cipher = opts.cipher } = value.crypto
+  const { key } = opts
+
+  if (null == iv) {
+    throw new TypeError("crypto.decrypt: Expecting decryption iv.")
+  } else if ('string' != typeof iv && false == isBuffer(iv)) {
+    throw new TypeError(
+      "crypto.decrypt: Expecting decryption iv to be a string or buffer.")
+  }
+
+  if ('string' == typeof iv) {
+    iv = Buffer.from(iv, 'hex')
+  }
+
   const decipheriv = createDecipheriv(cipher, key, iv)
   const hmac = createHmac(digest, key)
   const buffer = Buffer.from(value.crypto.ciphertext, 'hex')
