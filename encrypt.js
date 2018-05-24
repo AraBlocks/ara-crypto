@@ -85,6 +85,7 @@ function encrypt(value, opts) {
       cipherparams,
       ciphertext,
       cipher,
+      digest,
       mac,
     }
   }
