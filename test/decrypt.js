@@ -24,11 +24,9 @@ test("decrypt(value, opts)", async (t) => {
   t.throws(() => decrypt(enc, {}), TypeError)
   t.throws(() => decrypt(enc, NaN), TypeError)
   t.throws(() => decrypt(enc, true), TypeError)
-  t.throws(() => decrypt(enc, {key}), TypeError)
-  t.throws(() => decrypt(enc, {key}), TypeError)
   t.throws(() => decrypt({}, {key, iv}), TypeError)
 
-  const dec = decrypt(enc, {key, iv})
+  const dec = decrypt(enc, {key})
   t.true(isBuffer(dec))
   t.true(dec.length > 0)
   t.true(dec.length == msg.length)
