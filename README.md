@@ -145,6 +145,7 @@ Should output:
     { cipherparams: { iv: 'a292924998b67cf8d1abcb5f1174e7de' },
       ciphertext: '5e46475c92',
       cipher: 'aes-128-ctr',
+      digest: 'sha1',
       mac: '702deecad7b3bf12ae9bcff7cfd13ee24e43cd13' } }
 
 ```
@@ -159,7 +160,7 @@ const message = Buffer.from('hello')
 const key = Buffer.alloc(16).fill('key')
 const iv = crypto.randomBytes(16)
 const enc = crypto.encrypt(message, {key, iv})
-const dec = crypto.decrypt(enc, {key, iv})
+const dec = crypto.decrypt(enc, {key})
 assert(0 == Buffer.compare(dec, message))
 ```
 
