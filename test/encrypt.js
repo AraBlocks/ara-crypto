@@ -1,11 +1,16 @@
 'use strict'
 
 const { randomBytes } = require('../random-bytes')
-const { kVersion } = require('../constants')
 const { encrypt } = require('../encrypt')
 const isBuffer = require('is-buffer')
 const uint64 = require('../uint64')
 const test = require('ava')
+
+const {
+  kDefaultCipher,
+  kDefaultDigest,
+  kVersion,
+} = require('../constants')
 
 test("encrypt(opts)", async (t) => {
   const iv = randomBytes(16)
@@ -41,6 +46,10 @@ test("encrypt(opts)", async (t) => {
   t.true('string' == typeof enc.crypto.cipherparams.iv)
   t.true('string' == typeof enc.crypto.ciphertext)
   t.true('string' == typeof enc.crypto.cipher)
+  t.true('string' == typeof enc.crypto.digest)
   t.true('string' == typeof enc.crypto.mac)
+
+  t.true(kDefaultCipher == enc.crypto.cipher)
+  t.true(kDefaultDigest == enc.crypto.digest)
   t.true(0 == Buffer.compare(uint64.encode(kVersion), Buffer.from(enc.version, 'hex')))
 })
