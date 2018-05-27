@@ -72,9 +72,11 @@ function decrypt(value, opts) {
     throw new TypeError("crypto.decrypt: Expecting digest type to be a string.")
   }
 
-  const version = uint64.encode(kVersion).toString('hex')
-  if (version != value.version) {
-    throw new TypeError("crypto.decrypt: Encryption version does not match.")
+  if (opts.strict) {
+    const version = uint64.encode(kVersion).toString('hex')
+    if (version != value.version) {
+      throw new TypeError("crypto.decrypt: Encryption version does not match (strict).")
+    }
   }
 
   let { iv = opts.iv } = value.crypto.cipherparams
