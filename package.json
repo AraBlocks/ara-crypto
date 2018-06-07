@@ -4,7 +4,8 @@
   "description": "Cryptographic functions used in Ara modules",
   "main": "index.js",
   "scripts": {
-    "test": "ava test"
+    "test": "ava test",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,9 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "ava": "^0.25.0"
+    "ava": "^0.25.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0"
   }
 }
