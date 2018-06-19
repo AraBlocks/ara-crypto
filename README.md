@@ -74,6 +74,19 @@ const seed = crypto.randomBytes(32)
 const { publicKey, secretKey } = crypto.keyPair(seed)
 ```
 
+### `crypto.curve25519.keyPair(seed)`
+
+Generate a Curve25519 public and secret key pair from an optional
+seed buffer. This function calls `crypto_sign_seed_keypair` and
+`crypto_sign_keypair` internally and converts to Curve25519 key pair
+calling `crypto_sign_ed25519_pk_to_curve25519` and
+`crypto_sign_ed25519_sk_to_curve25519`.
+
+```js
+const seed = crypto.curve25519.randomBytes(32)
+const { publicKey, secretKey } = crypto.curve25519.keyPair(seed)
+```
+
 ### `crypto.sign(message, secretKey)`
 
 Sign a message buffer with a secret key buffer. This function will throw
