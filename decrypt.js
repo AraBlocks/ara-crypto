@@ -1,9 +1,6 @@
-'use strict'
-
 const { createDecipheriv, createHmac } = require('crypto')
 const isBuffer = require('is-buffer')
 const uint64 = require('./uint64')
-const pkg = require('./package')
 
 const {
   kVersion,
@@ -25,57 +22,55 @@ const {
  */
 function decrypt(value, opts) {
   if (null == value) {
-    throw new TypeError("crypto.decrypt: Encrypted value cannot be null.")
+    throw new TypeError('crypto.decrypt: Encrypted value cannot be null.')
   } else if (isBuffer(value)) {
-    throw new TypeError("crypto.decrypt: Encrypted value cannot be a buffer.")
-  } else if (!value || 'object' != typeof value){
-    throw new TypeError("crypto.decrypt: Encrypted value to be an object.")
+    throw new TypeError('crypto.decrypt: Encrypted value cannot be a buffer.')
+  } else if (!value || 'object' !== typeof value) {
+    throw new TypeError('crypto.decrypt: Encrypted value to be an object.')
   }
 
-  if (null == value.version || 'string' != typeof value.version) {
-    throw new TypeError("crypto.decrypt: Missing encryption version.")
+  if (null == value.version || 'string' !== typeof value.version) {
+    throw new TypeError('crypto.decrypt: Missing encryption version.')
   }
 
-  if (null == value.id || 'string' != typeof value.id) {
-    throw new TypeError("crypto.decrypt: Missing encryption ID.")
+  if (null == value.id || 'string' !== typeof value.id) {
+    throw new TypeError('crypto.decrypt: Missing encryption ID.')
   }
 
-  if (null == value.crypto || 'object' != typeof value.crypto) {
-    throw new TypeError(
-      "crypto.decrypt: Missing encryption crypto specification object.")
+  if (null == value.crypto || 'object' !== typeof value.crypto) {
+    throw new TypeError('crypto.decrypt: Missing encryption crypto specification object.')
   }
 
-  if (!opts || 'object' != typeof opts) {
-    throw new TypeError("crypto.decrypt: Expecting options object.")
+  if (!opts || 'object' !== typeof opts) {
+    throw new TypeError('crypto.decrypt: Expecting options object.')
   }
 
   if (null == opts.key) {
-    throw new TypeError("crypto.decrypt: Expecting decryption key.")
-  } else if ('string' != typeof opts.key && false == isBuffer(opts.key)) {
-    throw new TypeError(
-      "crypto.decrypt: Expecting decryption key to be a string or buffer.")
+    throw new TypeError('crypto.decrypt: Expecting decryption key.')
+  } else if ('string' !== typeof opts.key && false == isBuffer(opts.key)) {
+    throw new TypeError('crypto.decrypt: Expecting decryption key to be a string or buffer.')
   }
 
-  if (!opts.cipher || 'string' != typeof opts.cipher) {
-    opts.cipher = kDefaultCipher
+  if (!opts.cipher || 'string' !== typeof opts.cipher) {
+    opts.cipher = kDefaultCipher // eslint-disable-line no-param-reassign
   }
 
-  if (!opts.digest || 'string' != typeof opts.digest) {
-    opts.digest = kDefaultDigest
+  if (!opts.digest || 'string' !== typeof opts.digest) {
+    opts.digest = kDefaultDigest // eslint-disable-line no-param-reassign
   }
 
-  if ('string' != typeof opts.cipher) {
-    throw new TypeError("crypto.decrypt: Expecting cipher type to be a string.")
+  if ('string' !== typeof opts.cipher) {
+    throw new TypeError('crypto.decrypt: Expecting cipher type to be a string.')
   }
 
-  if ('string' != typeof opts.digest) {
-    throw new TypeError("crypto.decrypt: Expecting digest type to be a string.")
+  if ('string' !== typeof opts.digest) {
+    throw new TypeError('crypto.decrypt: Expecting digest type to be a string.')
   }
 
   if (opts.strict) {
     const version = uint64.encode(kVersion).toString('hex')
     if (version != value.version) {
-      throw new TypeError("crypto.decrypt: Encryption version does not match (strict).")
+      throw new TypeError('crypto.decrypt: Encryption version does not match (strict).')
     }
   }
 
@@ -85,13 +80,12 @@ function decrypt(value, opts) {
   const { key } = opts
 
   if (null == iv) {
-    throw new TypeError("crypto.decrypt: Expecting decryption iv.")
-  } else if ('string' != typeof iv && false == isBuffer(iv)) {
-    throw new TypeError(
-      "crypto.decrypt: Expecting decryption iv to be a string or buffer.")
+    throw new TypeError('crypto.decrypt: Expecting decryption iv.')
+  } else if ('string' !== typeof iv && false == isBuffer(iv)) {
+    throw new TypeError('crypto.decrypt: Expecting decryption iv to be a string or buffer.')
   }
 
-  if ('string' == typeof iv) {
+  if ('string' === typeof iv) {
     iv = Buffer.from(iv, 'hex')
   }
 
@@ -105,7 +99,7 @@ function decrypt(value, opts) {
   const mac = hmac.read().toString('hex')
 
   if (mac != value.crypto.mac) {
-    throw new TypeError("crypto.decrypt: HMAC digest does not match.")
+    throw new TypeError('crypto.decrypt: HMAC digest does not match.')
   }
 
   return Buffer.concat([

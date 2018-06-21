@@ -1,8 +1,9 @@
-'use strict'
+/* eslint-disable no-bitwise */
+/* eslint-disable no-mixed-operators */
 
 const { version } = require('./package')
 
-const versions = version.split('.').map((v) => parseInt(v))
+const versions = version.split('.').map(v => parseInt(v, 10))
 const [
   kVersionMajor,
   kVersionMinor,
