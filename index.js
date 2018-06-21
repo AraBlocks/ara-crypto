@@ -1,4 +1,4 @@
-'use strict'
+
 
 const { discoveryKey } = require('./discovery-key')
 const { randomBytes } = require('./random-bytes')
