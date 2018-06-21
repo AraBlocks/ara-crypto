@@ -1,5 +1,3 @@
-
-
 const { keyPair } = require('../key-pair')
 const isBuffer = require('is-buffer')
 const test = require('ava')
