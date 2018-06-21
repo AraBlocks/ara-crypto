@@ -1,8 +1,6 @@
-'use strict'
 
-const base64 = require('base-x')(
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-)
+
+const base64 = require('base-x')('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/')
 
 function encode(value) {
   return base64.encode(value)
