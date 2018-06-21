@@ -1,4 +1,4 @@
-'use strict'
+/* eslint-disable camelcase */
 
 const isBuffer = require('is-buffer')
 const alloc = require('buffer-alloc-unsafe')
@@ -11,9 +11,7 @@ const {
 } = require('sodium-universal')
 
 
-const defaultDiscoveryKeyMessageKey = alloc(
-  crypto_generichash_KEYBYTES_MIN
-).fill('ara')
+const defaultDiscoveryKeyMessageKey = alloc(crypto_generichash_KEYBYTES_MIN).fill('ara')
 
 /**
  * Generate a discovery digest useful for network
@@ -25,20 +23,20 @@ const defaultDiscoveryKeyMessageKey = alloc(
  * @throws TypeError
  */
 function discoveryKey(buffer, size, key) {
-  if (null == size || 'number' != typeof size) {
-    size = kDefaultDiscoveryKeySize
+  if (null == size || 'number' !== typeof size) {
+    size = kDefaultDiscoveryKeySize // eslint-disable-line no-param-reassign
   } else if (size <= 0) {
-    throw new TypeError("crypto.discoveryKey: Expecting size to be greater than 0.")
+    throw new TypeError('crypto.discoveryKey: Expecting size to be greater than 0.')
   }
 
   if (null == key) {
-    key = defaultDiscoveryKeyMessageKey
+    key = defaultDiscoveryKeyMessageKey // eslint-disable-line no-param-reassign
   } else if (false == isBuffer(key)) {
-    throw new TypeError("crypto.discoveryKey: Expecting key to be a buffer")
+    throw new TypeError('crypto.discoveryKey: Expecting key to be a buffer')
   }
 
   if (false == isBuffer(buffer)) {
-    throw new TypeError("crypto.discoveryKey: Expecting buffer.")
+    throw new TypeError('crypto.discoveryKey: Expecting buffer.')
   }
 
   const digest = alloc(size)

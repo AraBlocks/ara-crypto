@@ -1,5 +1,3 @@
-'use strict'
-
 const isBuffer = require('is-buffer')
 const uint64be = require('uint64be')
 const alloc = require('buffer-alloc-unsafe')
@@ -19,13 +17,13 @@ const {
  * @throws {TypeError}
  */
 function encode(value, size) {
-  if (null == size) { size = kDefaultUInt64Size }
-  if ('number' != typeof size || size < kMinUInt64Size) {
-    throw new TypeError("crypto.uint64.encode: Expecting size to greater than 8.")
-  } else if (value != value) {
-    throw new TypeError("crypto.uint64.encode: Cannot encode NaN.")
-  } else if ('number' != typeof value) {
-    throw new TypeError("crypto.uint64.encode: Expecting number.")
+  if (null == size) { size = kDefaultUInt64Size } // eslint-disable-line no-param-reassign
+  if ('number' !== typeof size || size < kMinUInt64Size) {
+    throw new TypeError('crypto.uint64.encode: Expecting size to greater than 8.')
+  } else if (value != value) { // eslint-disable-line no-self-compare
+    throw new TypeError('crypto.uint64.encode: Cannot encode NaN.')
+  } else if ('number' !== typeof value) {
+    throw new TypeError('crypto.uint64.encode: Expecting number.')
   }
   return uint64be.encode(value, alloc(size))
 }
@@ -39,9 +37,9 @@ function encode(value, size) {
  */
 function decode(buffer) {
   if (false == isBuffer(buffer)) {
-    throw new TypeError("crypto.uint64.decode: Expecting buffer.")
+    throw new TypeError('crypto.uint64.decode: Expecting buffer.')
   } else if (0 == buffer.length) {
-    throw new TypeError("crypto.uint64.decode: Cannot decode buffer of 0 length.")
+    throw new TypeError('crypto.uint64.decode: Cannot decode buffer of 0 length.')
   }
   return uint64be.decode(buffer)
 }
