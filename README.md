@@ -1,7 +1,15 @@
-ara-crypto
+<img src="https://github.com/AraBlocks/docs/blob/master/ara.png" width="30" height="30" /> ara-crypto
 ==========
 
+[![Build Status](https://travis-ci.com/AraBlocks/ara-crypto.svg?token=r6p7pesHZ9MRJsVsrYFe&branch=master)](https://travis-ci.com/AraBlocks/ara-crypto)
+
 Cryptographic functions used in Ara modules.
+
+## Status
+This project is in active development.
+
+## Dependencies
+- [Node](https://nodejs.org/en/download/)
 
 ## Installation
 
@@ -28,8 +36,8 @@ const number = crypto.uint64.decode(buffer) // 80
 
 Most of the functions exported by this module will check for input
 correctness. If given incorrect input, a function will throw a
-`TypeError` with a message describing the error. In most function,
-inputs should always be a `Buffer`.
+`TypeError` with a message describing the error. In most functions,
+inputs should always be a [`Buffer`](https://nodejs.org/api/buffer.html).
 
 ### `crypto.randomBytes(size)`
 
@@ -98,8 +106,8 @@ const message = Buffer.from("hello")
 const signature = crypto.sign(message, secretKey)
 const verified = crypto.verify(signature, message, publicKey)
 if (verified) {
-  // message was signed with secret key corresponding to the
-  // given public that generated the given signature
+  // message was signed with secret key (corresponding
+  // to the given public key) that generated the given signature
 }
 ```
 
@@ -127,12 +135,11 @@ Encrypts value into a "crypto" object configured by
 an initialization vector (iv) and secret key (key) with
 optional cipher and digest algorithms.
 
-
 ```js
 const message = Buffer.from('hello')
 const key = Buffer.alloc(16).fill('key')
 const iv = crypto.randomBytes(16)
-const enc = crypto.encrypt(message, {key, iv})
+const enc = crypto.encrypt(message, { key, iv })
 console.log(enc)
 ```
 
@@ -159,11 +166,19 @@ encoded buffer.
 const message = Buffer.from('hello')
 const key = Buffer.alloc(16).fill('key')
 const iv = crypto.randomBytes(16)
-const enc = crypto.encrypt(message, {key, iv})
-const dec = crypto.decrypt(enc, {key})
+const enc = crypto.encrypt(message, { key, iv })
+const dec = crypto.decrypt(enc, { key })
 assert(0 == Buffer.compare(dec, message))
 ```
 
-## License
+## Contributing
+- [Commit message format](/.github/COMMIT_FORMAT.md)
+- [Commit message examples](/.github/COMMIT_FORMAT_EXAMPLES.md)
+- [How to contribute](/.github/CONTRIBUTING.md)
 
+## See Also
+- [libsodium](https://download.libsodium.org/doc/)
+- [ara-identity](https://github.com/arablocks/ara-identity)
+
+## License
 LGPL-3.0
