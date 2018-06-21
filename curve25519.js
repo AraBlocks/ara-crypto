@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 const alloc = require('buffer-alloc-unsafe')
 const kp = require('./key-pair')
 
