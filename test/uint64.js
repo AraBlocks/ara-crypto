@@ -1,5 +1,3 @@
-
-
 const isBuffer = require('is-buffer')
 const uint64 = require('../uint64')
 const test = require('ava')

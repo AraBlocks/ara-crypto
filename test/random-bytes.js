@@ -1,5 +1,3 @@
-
-
 const { randomBytes } = require('../random-bytes')
 const isBuffer = require('is-buffer')
 const test = require('ava')

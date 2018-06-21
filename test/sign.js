@@ -1,5 +1,3 @@
-
-
 const { keyPair } = require('../key-pair')
 const { sign } = require('../sign')
 const isBuffer = require('is-buffer')

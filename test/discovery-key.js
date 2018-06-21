@@ -1,5 +1,3 @@
-
-
 const { discoveryKey } = require('../discovery-key')
 const isBuffer = require('is-buffer')
 const test = require('ava')
