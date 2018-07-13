@@ -1,17 +1,17 @@
-/* eslint-disable camelcase */
-
 const isBuffer = require('is-buffer')
 const alloc = require('buffer-alloc-unsafe')
 
 const { kDefaultDiscoveryKeySize } = require('./constants')
 
+/* eslint-disable camelcase */
 const {
   crypto_generichash,
   crypto_generichash_KEYBYTES_MIN,
 } = require('sodium-universal')
 
-
-const defaultDiscoveryKeyMessageKey = alloc(crypto_generichash_KEYBYTES_MIN).fill('ara')
+/* eslint-disable camelcase */
+const kDefaultDiscoveryKeyMessageKey = alloc(crypto_generichash_KEYBYTES_MIN)
+kDefaultDiscoveryKeyMessageKey.fill('ara')
 
 /**
  * Generate a discovery digest useful for network
@@ -23,19 +23,21 @@ const defaultDiscoveryKeyMessageKey = alloc(crypto_generichash_KEYBYTES_MIN).fil
  * @throws TypeError
  */
 function discoveryKey(buffer, size, key) {
-  if (null == size || 'number' !== typeof size) {
-    size = kDefaultDiscoveryKeySize // eslint-disable-line no-param-reassign
+  if (Number.isNaN(size) || 'number' !== typeof size) {
+    /* eslint-disable no-param-reassign */
+    size = kDefaultDiscoveryKeySize
   } else if (size <= 0) {
     throw new TypeError('crypto.discoveryKey: Expecting size to be greater than 0.')
   }
 
-  if (null == key) {
-    key = defaultDiscoveryKeyMessageKey // eslint-disable-line no-param-reassign
-  } else if (false == isBuffer(key)) {
+  if (!key) {
+    /* eslint-disable no-param-reassign */
+    key = kDefaultDiscoveryKeyMessageKey
+  } else if (false === isBuffer(key)) {
     throw new TypeError('crypto.discoveryKey: Expecting key to be a buffer')
   }
 
-  if (false == isBuffer(buffer)) {
+  if (false === isBuffer(buffer)) {
     throw new TypeError('crypto.discoveryKey: Expecting buffer.')
   }
 
