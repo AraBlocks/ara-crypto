@@ -26,6 +26,6 @@ test('decrypt(value, opts)', async (t) => {
   const dec = decrypt(enc, { key })
   t.true(isBuffer(dec))
   t.true(dec.length > 0)
-  t.true(dec.length == msg.length)
-  t.true(0 == Buffer.compare(dec, msg))
+  t.true(dec.length === msg.length)
+  t.true(0 === Buffer.compare(dec, msg))
 })
