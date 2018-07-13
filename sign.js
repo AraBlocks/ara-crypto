@@ -10,6 +10,7 @@ const {
 /**
  * Sign a message buffer with a secret key buffer. This function calls
  * `crypto_sign_detached` on a buffer of size `crypto_sign_BYTES`.
+ *
  * @public
  * @param {Buffer} message
  * @param {Buffer} secretKey

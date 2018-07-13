@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const { crypto_generichash_batch } = require('sodium-universal')
 const isBuffer = require('is-buffer')
 const alloc = require('buffer-alloc-unsafe')
@@ -23,7 +24,8 @@ function blake2b(buffer, size) {
   }
 
   if (isBuffer(buffer)) {
-    buffer = [buffer] // eslint-disable-line no-param-reassign
+    /* eslint-disable-line no-param-reassign */
+    buffer = [ buffer ]
   }
 
   if (false === Array.isArray(buffer)) {

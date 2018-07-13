@@ -13,6 +13,7 @@ const {
  * Encrypts value into a "crypto" object configured by
  * an initialization vector (iv) and secret key (key) with
  * optional cipher and digest algorithms.
+ *
  * @public
  * @param {String|Buffer} value
  * @param {Object} opts
@@ -26,7 +27,7 @@ function encrypt(value, opts) {
   if (null === value) {
     throw new TypeError('crypto.encrypt: Expecting value. Got null.')
   } else if ('string' !== typeof value && false === isBuffer(value)) {
-    /* eslint-disable function-paren-newline */
+    /* eslint-disable-next-line function-paren-newline */
     throw new TypeError(
       'crypto.encrypt: Expecting value to be a string or buffer.')
   } else if (0 === value.length) {
@@ -40,17 +41,18 @@ function encrypt(value, opts) {
   if (!opts.key) {
     throw new TypeError('crypto.encrypt: Expecting encryption key.')
   } else if ('string' !== typeof opts.key && false === isBuffer(opts.key)) {
-    /* eslint-disable function-paren-newline */
+    /* eslint-disable-next-line function-paren-newline */
     throw new TypeError(
       'crypto.encrypt: Expecting encryption key to be a string or buffer.')
   }
 
   if (!opts.cipher || 'string' !== typeof opts.cipher) {
-    /* eslint-disable no-param-reassign */
+    /* eslint-disable-next-line no-param-reassign */
     opts.cipher = kDefaultCipher
   }
 
   if (!opts.digest || 'string' !== typeof opts.digest) {
+    /* eslint-disable-next-line no-param-reassign */
     opts.digest = kDefaultDigest
   }
 
@@ -68,7 +70,7 @@ function encrypt(value, opts) {
   const cipheriv = createCipheriv(cipher, key, iv)
   const hmac = createHmac(digest, key)
 
-  const buffer = Buffer.concat([cipheriv.update(value), cipheriv.final()])
+  const buffer = Buffer.concat([ cipheriv.update(value), cipheriv.final() ])
   const ciphertext = buffer.toString('hex')
 
   hmac.write(buffer)

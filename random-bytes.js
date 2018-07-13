@@ -1,9 +1,11 @@
+/* eslint-disable camelcase */
 const { randombytes_buf } = require('sodium-universal')
 const alloc = require('buffer-alloc-unsafe')
 
 /**
- * Generate a sized buffer of random bytes. This function calls `randombytes_buf`
- * on a buffer of specified size.
+ * Generate a sized buffer of random bytes. This function calls
+ * `randombytes_buf` on a buffer of specified size.
+ *
  * @public
  * @param {Number} size
  * @return {Buffer}

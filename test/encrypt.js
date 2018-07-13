@@ -46,13 +46,10 @@ test('encrypt(opts)', async (t) => {
   t.true('string' === typeof enc.crypto.digest)
   t.true('string' === typeof enc.crypto.mac)
 
-<<<<<<< HEAD
-  t.true(kDefaultCipher == enc.crypto.cipher)
-  t.true(kDefaultDigest == enc.crypto.digest)
-  t.true(0 == Buffer.compare(uint64.encode(kVersion), Buffer.from(enc.version, 'hex')))
-=======
   t.true(kDefaultCipher === enc.crypto.cipher)
   t.true(kDefaultDigest === enc.crypto.digest)
-  t.true(0 === Buffer.compare(uint64.encode(kVersion), Buffer.from(enc.version, 'hex')))
->>>>>>> refactor(test/*.js): Fix linter issues
+  t.true(0 === Buffer.compare(
+    uint64.encode(kVersion),
+    Buffer.from(enc.version, 'hex')
+  ))
 })
