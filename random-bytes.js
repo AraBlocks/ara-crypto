@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 const { randombytes_buf } = require('sodium-universal')
 const alloc = require('buffer-alloc-unsafe')
 
@@ -12,9 +10,9 @@ const alloc = require('buffer-alloc-unsafe')
  * @throws TypeError
  */
 function randomBytes(size) {
-  if (null == size || 'number' !== typeof size) {
+  if (!size || 'number' !== typeof size) {
     throw new TypeError('crypto.randomBytes: Expecting size to be a number.')
-  } else if (size != size) { // eslint-disable-line no-self-compare
+  } else if (Number.isNaN(size)) {
     throw new TypeError('crypto.randomBytes: Size cannot be NaN.')
   } else if (size <= 0) {
     throw new TypeError('crypto.randomBytes: Size must be larger than 0.')

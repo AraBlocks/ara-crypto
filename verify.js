@@ -1,7 +1,6 @@
-/* eslint-disable camelcase */
-
 const isBuffer = require('is-buffer')
 
+/* eslint-disable camelcase */
 const {
   crypto_sign_verify_detached,
   crypto_sign_PUBLICKEYBYTES,
@@ -20,9 +19,9 @@ const {
  * @throws TypeError
  */
 function verify(signature, message, publicKey) {
-  if (false == isBuffer(signature)) {
+  if (false === isBuffer(signature)) {
     throw new TypeError('crypto.verify: Expecting signature to be a buffer.')
-  } else if (0 == signature.length) {
+  } else if (0 === signature.length) {
     throw new TypeError('crypto.verify: Cannot verify message with an signature buffer.')
   } else if (signature.length < crypto_sign_BYTES) {
     throw new TypeError('crypto.verify: Signature buffer too small.')
@@ -30,15 +29,15 @@ function verify(signature, message, publicKey) {
     throw new TypeError('crypto.verify: Signature buffer too large.')
   }
 
-  if (false == isBuffer(message)) {
+  if (false === isBuffer(message)) {
     throw new TypeError('crypto.verify: Expecting message to be a buffer.')
-  } else if (0 == message.length) {
+  } else if (0 === message.length) {
     throw new TypeError('crypto.verify: Cannot verify an empty message buffer.')
   }
 
-  if (false == isBuffer(publicKey)) {
+  if (false === isBuffer(publicKey)) {
     throw new TypeError('crypto.verify: Expecting publicKey to be a buffer.')
-  } else if (0 == publicKey.length) {
+  } else if (0 === publicKey.length) {
     throw new TypeError('crypto.verify: Cannot verify message with an publicKey buffer.')
   } else if (publicKey.length < crypto_sign_PUBLICKEYBYTES) {
     throw new TypeError('crypto.verify: Public key buffer too small.')

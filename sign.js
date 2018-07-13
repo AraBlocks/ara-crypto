@@ -1,8 +1,7 @@
-/* eslint-disable camelcase */
-
 const isBuffer = require('is-buffer')
 const alloc = require('buffer-alloc-unsafe')
 
+/* eslint-disable camelcase */
 const {
   crypto_sign_detached,
   crypto_sign_BYTES,
@@ -18,15 +17,15 @@ const {
  * @throws TypeError
  */
 function sign(message, secretKey) {
-  if (null == message || false == isBuffer(message)) {
+  if (!message || false === isBuffer(message)) {
     throw new TypeError('crypto.sign: Expecting message to be a buffer.')
-  } else if (0 == message.length) {
+  } else if (0 === message.length) {
     throw new TypeError('crypto.sign: Cannot sign an empty message.')
   }
 
-  if (null == secretKey || false == isBuffer(secretKey)) {
+  if (!secretKey || false === isBuffer(secretKey)) {
     throw new TypeError('crypto.sign: Expecting secretKey to be a buffer.')
-  } else if (0 == secretKey.length) {
+  } else if (0 === secretKey.length) {
     throw new TypeError('crypto.sign: Cannot sign with an empty secretKey.')
   }
 

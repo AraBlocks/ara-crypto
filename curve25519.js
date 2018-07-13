@@ -3,6 +3,7 @@
 const alloc = require('buffer-alloc-unsafe')
 const kp = require('./key-pair')
 
+/* eslint-disable camelcase */
 const {
   crypto_sign_ed25519_pk_to_curve25519,
   crypto_sign_ed25519_sk_to_curve25519,

@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 const { crypto_generichash_batch } = require('sodium-universal')
 const isBuffer = require('is-buffer')
 const alloc = require('buffer-alloc-unsafe')
@@ -17,8 +15,9 @@ const { kDefaultBlake2bSize } = require('./constants')
  * @throws TypeError
  */
 function blake2b(buffer, size) {
+  /* eslint-disable no-param-reassign */
   if (null == size || 'number' !== typeof size) {
-    size = kDefaultBlake2bSize // eslint-disable-line no-param-reassign
+    size = kDefaultBlake2bSize
   } else if (size <= 0) {
     throw new TypeError('crypto.blake2b: Expecting size to be greater than 0.')
   }
@@ -27,14 +26,14 @@ function blake2b(buffer, size) {
     buffer = [buffer] // eslint-disable-line no-param-reassign
   }
 
-  if (false == Array.isArray(buffer)) {
+  if (false === Array.isArray(buffer)) {
     throw new TypeError('crypto.blake2b: Expecting buffer as input.')
   }
 
   for (let i = 0; i < buffer.length; ++i) {
-    if (false == isBuffer(buffer[i])) {
+    if (false === isBuffer(buffer[i])) {
       throw new TypeError(`crypto.blake2b: Buffer at index ${i} is not buffer.`)
-    } else if (0 == buffer[i].length) {
+    } else if (0 === buffer[i].length) {
       throw new TypeError(`crypto.blake2b: Buffer at index ${i} is empty.`)
     }
   }

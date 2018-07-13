@@ -23,11 +23,13 @@ const {
  * @return {Object}
  */
 function encrypt(value, opts) {
-  if (null == value) {
+  if (null === value) {
     throw new TypeError('crypto.encrypt: Expecting value. Got null.')
-  } else if ('string' !== typeof value && false == isBuffer(value)) {
-    throw new TypeError('crypto.encrypt: Expecting value to be a string or buffer.')
-  } else if (0 == value.length) {
+  } else if ('string' !== typeof value && false === isBuffer(value)) {
+    /* eslint-disable function-paren-newline */
+    throw new TypeError(
+      'crypto.encrypt: Expecting value to be a string or buffer.')
+  } else if (0 === value.length) {
     throw new TypeError('crypto.encrypt: Cannot encrypt empty value.')
   }
 
@@ -35,18 +37,21 @@ function encrypt(value, opts) {
     throw new TypeError('crypto.encrypt: Expecting options object.')
   }
 
-  if (null == opts.key) {
+  if (!opts.key) {
     throw new TypeError('crypto.encrypt: Expecting encryption key.')
-  } else if ('string' !== typeof opts.key && false == isBuffer(opts.key)) {
-    throw new TypeError('crypto.encrypt: Expecting encryption key to be a string or buffer.')
+  } else if ('string' !== typeof opts.key && false === isBuffer(opts.key)) {
+    /* eslint-disable function-paren-newline */
+    throw new TypeError(
+      'crypto.encrypt: Expecting encryption key to be a string or buffer.')
   }
 
   if (!opts.cipher || 'string' !== typeof opts.cipher) {
-    opts.cipher = kDefaultCipher // eslint-disable-line no-param-reassign
+    /* eslint-disable no-param-reassign */
+    opts.cipher = kDefaultCipher
   }
 
   if (!opts.digest || 'string' !== typeof opts.digest) {
-    opts.digest = kDefaultDigest // eslint-disable-line no-param-reassign
+    opts.digest = kDefaultDigest
   }
 
   if ('string' !== typeof opts.cipher) {

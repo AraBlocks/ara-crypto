@@ -1,8 +1,7 @@
-/* eslint-disable camelcase */
-
 const isBuffer = require('is-buffer')
 const alloc = require('buffer-alloc-unsafe')
 
+/* eslint-disable camelcase */
 const {
   crypto_sign_PUBLICKEYBYTES,
   crypto_sign_SECRETKEYBYTES,
@@ -24,9 +23,9 @@ function keyPair(seed) {
   if (null === seed) {
     throw new TypeError('crypto.keyPair: Seed cannot be null.')
   } else if (null != seed) {
-    if (false == isBuffer(seed)) {
+    if (false === isBuffer(seed)) {
       throw new TypeError('crypto.keyPair: Expecting seed to be a buffer.')
-    } else if (0 == seed.length) {
+    } else if (0 === seed.length) {
       throw new TypeError('crypto.keyPair: Cannot use empty buffer as seed.')
     } else if (seed.length < crypto_sign_SEEDBYTES) {
       throw new TypeError('crypto.keyPair: Seed buffer length too small. ' +
