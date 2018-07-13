@@ -14,6 +14,7 @@ const {
  * Generate a public and secret key pair from an optional
  * seed buffer. This function calls crypto_sign_seed_keypair and
  * crypto_sign_keypair internally.
+ *
  * @public
  * @param {(Buffer)} [seed]
  * @return {Object}

@@ -9,13 +9,13 @@ const {
   crypto_generichash_KEYBYTES_MIN,
 } = require('sodium-universal')
 
-/* eslint-disable camelcase */
 const kDefaultDiscoveryKeyMessageKey = alloc(crypto_generichash_KEYBYTES_MIN)
 kDefaultDiscoveryKeyMessageKey.fill('ara')
 
 /**
  * Generate a discovery digest useful for network
  * keys. This function calls `crypto_generichash` internally.
+ *
  * @public
  * @param {Buffer|Array<Buffer>} buffer
  * @param {?(Number)} [size = 32]
@@ -24,14 +24,16 @@ kDefaultDiscoveryKeyMessageKey.fill('ara')
  */
 function discoveryKey(buffer, size, key) {
   if (Number.isNaN(size) || 'number' !== typeof size) {
-    /* eslint-disable no-param-reassign */
+    /* eslint-disable-next-line no-param-reassign */
     size = kDefaultDiscoveryKeySize
   } else if (size <= 0) {
-    throw new TypeError('crypto.discoveryKey: Expecting size to be greater than 0.')
+    /* eslint-disable-next-line function-paren-newline */
+    throw new TypeError(
+      'crypto.discoveryKey: Expecting size to be greater than 0.')
   }
 
   if (!key) {
-    /* eslint-disable no-param-reassign */
+    /* eslint-disable-next-line no-param-reassign */
     key = kDefaultDiscoveryKeyMessageKey
   } else if (false === isBuffer(key)) {
     throw new TypeError('crypto.discoveryKey: Expecting key to be a buffer')

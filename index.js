@@ -1,5 +1,3 @@
-
-
 const { discoveryKey } = require('./discovery-key')
 const { randomBytes } = require('./random-bytes')
 const { blake2b } = require('./blake2b')

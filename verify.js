@@ -11,6 +11,7 @@ const {
  * Verify signature for a message signed with a given
  * public key. This function calls `crypto_sign_verify_detached`
  * internally.
+ *
  * @public
  * @param {Buffer} signature
  * @param {Buffer} message
@@ -22,7 +23,9 @@ function verify(signature, message, publicKey) {
   if (false === isBuffer(signature)) {
     throw new TypeError('crypto.verify: Expecting signature to be a buffer.')
   } else if (0 === signature.length) {
-    throw new TypeError('crypto.verify: Cannot verify message with an signature buffer.')
+    /* eslint-disable-next-line function-paren-newline */
+    throw new TypeError(
+      'crypto.verify: Cannot verify message with an signature buffer.')
   } else if (signature.length < crypto_sign_BYTES) {
     throw new TypeError('crypto.verify: Signature buffer too small.')
   } else if (signature.length > crypto_sign_BYTES) {
@@ -38,7 +41,9 @@ function verify(signature, message, publicKey) {
   if (false === isBuffer(publicKey)) {
     throw new TypeError('crypto.verify: Expecting publicKey to be a buffer.')
   } else if (0 === publicKey.length) {
-    throw new TypeError('crypto.verify: Cannot verify message with an publicKey buffer.')
+    /* eslint-disable-next-line function-paren-newline */
+    throw new TypeError(
+      'crypto.verify: Cannot verify message with an publicKey buffer.')
   } else if (publicKey.length < crypto_sign_PUBLICKEYBYTES) {
     throw new TypeError('crypto.verify: Public key buffer too small.')
   } else if (publicKey.length > crypto_sign_PUBLICKEYBYTES) {

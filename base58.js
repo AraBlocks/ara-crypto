@@ -1,6 +1,9 @@
+/* eslint-disable-next-line function-paren-newline */
+const alphabet = (
+  '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+)
 
-
-const base58 = require('base-x')('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
+const base58 = require('base-x')(alphabet)
 
 function encode(value) {
   return base58.encode(value)
@@ -11,6 +14,7 @@ function decode(value) {
 }
 
 module.exports = {
+  alphabet,
   encode,
   decode,
 }
