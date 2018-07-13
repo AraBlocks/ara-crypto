@@ -12,6 +12,6 @@ test('keyPair(seed)', async (t) => {
   t.true('object' === typeof keyPair(Buffer.alloc(32).fill('hello')))
   t.true(isBuffer(keyPair().publicKey))
   t.true(isBuffer(keyPair().secretKey))
-  t.true(32 == keyPair().publicKey.length)
-  t.true(64 == keyPair().secretKey.length)
+  t.true(32 === keyPair().publicKey.length)
+  t.true(64 === keyPair().secretKey.length)
 })
