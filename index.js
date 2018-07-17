@@ -1,3 +1,5 @@
+const { createUnboxStream, unbox } = require('./unbox')
+const { createBoxStream, box } = require('./box')
 const { discoveryKey } = require('./discovery-key')
 const { randomBytes } = require('./random-bytes')
 const { blake2b } = require('./blake2b')
@@ -12,6 +14,8 @@ const base64 = require('./base64')
 const uint64 = require('./uint64')
 
 module.exports = {
+  createUnboxStream,
+  createBoxStream,
   discoveryKey,
   randomBytes,
   curve25519,
@@ -23,5 +27,7 @@ module.exports = {
   base64,
   uint64,
   verify,
+  unbox,
   sign,
+  box,
 }
