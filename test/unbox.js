@@ -58,7 +58,7 @@ test('createUnboxStream(opts) throws on bad input', (t) => {
   t.throws(() => createUnboxStream(), TypeError)
 })
 
-test.cb('createUnboxStream(opts) returns stream that unboxes input', (t) => {
+test.cb('createUnboxStream(opts) returns stream that unboxes piped input', (t) => {
   const key = Buffer.alloc(32)
   const nonce = randomBytes(crypto_secretbox_NONCEBYTES)
   const final = randomBytes(2 + crypto_secretbox_MACBYTES)
@@ -85,6 +85,36 @@ test.cb('createUnboxStream(opts) returns stream that unboxes input', (t) => {
   function onend() {
     t.true(0 === Buffer.compare(chunks.pop(), final))
     t.true(0 === Buffer.compare(Buffer.concat(chunks), buffer))
+    t.end()
+  }
+})
+
+test.cb('createUnboxStream(opts) returns stream that unboxes boxed input', (t) => {
+  const key = Buffer.alloc(32)
+  const nonce = randomBytes(crypto_secretbox_NONCEBYTES)
+  const final = randomBytes(2 + crypto_secretbox_MACBYTES)
+  //const buffer = Buffer.alloc(2 * 65536)
+  const buffer = Buffer.from('hello')
+  const chunks = []
+
+  key.fill('hello')
+  buffer.fill('hello')
+
+  const boxed = box(buffer, { key, nonce })
+  const unboxer = createUnboxStream({ key, nonce, final })
+
+  unboxer.on('data', ondata)
+  unboxer.on('end', onend)
+
+  unboxer.write(boxed.slice(0, 2 + (2 * crypto_secretbox_MACBYTES)))
+  unboxer.write(boxed.slice(2 + (2 * crypto_secretbox_MACBYTES)))
+  unboxer.end()
+
+  function ondata(chunk) {
+    t.true(0 === Buffer.compare(chunk, buffer))
+  }
+
+  function onend() {
     t.end()
   }
 })
