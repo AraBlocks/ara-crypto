@@ -11,6 +11,9 @@ const {
 } = require('sodium-universal')
 
 /**
+ * "Unboxes" or decrypts a buffer from a 32-byte encryption key and
+ * a 24-byte nonce.
+ *
  * @public
  * @param {Object} opts
  * @param {?(Buffer)} opts.secret
@@ -78,6 +81,8 @@ function unbox(buffer, opts) {
 }
 
 /**
+ * Creates a transform stream that "unboxes" messages written to it.
+ *
  * @public
  * @param {Object} opts
  * @param {?(Buffer)} opts.secret
@@ -109,6 +114,8 @@ function createUnboxStream(opts) {
   return through(transform, flush)
 
   function transform(chunk, enc, done) {
+    backlog.push(chunk)
+
     // group packets together
     if (2 == backlog.length) {
       const head = backlog.shift()
@@ -120,7 +127,6 @@ function createUnboxStream(opts) {
       increment(opts.nonce)
     }
 
-    backlog.push(chunk)
     done(null)
   }
 
