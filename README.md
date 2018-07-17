@@ -91,7 +91,7 @@ calling `crypto_sign_ed25519_pk_to_curve25519` and
 `crypto_sign_ed25519_sk_to_curve25519`.
 
 ```js
-const seed = crypto.curve25519.randomBytes(32)
+const seed = crypto.randomBytes(32)
 const { publicKey, secretKey } = crypto.curve25519.keyPair(seed)
 ```
 
@@ -182,6 +182,63 @@ const iv = crypto.randomBytes(16)
 const enc = crypto.encrypt(message, { key, iv })
 const dec = crypto.decrypt(enc, { key })
 assert(0 == Buffer.compare(dec, message))
+```
+
+### `crypto.box(buffer, opts)`
+
+"Boxes", or encrypts, a buffer from a 32 byte encryption key and a 24-byte nonce.
+
+```js
+const key = Buffer.alloc(32); key.fill('SECRET!KEY')
+const nonce = crypto.randomBytes(24)
+const secret = Buffer.concat([ key, nonce ])
+const buffer = Buffer.from('hello!')
+const boxed = crypto.box(buffer, { secret }) // or crypto.box(buffer, { nonce, key })
+console.log(boxed) // <Buffer 11 8f 40 2b 8a f5 10 08 1f fe 59 b9 97 9c b8 a2 89 e7 b8 78 50 75 ed d9 8e 9c 09 38 0e 81 31 ff fa c6 96 df 57 db 85 ae>
+
+```
+
+### `crypto.createBoxStream(opts)`
+
+Creates a transform stream that "boxes" messages written to it.
+
+```js
+const key = Buffer.alloc(32); key.fill('SECRET!KEY')
+const nonce = crypto.randomBytes(24)
+const secret = Buffer.concat([ key, nonce ])
+const buffer = Buffer.from('hello!')
+const stream = crypto.createBoxStream({ secret }) // or crypto.createBoxStream({ nonce, key })
+stream.on('data', (chunk) => console.log(chunk)) // cipher text
+stream.write(buffer)
+```
+
+### `crypto.unbox(buffer, opts)`
+
+"Unboxes" or decrypts a buffer from a 32-byte encryption key and a 24-byte nonce.
+
+```js
+const key = Buffer.alloc(32); key.fill('SECRET!KEY')
+const nonce = crypto.randomBytes(24)
+const secret = Buffer.concat([ key, nonce ])
+const buffer = Buffer.from('hello!')
+const boxed = crypto.box(buffer, { secret }) // or crypto.box(buffer, { nonce, key })
+const unboxed = crypto.unbox(boxed, { secert }) // or crypto.unbox(boxed, { nonce, key })
+console.log(unboxed) // hello!
+```
+
+### `crypto.createUnboxStream(opts)`
+
+Creates a transform stream that "unboxes" messages written to it.
+
+```js
+const key = Buffer.alloc(32); key.fill('SECRET!KEY')
+const nonce = crypto.randomBytes(24)
+const secret = Buffer.concat([ key, nonce ])
+const buffer = Buffer.from('hello!')
+const stream = crypto.createUnboxStream({ secret }) // or crypto.createUnboxStream({ nonce, key })
+const boxed = crypto.box(buffer, { secret })
+stream.on('data', (chunk) => console.log(chunk)) // hello!
+stream.write(boxed)
 ```
 
 ## Contributing
