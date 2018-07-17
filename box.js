@@ -14,7 +14,8 @@ const {
 const kBoxBufferSize = 4 * 1024
 
 /**
- * Encrypts a buffer with a given key and an optional nonce.
+ * "Boxes", or encrypts, a buffer from a 32 byte encryption key
+ * and a 24-byte nonce.
  *
  * @public
  * @param {Buffer} buffer
