@@ -222,7 +222,7 @@ const nonce = crypto.randomBytes(24)
 const secret = Buffer.concat([ key, nonce ])
 const buffer = Buffer.from('hello!')
 const boxed = crypto.box(buffer, { secret }) // or crypto.box(buffer, { nonce, key })
-const unboxed = crypto.unbox(boxed, { secert }) // or crypto.unbox(boxed, { nonce, key })
+const unboxed = crypto.unbox(boxed, { secret }) // or crypto.unbox(boxed, { nonce, key })
 console.log(unboxed) // hello!
 ```
 
