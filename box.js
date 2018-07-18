@@ -51,7 +51,7 @@ function box(buffer, opts) {
   }
 
   if (false === isBuffer(key)) {
-    throw new TypeError('crypto.box: Expecting secret key')
+    throw new TypeError('crypto.box: Expecting secret key.')
   }
 
   // ephemeral nonces used for header and body buffer boxing
@@ -119,7 +119,7 @@ function createBoxStream(opts) {
   opts = Object.assign({}, opts)
 
   if (false === isBuffer(opts.nonce)) {
-    throw new TypeError('crypto.createBoxStream: Expecting nonce')
+    throw new TypeError('crypto.createBoxStream: Expecting nonce.')
   }
 
   const final = isBuffer(opts.final)

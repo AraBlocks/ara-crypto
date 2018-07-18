@@ -38,11 +38,11 @@ function unbox(buffer, opts) {
   }
 
   if (false === isBuffer(nonce)) {
-    throw new TypeError('crypto.unbox: Expecting nonce')
+    throw new TypeError('crypto.unbox: Expecting nonce.')
   }
 
   if (false === isBuffer(key)) {
-    throw new TypeError('crypto.unbox: Expecting secret key')
+    throw new TypeError('crypto.unbox: Expecting secret key.')
   }
 
   const nonces = [ copy(nonce), increment(copy(nonce)) ]
@@ -101,7 +101,7 @@ function createUnboxStream(opts) {
   opts = Object.assign({}, opts)
 
   if (false === isBuffer(opts.nonce)) {
-    throw new TypeError('crypto.createUnboxStream: Expecting nonce')
+    throw new TypeError('crypto.createUnboxStream: Expecting nonce.')
   }
 
   const backlog = []
