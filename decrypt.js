@@ -55,12 +55,12 @@ function decrypt(value, opts) {
       'crypto.decrypt: Expecting decryption key to be a string or buffer.')
   }
 
-  if (!opts.cipher || 'string' !== typeof opts.cipher) {
+  if (!opts.cipher) {
     /* eslint-disable no-param-reassign */
     opts.cipher = kDefaultCipher
   }
 
-  if (!opts.digest || 'string' !== typeof opts.digest) {
+  if (!opts.digest) {
     /* eslint-disable no-param-reassign */
     opts.digest = kDefaultDigest
   }
