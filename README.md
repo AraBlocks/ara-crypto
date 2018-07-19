@@ -241,6 +241,42 @@ stream.on('data', (chunk) => console.log(chunk)) // hello!
 stream.write(boxed)
 ```
 
+### `crypto.auth(message, key)`
+
+Generates and returns a message authentication code (MAC) for
+a given message and secret key.
+
+```js
+const message = Buffer.from('hello')
+const key = crypto.randomBytes(32)
+const mac = auth(message, key)
+```
+
+`Secret + Nonce` based message authentication codes:
+
+```js
+const message = Buffer.from('hello')
+const secret = getSecretFromSomeWhere()
+const nonce = crypto.randomBytes(32)
+const key = crypto.blake2b(Buffer.concat([secret, nonce]))
+const mac = auth(message, key)
+```
+
+### `crypto.auth.verify(mac, message, key)`
+
+Verifies the authenticity of a message with a given message
+authentication code (MAC) and secret key.
+
+```js
+const message = Buffer.from('hello')
+const key = crypto.randomBytes(32)
+const mac = auth(message, key)
+
+if (false === verify(mac, message, key)) {
+  throw new Error('Message forged!')
+}
+```
+
 ## Contributing
 - [Commit message format](/.github/COMMIT_FORMAT.md)
 - [Commit message examples](/.github/COMMIT_FORMAT_EXAMPLES.md)
