@@ -4,6 +4,9 @@ const test = require('ava')
 
 test('blake2b(buffer, size)', async (t) => {
   t.throws(() => blake2b(0, 0), TypeError)
+  t.throws(() => blake2b(null), TypeError)
+  t.throws(() => blake2b([ null ]), TypeError)
+  t.throws(() => blake2b([ Buffer.alloc(0) ]), TypeError)
   t.throws(() => blake2b(Buffer.alloc(0), 0), TypeError)
   t.throws(() => blake2b(Buffer.from('message'), 0), TypeError)
   t.throws(() => blake2b(Buffer.from('message'), -1), TypeError)
