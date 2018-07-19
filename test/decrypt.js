@@ -15,7 +15,7 @@ test('decrypt(value, opts)', async (t) => {
   t.throws(() => decrypt('', 0), TypeError)
   t.throws(() => decrypt(Buffer.alloc(0), 0), TypeError)
 
-  const enc = encrypt(msg, { key, iv })
+  let enc = encrypt(msg, { key, iv })
 
   t.throws(() => decrypt(enc, null), TypeError)
   t.throws(() => decrypt(enc, {}), TypeError)
@@ -23,6 +23,38 @@ test('decrypt(value, opts)', async (t) => {
   t.throws(() => decrypt(enc, true), TypeError)
   t.throws(() => decrypt({}, { key, iv }), TypeError)
 
+  enc = encrypt(msg, { key, iv })
+  delete enc.crypto.cipherparams.iv
+  t.throws(() => decrypt(enc, { key, iv: null }), TypeError)
+
+  enc = encrypt(msg, { key, iv })
+  enc.version = '999'
+  t.throws(() => decrypt(enc, { strict: true, key, iv }), TypeError)
+
+  enc = encrypt(msg, { key, iv })
+  t.throws(() => decrypt(enc, { key, iv, cipher: 123 }), TypeError)
+  t.throws(() => decrypt(enc, { key, iv, digest: 456 }), TypeError)
+
+  enc = encrypt(msg, { key, iv })
+  enc.id = null
+  t.throws(() => decrypt(enc, { key, iv }), TypeError)
+
+  enc = encrypt(msg, { key, iv })
+  enc.crypto = null
+  t.throws(() => decrypt(enc, { key: null, iv }), TypeError)
+
+  enc = encrypt(msg, { key, iv })
+  t.throws(() => decrypt(enc, { key: 123, iv }), TypeError)
+
+  enc = encrypt(msg, { key, iv })
+  delete enc.crypto.cipherparams.iv
+  t.throws(() => decrypt(enc, { key, iv: 123 }), TypeError)
+
+  enc = encrypt(msg, { key, iv })
+  delete enc.crypto.mac
+  t.throws(() => decrypt(enc, { key, iv }), TypeError)
+
+  enc = encrypt(msg, { key, iv })
   const dec = decrypt(enc, { key })
   t.true(isBuffer(dec))
   t.true(dec.length > 0)
