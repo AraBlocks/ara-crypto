@@ -8,6 +8,7 @@ const { encrypt } = require('./encrypt')
 const { keyPair } = require('./key-pair')
 const curve25519 = require('./curve25519')
 const { verify } = require('./verify')
+const { auth } = require('./auth')
 const { sign } = require('./sign')
 const base58 = require('./base58')
 const base64 = require('./base64')
@@ -28,6 +29,7 @@ module.exports = {
   uint64,
   verify,
   unbox,
+  auth,
   sign,
   box,
 }
