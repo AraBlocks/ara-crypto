@@ -277,6 +277,45 @@ if (false === verify(mac, message, key)) {
 }
 ```
 
+### `crypto.kx.keyPair(seed)`
+
+Generates a key exchange key pair.
+
+```js
+const seed = crypto.randomBytes(32)
+const kp = crypto.kx.keyPair(seed)
+```
+
+### `crypto.kx.client(opts)`
+
+Compute sender (tx) and receiver (rx) session keys for a client
+based on a remote's public key.
+
+```js
+const remotePublicKey = getRemotePublicKey()
+const { publicKey, secretKey } = getClientKeyPair()
+const client = kx.client({
+  publicKey,
+  secretKey,
+  remote: { publicKey: remotePublicKey }
+})
+```
+
+### `crypto.kx.remote(opts)`
+
+Compute sender (tx) and receiver (rx) session keys for a remote
+based on a client's public key.
+
+```js
+const clientPublicKey = getClientPublicKey()
+const { publicKey, secretKey } = getRemoteKeyPair()
+const client = kx.client({
+  publicKey,
+  secretKey,
+  client: { publicKey: clientPublicKey }
+})
+```
+
 ## Contributing
 - [Commit message format](/.github/COMMIT_FORMAT.md)
 - [Commit message examples](/.github/COMMIT_FORMAT_EXAMPLES.md)
