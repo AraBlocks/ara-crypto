@@ -13,6 +13,7 @@ const { sign } = require('./sign')
 const base58 = require('./base58')
 const base64 = require('./base64')
 const uint64 = require('./uint64')
+const kx = require('./kx')
 
 module.exports = {
   createUnboxStream,
@@ -32,4 +33,5 @@ module.exports = {
   auth,
   sign,
   box,
+  kx,
 }
