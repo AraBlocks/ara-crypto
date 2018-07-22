@@ -36,19 +36,21 @@ test('auth(message, key) throws on bad input', (t) => {
 })
 
 test('verify(mac, message, key) throws on bad input', (t) => {
+  const hello = Buffer.from('hello')
+  const key = Buffer.from('key')
   t.throws(() => verify(), TypeError)
   t.throws(() => verify(null, null), TypeError)
   t.throws(() => verify(1, {}), TypeError)
   t.throws(() => verify([], false), TypeError)
   t.throws(() => verify('', Buffer.alloc(0)), TypeError)
   t.throws(() => verify(Buffer.alloc(0), Buffer.alloc(0)), TypeError)
-  t.throws(() => verify(Buffer.from('hello'), Buffer.alloc(0)), TypeError)
-  t.throws(() => verify(Buffer.from('hello'), Buffer.from('key')), TypeError)
+  t.throws(() => verify(hello, Buffer.alloc(0)), TypeError)
+  t.throws(() => verify(hello, key), TypeError)
   t.throws(() => verify(null, Buffer.alloc(0), Buffer.alloc(0)), TypeError)
-  t.throws(() => verify(null, Buffer.from('hello'), Buffer.alloc(0)), TypeError)
-  t.throws(() => verify(null, Buffer.from('hello'), Buffer.from('key')), TypeError)
-  t.throws(() => verify('', Buffer.from('hello'), Buffer.from('key')), TypeError)
-  t.throws(() => verify(Buffer.from('hello'), Buffer.from('hello'), Buffer.from('key')), TypeError)
+  t.throws(() => verify(null, hello, Buffer.alloc(0)), TypeError)
+  t.throws(() => verify(null, hello, key), TypeError)
+  t.throws(() => verify('', hello, key), TypeError)
+  t.throws(() => verify(hello, hello, key), TypeError)
 })
 
 test('auth(message, key) creates a MAC', (t) => {
