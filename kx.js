@@ -107,9 +107,11 @@ function client(opts) {
   )
 
   return {
-    receiver, sender,
+    receiver,
+    sender,
     // short hand
-    tx: sender, rx: receiver,
+    rx: receiver,
+    tx: sender,
   }
 }
 
@@ -178,9 +180,11 @@ function remote(opts) {
   )
 
   return {
-    receiver, sender,
+    receiver,
+    sender,
     // short hand
-    tx: sender, rx: receiver,
+    rx: receiver,
+    tx: sender,
   }
 }
 
