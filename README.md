@@ -312,7 +312,7 @@ const { publicKey, secretKey } = getRemoteKeyPair()
 const remote = kx.remote({
   publicKey,
   secretKey,
-  remote: { publicKey: clientPublicKey }
+  client: { publicKey: clientPublicKey }
 })
 ```
 
