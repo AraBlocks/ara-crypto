@@ -21,6 +21,26 @@ test('crypto.curve25519', (t) => {
   t.true('object' === typeof crypto.curve25519)
 })
 
+test('crypto.curve25519.keyPair', (t) => {
+  t.true('function' === typeof crypto.curve25519.keyPair)
+})
+
+test('crypto.ed25519', (t) => {
+  t.true('object' === typeof crypto.ed25519)
+})
+
+test('crypto.ed25519.keyPair', (t) => {
+  t.true('function' === typeof crypto.ed25519.keyPair)
+})
+
+test('crypto.ed25519.sign', (t) => {
+  t.true('function' === typeof crypto.ed25519.sign)
+})
+
+test('crypto.ed25519.verify', (t) => {
+  t.true('function' === typeof crypto.ed25519.verify)
+})
+
 test('crypto.blake2b', (t) => {
   t.true('function' === typeof crypto.blake2b)
 })
