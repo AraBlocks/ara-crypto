@@ -5,7 +5,6 @@ const test = require('ava')
 /* eslint-disable camelcase */
 const {
   crypto_sign_PUBLICKEYBYTES,
-  crypto_sign_SECRETKEYBYTES,
   crypto_sign_SEEDBYTES,
   crypto_sign_BYTES,
 } = require('sodium-universal')
