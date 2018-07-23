@@ -9,6 +9,14 @@ Cryptographic functions used in ARA modules for Node.js.
 
 This project is in active development.
 
+## Stability
+
+> [Stability][stability-index]: 1 - Experimental. This feature is still under
+> active development and subject to non-backwards compatible changes, or even
+> removal, in any future version. Use of the feature is not recommended
+> in production environments. Experimental features are not subject to
+> the Node.js Semantic Versioning model.
+
 ## Installation
 
 ```sh
@@ -61,9 +69,7 @@ inputs should always be a [`Buffer`](https://nodejs.org/api/buffer.html).
 * [crypto.kx.client(opts)](#kx-client)
 * [crypto.kx.remote(opts)](#kx-remote)
 
-### `crypto.randomBytes(size)`
-
-<a name="randomBytes"></a>
+### `crypto.randomBytes(size)` <a name="randomBytes"></a>
 
 Generate a buffer of random bytes where `size` is an unsigned integer
 greater than `0`. This function will throw a `TypeError` if given
@@ -74,9 +80,7 @@ internally.
 const bytes = crypto.randomBytes(32)
 ```
 
-### `crypto.blake2b(buffer, size)`
-
-<a name="blake2b"></a>
+### `crypto.blake2b(buffer, size)` <a name="blake2b"></a>
 
 Generates a blake2b digest hash from input of a
 given size defaulting to 32 bytes. This function calls
@@ -86,9 +90,7 @@ given size defaulting to 32 bytes. This function calls
 const hash = crypto.blake2b(Buffer.from("message"))
 ```
 
-### `crypto.discoveryKey(buffer, size, key)`
-
-<a name="discoveryKey"></a>
+### `crypto.discoveryKey(buffer, size, key)` <a name="discoveryKey"></a>
 
 Generate a discovery digest useful for network
 keys. This function calls `crypto_generichash` internally.
@@ -98,27 +100,19 @@ const { publicKey, secretKey } = crypto.keyPair()
 const discoveryKey = crypto.discoveryKey(publicKey)
 ```
 
-### `crypto.keyPair(seed)`
-
-<a name="keyPair"></a>
+### `crypto.keyPair(seed)` <a name="keyPair"></a>
 
 An alias for [crypto.ed25519.keyPair](#ed25519-keyPair).
 
-### `crypto.sign(message, secretKey)`
-
-<a name="sign"></a>
+### `crypto.sign(message, secretKey)` <a name="sign"></a>
 
 An alias for [crypto.ed25519.sign](#ed25519-sign).
 
-### `crypto.verify(signature, message, publicKey)`
-
-<a name="verify"></a>
+### `crypto.verify(signature, message, publicKey)` <a name="verify"></a>
 
 An alias for [crypto.ed25519.verify](#ed25519-verify).
 
-### `crypto.curve25519.keyPair(seed)`
-
-<a name="curve25519-keyPair"></a>
+### `crypto.curve25519.keyPair(seed)` <a name="curve25519-keyPair"></a>
 
 Generate a Curve25519 public and secret key pair from an optional
 seed buffer. This function calls `crypto_sign_seed_keypair` and
@@ -131,9 +125,7 @@ const seed = crypto.randomBytes(32)
 const { publicKey, secretKey } = crypto.curve25519.keyPair(seed)
 ```
 
-### `crypto.ed25519.keyPair(seed)`
-
-<a name="ed25519-keyPair"></a>
+### `crypto.ed25519.keyPair(seed)` <a name="ed25519-keyPair"></a>
 
 Generate a public and secret key pair from an optional
 seed buffer. This function will throw a `TypeError` if given incorrect input.
@@ -145,9 +137,7 @@ const seed = crypto.randomBytes(32)
 const { publicKey, secretKey } = crypto.keyPair(seed)
 ```
 
-### `crypto.ed25519.sign(message, secretKey)`
-
-<a name="ed25519-sign"></a>
+### `crypto.ed25519.sign(message, secretKey)` <a name="ed25519-sign"></a>
 
 Sign a message buffer with a secret key buffer. This function will throw
 a `TypeError` if given incorrect input. This function calls
@@ -158,9 +148,7 @@ const { publicKey, secretKey } = crypto.keyPair()
 const signature = crypto.sign(Buffer.from("hello"), secretKey)
 ```
 
-### `crypto.ed25519.verify(signature, message, publicKey)`
-
-<a name="ed25519-verify"></a>
+### `crypto.ed25519.verify(signature, message, publicKey)` <a name="ed25519-verify"></a>
 
 Verify signature for a message signed with a given
 public key. This function will throw a `TypeError` if given incorrect
@@ -178,9 +166,7 @@ if (verified) {
 }
 ```
 
-### `crypto.uint64.encode(value, size)`
-
-<a name="uint64-encode"></a>
+### `crypto.uint64.encode(value, size)` <a name="uint64-encode"></a>
 
 Encode an unsigned 64-bit big endian number into a buffer
 of a given size defaulting to 8 bytes.
@@ -189,9 +175,7 @@ of a given size defaulting to 8 bytes.
 const buffer = crypto.uint64.encode(80)
 ```
 
-### `crypto.uint64.decode(buffer)`
-
-<a name="uint64-decode"></a>
+### `crypto.uint64.decode(buffer)` <a name="uint64-decode"></a>
 
 Decode an unsigned 64-bit big endian buffer into a number
 
@@ -200,9 +184,7 @@ const buffer = crypto.uint64.encode(80)
 const number = crypto.uint64.decode(buffer) // 80
 ```
 
-### `crypto.encrypt(value, opts)`
-
-<a name="encrypt"></a>
+### `crypto.encrypt(value, opts)` <a name="encrypt"></a>
 
 Encrypts value into a "crypto" object configured by
 an initialization vector (iv) and secret key (key) with
@@ -230,9 +212,7 @@ Should output:
 
 ```
 
-### `crypto.decrypt(value, opts)`
-
-<a name="decrypt"></a>
+### `crypto.decrypt(value, opts)` <a name="decrypt"></a>
 
 Decrypt an encrypted "crypto" object into the originally
 encoded buffer.
@@ -246,9 +226,7 @@ const dec = crypto.decrypt(enc, { key })
 assert(0 == Buffer.compare(dec, message))
 ```
 
-### `crypto.box(buffer, opts)`
-
-<a name="box"></a>
+### `crypto.box(buffer, opts)` <a name="box"></a>
 
 "Boxes", or encrypts, a buffer from a 32 byte encryption key and a 24-byte nonce.
 
@@ -262,9 +240,7 @@ console.log(boxed) // <Buffer 11 8f 40 2b 8a f5 10 08 1f fe 59 b9 97 9c b8 a2 89
 
 ```
 
-### `crypto.unbox(buffer, opts)`
-
-<a name="unbox"></a>
+### `crypto.unbox(buffer, opts)` <a name="unbox"></a>
 
 "Unboxes" or decrypts a buffer from a 32-byte encryption key and a 24-byte nonce.
 
@@ -278,9 +254,7 @@ const unboxed = crypto.unbox(boxed, { secret }) // or crypto.unbox(boxed, { nonc
 console.log(unboxed) // hello!
 ```
 
-### `crypto.createBoxStream(opts)`
-
-<a name="createBoxStream"></a>
+### `crypto.createBoxStream(opts)` <a name="createBoxStream"></a>
 
 Creates a transform stream that "boxes" messages written to it.
 
@@ -294,9 +268,7 @@ stream.on('data', (chunk) => console.log(chunk)) // cipher text
 stream.write(buffer)
 ```
 
-### `crypto.createUnboxStream(opts)`
-
-<a name="createUnboxStream"></a>
+### `crypto.createUnboxStream(opts)` <a name="createUnboxStream"></a>
 
 Creates a transform stream that "unboxes" messages written to it.
 
@@ -311,9 +283,7 @@ stream.on('data', (chunk) => console.log(chunk)) // hello!
 stream.write(boxed)
 ```
 
-### `crypto.auth(message, key)`
-
-<a name="auth"></a>
+### `crypto.auth(message, key)` <a name="auth"></a>
 
 Generates and returns a message authentication code (MAC) for
 a given message and secret key.
@@ -334,9 +304,7 @@ const key = crypto.blake2b(Buffer.concat([secret, nonce]))
 const mac = auth(message, key)
 ```
 
-### `crypto.auth.verify(mac, message, key)`
-
-<a name="auth-verify"></a>
+### `crypto.auth.verify(mac, message, key)` <a name="auth-verify"></a>
 
 Verifies the authenticity of a message with a given message
 authentication code (MAC) and secret key.
@@ -351,9 +319,7 @@ if (false === verify(mac, message, key)) {
 }
 ```
 
-### `crypto.kx.keyPair(seed)`
-
-<a name="kx-keyPair"></a>
+### `crypto.kx.keyPair(seed)` <a name="kx-keyPair"></a>
 
 Generates a key exchange key pair.
 
@@ -362,9 +328,7 @@ const seed = crypto.randomBytes(32)
 const kp = crypto.kx.keyPair(seed)
 ```
 
-### `crypto.kx.client(opts)`
-
-<a name="kx-client"></a>
+### `crypto.kx.client(opts)` <a name="kx-client"></a>
 
 Compute sender (tx) and receiver (rx) session keys for a client
 based on a remote's public key.
@@ -379,9 +343,7 @@ const client = kx.client({
 })
 ```
 
-### `crypto.kx.remote(opts)`
-
-<a name="kx-remote"></a>
+### `crypto.kx.remote(opts)` <a name="kx-remote"></a>
 
 Compute sender (tx) and receiver (rx) session keys for a remote
 based on a client's public key.
@@ -407,7 +369,10 @@ const remote = kx.remote({
 - [libsodium](https://download.libsodium.org/doc/)
 - [sodium-universal](https://github.com/sodium-friends/sodium-universal)
 - [ara-identity](https://github.com/arablocks/ara-identity)
+- [Stability index][stability-index]
 
 ## License
 
 LGPL-3.0
+
+[stability-index]: https://nodejs.org/api/documentation.html#documentation_stability_index
