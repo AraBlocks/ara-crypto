@@ -70,7 +70,7 @@ const { publicKey, secretKey } = crypto.keyPair()
 const discoveryKey = crypto.discoveryKey(publicKey)
 ```
 
-### `crypto.keyPair(seed)`
+### `crypto.keyPair(seed)` | `crypto.ed25519.keyPair(seed)`
 
 Generate a public and secret key pair from an optional
 seed buffer. This function will throw a `TypeError` if given incorrect input.
@@ -95,7 +95,7 @@ const seed = crypto.randomBytes(32)
 const { publicKey, secretKey } = crypto.curve25519.keyPair(seed)
 ```
 
-### `crypto.sign(message, secretKey)`
+### `crypto.sign(message, secretKey)` | `crypto.ed25519.sign(message, secretKey)`
 
 Sign a message buffer with a secret key buffer. This function will throw
 a `TypeError` if given incorrect input. This function calls
@@ -106,7 +106,7 @@ const { publicKey, secretKey } = crypto.keyPair()
 const signature = crypto.sign(Buffer.from("hello"), secretKey)
 ```
 
-### `crypto.verify(signature, message, publicKey)`
+### `crypto.verify(signature, message, publicKey)` | `crypto.ed25519.verify(signature, message, publicKey)`
 
 Verify signature for a message signed with a given
 public key. This function will throw a `TypeError` if given incorrect
