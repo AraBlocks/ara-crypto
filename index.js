@@ -10,6 +10,7 @@ const curve25519 = require('./curve25519')
 const { verify } = require('./verify')
 const { auth } = require('./auth')
 const { sign } = require('./sign')
+const { seal } = require('./seal')
 const ed25519 = require('./ed25519')
 const base58 = require('./base58')
 const base64 = require('./base64')
@@ -34,6 +35,7 @@ module.exports = {
   unbox,
   auth,
   sign,
+  seal,
   box,
   kx,
 }
