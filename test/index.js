@@ -132,3 +132,11 @@ test('crypto.kx.client', (t) => {
 test('crypto.kx.server', (t) => {
   t.true('function' === typeof crypto.kx.server)
 })
+
+test('crypto.seal', (t) => {
+  t.true('function' === typeof crypto.seal)
+})
+
+test('crypto.seal.open', (t) => {
+  t.true('function' === typeof crypto.seal.open)
+})
