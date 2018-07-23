@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.com/AraBlocks/ara-crypto.svg?token=r6p7pesHZ9MRJsVsrYFe&branch=master)](https://travis-ci.com/AraBlocks/ara-crypto)
 
-Cryptographic functions used in Ara modules.
+Cryptographic functions used in ARA modules.
 
 ## Status
 This project is in active development.
@@ -317,13 +317,17 @@ const remote = kx.remote({
 ```
 
 ## Contributing
+
 - [Commit message format](/.github/COMMIT_FORMAT.md)
 - [Commit message examples](/.github/COMMIT_FORMAT_EXAMPLES.md)
 - [How to contribute](/.github/CONTRIBUTING.md)
 
 ## See Also
+
 - [libsodium](https://download.libsodium.org/doc/)
+- [sodium-universal](https://github.com/sodium-friends/sodium-universal)
 - [ara-identity](https://github.com/arablocks/ara-identity)
 
 ## License
+
 LGPL-3.0
