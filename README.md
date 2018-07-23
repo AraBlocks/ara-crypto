@@ -68,6 +68,8 @@ inputs should always be a [`Buffer`](https://nodejs.org/api/buffer.html).
 * [crypto.kx.keyPair(\[seed\])](#kx-keyPair)
 * [crypto.kx.client(opts)](#kx-client)
 * [crypto.kx.server(opts)](#kx-server)
+* [crypto.seal(message, opts)](#seal)
+* [crypto.seal.open(message, opts)](#seal-open)
 
 ### `crypto.randomBytes(size)` <a name="randomBytes"></a>
 
@@ -396,6 +398,31 @@ const server = kx.server({
   secretKey,
   client: { publicKey: clientPublicKey }
 })
+```
+
+### `crypto.seal(message, opts)` <a name="seal"></a>
+
+> **Stability: 2** - Stable
+
+Seals a message based on a curve25519 public key for a recipient
+who has the corresponding secret key.
+
+```js
+const publicKey = getRemotePublicKey()
+const message = Buffer.from('hello')
+const sealed = crypto.seal(message, publicKey)
+```
+
+### `crypto.seal.open(message, opts)` <a name="seal-open"></a>
+
+> **Stability: 2** - Stable
+
+Opens a sealed message based on a curve25519 public key for a recipient
+who has the corresponding secret key.
+
+```js
+const { publicKey, secretKey } = getKeyPair()
+const message = crypto.seal.open(ciphertext, { publicKey, secretKey })
 ```
 
 ## Contributing
