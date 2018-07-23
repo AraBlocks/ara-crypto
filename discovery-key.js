@@ -23,9 +23,13 @@ kDefaultDiscoveryKeyMessageKey.fill('ara')
  * @throws TypeError
  */
 function discoveryKey(buffer, size, key) {
-  if (Number.isNaN(size) || 'number' !== typeof size) {
+  if (null === size || undefined === size) {
     /* eslint-disable-next-line no-param-reassign */
     size = kDefaultDiscoveryKeySize
+  } else if (Number.isNaN(size) || 'number' !== typeof size) {
+    /* eslint-disable-next-line function-paren-newline */
+    throw new TypeError(
+      'crypto.discoveryKey: Expecting size to be a number.')
   } else if (size <= 0) {
     /* eslint-disable-next-line function-paren-newline */
     throw new TypeError(
