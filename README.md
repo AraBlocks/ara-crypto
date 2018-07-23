@@ -47,12 +47,12 @@ inputs should always be a [`Buffer`](https://nodejs.org/api/buffer.html).
 
 * [crypto.randomBytes(size)](#randomBytes)
 * [crypto.blake2b(data)](#blake2b)
-* [crypto.discoveryKey(seed)](#discoveryKey)
-* [crypto.keyPair(seed)](#keyPair)
+* [crypto.discoveryKey(\[seed\]\[, size\]\[, key\])](#discoveryKey)
+* [crypto.keyPair(\[seed\])](#keyPair)
 * [crypto.sign(message, secretKey)](#sign)
 * [crypto.verify(signature, message, secretKey)](#verify)
-* [crypto.curve25519.keyPair(seed)](#curve25519-keyPair)
-* [crypto.ed25519.keyPair(seed)](#ed25519-keyPair)
+* [crypto.curve25519.keyPair(\[seed\])](#curve25519-keyPair)
+* [crypto.ed25519.keyPair(\[seed\])](#ed25519-keyPair)
 * [crypto.ed25519.sign(message, secretKey)](#ed25519-sign)
 * [crypto.ed25519.verify(signature, message, secretKey)](#ed25519-verify)
 * [crypto.uint64.encode(number)](#uint64-encode)
@@ -65,11 +65,13 @@ inputs should always be a [`Buffer`](https://nodejs.org/api/buffer.html).
 * [crypto.createUnboxStream(opts)](#createUnboxStream)
 * [crypto.auth(message, key)](#auth)
 * [crypto.auth.verify(mac, message, key)](#auth-verify)
-* [crypto.kx.keyPair(seed)](#kx-keyPair)
+* [crypto.kx.keyPair(\[seed\])](#kx-keyPair)
 * [crypto.kx.client(opts)](#kx-client)
 * [crypto.kx.remote(opts)](#kx-remote)
 
 ### `crypto.randomBytes(size)` <a name="randomBytes"></a>
+
+> **Stability: 2** - Stable
 
 Generate a buffer of random bytes where `size` is an unsigned integer
 greater than `0`. This function will throw a `TypeError` if given
@@ -80,7 +82,9 @@ internally.
 const bytes = crypto.randomBytes(32)
 ```
 
-### `crypto.blake2b(buffer, size)` <a name="blake2b"></a>
+### `crypto.blake2b(buffer[, size])` <a name="blake2b"></a>
+
+> **Stability: 2** - Stabile
 
 Generates a blake2b digest hash from input of a
 given size defaulting to 32 bytes. This function calls
@@ -90,7 +94,9 @@ given size defaulting to 32 bytes. This function calls
 const hash = crypto.blake2b(Buffer.from("message"))
 ```
 
-### `crypto.discoveryKey(buffer, size, key)` <a name="discoveryKey"></a>
+### `crypto.discoveryKey([seed][, size][, key])` <a name="discoveryKey"></a>
+
+> **Stability: 2** - Stable
 
 Generate a discovery digest useful for network
 keys. This function calls `crypto_generichash` internally.
@@ -100,7 +106,7 @@ const { publicKey, secretKey } = crypto.keyPair()
 const discoveryKey = crypto.discoveryKey(publicKey)
 ```
 
-### `crypto.keyPair(seed)` <a name="keyPair"></a>
+### `crypto.keyPair([seed])` <a name="keyPair"></a>
 
 An alias for [crypto.ed25519.keyPair](#ed25519-keyPair).
 
@@ -112,7 +118,9 @@ An alias for [crypto.ed25519.sign](#ed25519-sign).
 
 An alias for [crypto.ed25519.verify](#ed25519-verify).
 
-### `crypto.curve25519.keyPair(seed)` <a name="curve25519-keyPair"></a>
+### `crypto.curve25519.keyPair([seed])` <a name="curve25519-keyPair"></a>
+
+> **Stability: 2** - Stable
 
 Generate a Curve25519 public and secret key pair from an optional
 seed buffer. This function calls `crypto_sign_seed_keypair` and
@@ -125,7 +133,9 @@ const seed = crypto.randomBytes(32)
 const { publicKey, secretKey } = crypto.curve25519.keyPair(seed)
 ```
 
-### `crypto.ed25519.keyPair(seed)` <a name="ed25519-keyPair"></a>
+### `crypto.ed25519.keyPair([seed])` <a name="ed25519-keyPair"></a>
+
+> **Stability: 2** - Stability
 
 Generate a public and secret key pair from an optional
 seed buffer. This function will throw a `TypeError` if given incorrect input.
@@ -139,6 +149,8 @@ const { publicKey, secretKey } = crypto.keyPair(seed)
 
 ### `crypto.ed25519.sign(message, secretKey)` <a name="ed25519-sign"></a>
 
+> **Stability: 2** - Stable
+
 Sign a message buffer with a secret key buffer. This function will throw
 a `TypeError` if given incorrect input. This function calls
 `crypto_sign_detached` on a buffer of size `crypto_sign_BYTES`.
@@ -149,6 +161,8 @@ const signature = crypto.sign(Buffer.from("hello"), secretKey)
 ```
 
 ### `crypto.ed25519.verify(signature, message, publicKey)` <a name="ed25519-verify"></a>
+
+> **Stability: 2** - Stable
 
 Verify signature for a message signed with a given
 public key. This function will throw a `TypeError` if given incorrect
@@ -168,6 +182,8 @@ if (verified) {
 
 ### `crypto.uint64.encode(value, size)` <a name="uint64-encode"></a>
 
+> **Stability: 2** - Stable
+
 Encode an unsigned 64-bit big endian number into a buffer
 of a given size defaulting to 8 bytes.
 
@@ -177,6 +193,8 @@ const buffer = crypto.uint64.encode(80)
 
 ### `crypto.uint64.decode(buffer)` <a name="uint64-decode"></a>
 
+> **Stability: 2** - Stable
+
 Decode an unsigned 64-bit big endian buffer into a number
 
 ```js
@@ -185,6 +203,8 @@ const number = crypto.uint64.decode(buffer) // 80
 ```
 
 ### `crypto.encrypt(value, opts)` <a name="encrypt"></a>
+
+> **Stability: 1** - Experimental
 
 Encrypts value into a "crypto" object configured by
 an initialization vector (iv) and secret key (key) with
@@ -214,6 +234,8 @@ Should output:
 
 ### `crypto.decrypt(value, opts)` <a name="decrypt"></a>
 
+> **Stability: 1** - Experimental
+
 Decrypt an encrypted "crypto" object into the originally
 encoded buffer.
 
@@ -227,6 +249,8 @@ assert(0 == Buffer.compare(dec, message))
 ```
 
 ### `crypto.box(buffer, opts)` <a name="box"></a>
+
+> **Stability: 1** - Experimental
 
 "Boxes", or encrypts, a buffer from a 32 byte encryption key and a 24-byte nonce.
 
@@ -242,6 +266,8 @@ console.log(boxed) // <Buffer 11 8f 40 2b 8a f5 10 08 1f fe 59 b9 97 9c b8 a2 89
 
 ### `crypto.unbox(buffer, opts)` <a name="unbox"></a>
 
+> **Stability: 1** - Experimental
+
 "Unboxes" or decrypts a buffer from a 32-byte encryption key and a 24-byte nonce.
 
 ```js
@@ -255,6 +281,8 @@ console.log(unboxed) // hello!
 ```
 
 ### `crypto.createBoxStream(opts)` <a name="createBoxStream"></a>
+
+> **Stability: 1** - Experimental
 
 Creates a transform stream that "boxes" messages written to it.
 
@@ -270,6 +298,8 @@ stream.write(buffer)
 
 ### `crypto.createUnboxStream(opts)` <a name="createUnboxStream"></a>
 
+> **Stability: 1** - Experimental
+
 Creates a transform stream that "unboxes" messages written to it.
 
 ```js
@@ -284,6 +314,8 @@ stream.write(boxed)
 ```
 
 ### `crypto.auth(message, key)` <a name="auth"></a>
+
+> **Stability: 2** - Stable
 
 Generates and returns a message authentication code (MAC) for
 a given message and secret key.
@@ -306,6 +338,8 @@ const mac = auth(message, key)
 
 ### `crypto.auth.verify(mac, message, key)` <a name="auth-verify"></a>
 
+> **Stability: 2** - Stable
+
 Verifies the authenticity of a message with a given message
 authentication code (MAC) and secret key.
 
@@ -319,7 +353,9 @@ if (false === verify(mac, message, key)) {
 }
 ```
 
-### `crypto.kx.keyPair(seed)` <a name="kx-keyPair"></a>
+### `crypto.kx.keyPair([seed])` <a name="kx-keyPair"></a>
+
+> **Stability: 2** - Stable
 
 Generates a key exchange key pair.
 
@@ -329,6 +365,8 @@ const kp = crypto.kx.keyPair(seed)
 ```
 
 ### `crypto.kx.client(opts)` <a name="kx-client"></a>
+
+> **Stability: 1** - Experimental
 
 Compute sender (tx) and receiver (rx) session keys for a client
 based on a remote's public key.
@@ -344,6 +382,8 @@ const client = kx.client({
 ```
 
 ### `crypto.kx.remote(opts)` <a name="kx-remote"></a>
+
+> **Stability: 1** - Experimental
 
 Compute sender (tx) and receiver (rx) session keys for a remote
 based on a client's public key.
