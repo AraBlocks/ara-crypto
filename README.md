@@ -309,10 +309,10 @@ based on a client's public key.
 ```js
 const clientPublicKey = getClientPublicKey()
 const { publicKey, secretKey } = getRemoteKeyPair()
-const client = kx.client({
+const remote = kx.remote({
   publicKey,
   secretKey,
-  client: { publicKey: clientPublicKey }
+  remote: { publicKey: clientPublicKey }
 })
 ```
 
