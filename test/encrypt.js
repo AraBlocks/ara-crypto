@@ -28,7 +28,7 @@ test('encrypt(opts)', async (t) => {
   t.throws(() => encrypt('hello', { iv: 16 }))
   t.throws(() => encrypt('hello', { iv, key: null }))
   t.throws(() => encrypt('hello', { iv, key: [] }))
-  t.throws(() => encrypt(Buffer.from(0), { iv, key }))
+  t.throws(() => encrypt(Buffer.alloc(0), { iv, key }))
 
   t.true('object' === typeof encrypt('hello', { iv, key }))
   t.true('object' === typeof encrypt(Buffer.from('hello'), { iv, key }))
