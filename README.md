@@ -84,7 +84,7 @@ const bytes = crypto.randomBytes(32)
 
 ### `crypto.blake2b(buffer[, size])` <a name="blake2b"></a>
 
-> **Stability: 2** - Stabile
+> **Stability: 2** - Stable
 
 Generates a blake2b digest hash from input of a
 given size defaulting to 32 bytes. This function calls
@@ -98,7 +98,7 @@ const hash = crypto.blake2b(Buffer.from("message"))
 
 > **Stability: 2** - Stable
 
-Generate a discovery digest useful for network
+Generate a discovery key useful for network
 keys. This function calls `crypto_generichash` internally.
 
 ```js
@@ -135,7 +135,7 @@ const { publicKey, secretKey } = crypto.curve25519.keyPair(seed)
 
 ### `crypto.ed25519.keyPair([seed])` <a name="ed25519-keyPair"></a>
 
-> **Stability: 2** - Stability
+> **Stability: 2** - Stable
 
 Generate a public and secret key pair from an optional
 seed buffer. This function will throw a `TypeError` if given incorrect input.
