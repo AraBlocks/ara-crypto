@@ -408,7 +408,7 @@ Seals a message based on a curve25519 public key for a recipient
 who has the corresponding secret key.
 
 ```js
-const publicKey = getRemotePublicKey()
+const publicKey = getServerPublicKey()
 const message = Buffer.from('hello')
 const sealed = crypto.seal(message, publicKey)
 ```
