@@ -74,56 +74,56 @@ test('kx.client(opts) throws on bad input', (t) => {
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
-    remote: null,
+    server: null,
   }), TypeError)
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
-    remote: 123,
+    server: 123,
   }), TypeError)
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
-    remote: {},
+    server: {},
   }), TypeError)
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
-    remote: { publicKey: null },
+    server: { publicKey: null },
   }), TypeError)
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
-    remote: { publicKey: randomBytes(16) },
+    server: { publicKey: randomBytes(16) },
   }), TypeError)
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
-    remote: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES - 1) },
+    server: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES - 1) },
   }), TypeError)
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES - 1),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
-    remote: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES) },
+    server: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES) },
   }), TypeError)
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES - 1),
-    remote: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES) },
+    server: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES) },
   }), TypeError)
 })
 
 test('kx.client(opts) computes session keys for client', (t) => {
-  const remote = kx.keyPair()
+  const server = kx.keyPair()
   const { publicKey, secretKey } = kx.keyPair()
-  const client = kx.client({ publicKey, secretKey, remote })
+  const client = kx.client({ publicKey, secretKey, server })
   t.true('object' === typeof client)
   t.true(isBuffer(client.receiver))
   t.true(isBuffer(client.sender))
@@ -133,84 +133,84 @@ test('kx.client(opts) computes session keys for client', (t) => {
   t.true(crypto_kx_SESSIONKEYBYTES === client.sender.length)
 })
 
-test('kx.remote(opts) is a function', (t) => {
-  t.true('function' === typeof kx.remote)
+test('kx.server(opts) is a function', (t) => {
+  t.true('function' === typeof kx.server)
 })
 
-test('kx.remote(opts) throws on bad input', (t) => {
-  t.throws(() => kx.remote(), TypeError)
-  t.throws(() => kx.remote(null), TypeError)
-  t.throws(() => kx.remote(123), TypeError)
-  t.throws(() => kx.remote(true), TypeError)
-  t.throws(() => kx.remote(() => undefined), TypeError)
-  t.throws(() => kx.remote(''), TypeError)
-  t.throws(() => kx.remote({}), TypeError)
-  t.throws(() => kx.remote({ publicKey: null }), TypeError)
-  t.throws(() => kx.remote({ publicKey: randomBytes(16) }), TypeError)
+test('kx.server(opts) throws on bad input', (t) => {
+  t.throws(() => kx.server(), TypeError)
+  t.throws(() => kx.server(null), TypeError)
+  t.throws(() => kx.server(123), TypeError)
+  t.throws(() => kx.server(true), TypeError)
+  t.throws(() => kx.server(() => undefined), TypeError)
+  t.throws(() => kx.server(''), TypeError)
+  t.throws(() => kx.server({}), TypeError)
+  t.throws(() => kx.server({ publicKey: null }), TypeError)
+  t.throws(() => kx.server({ publicKey: randomBytes(16) }), TypeError)
 
-  t.throws(() => kx.remote({
+  t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: null,
   }), TypeError)
 
-  t.throws(() => kx.remote({
+  t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: null,
   }), TypeError)
 
-  t.throws(() => kx.remote({
+  t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: 123,
   }), TypeError)
 
-  t.throws(() => kx.remote({
+  t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: {},
   }), TypeError)
 
-  t.throws(() => kx.remote({
+  t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: { publicKey: null },
   }), TypeError)
 
-  t.throws(() => kx.remote({
+  t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: { publicKey: randomBytes(16) },
   }), TypeError)
 
-  t.throws(() => kx.remote({
+  t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES - 1) },
   }), TypeError)
 
-  t.throws(() => kx.remote({
+  t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES - 1),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES) },
   }), TypeError)
 
-  t.throws(() => kx.remote({
+  t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES - 1),
     client: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES) },
   }), TypeError)
 })
 
-test('kx.remote(opts) computes session keys for remote', (t) => {
+test('kx.server(opts) computes session keys for server', (t) => {
   const client = kx.keyPair()
   const { publicKey, secretKey } = kx.keyPair()
-  const remote = kx.remote({ publicKey, secretKey, client })
-  t.true('object' === typeof remote)
-  t.true(isBuffer(remote.receiver))
-  t.true(isBuffer(remote.sender))
-  t.true(0 === Buffer.compare(remote.rx, remote.receiver))
-  t.true(0 === Buffer.compare(remote.tx, remote.sender))
-  t.true(crypto_kx_SESSIONKEYBYTES === remote.receiver.length)
-  t.true(crypto_kx_SESSIONKEYBYTES === remote.sender.length)
+  const server = kx.server({ publicKey, secretKey, client })
+  t.true('object' === typeof server)
+  t.true(isBuffer(server.receiver))
+  t.true(isBuffer(server.sender))
+  t.true(0 === Buffer.compare(server.rx, server.receiver))
+  t.true(0 === Buffer.compare(server.tx, server.sender))
+  t.true(crypto_kx_SESSIONKEYBYTES === server.receiver.length)
+  t.true(crypto_kx_SESSIONKEYBYTES === server.sender.length)
 })
