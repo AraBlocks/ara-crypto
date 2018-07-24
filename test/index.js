@@ -129,6 +129,6 @@ test('crypto.kx.client', (t) => {
   t.true('function' === typeof crypto.kx.client)
 })
 
-test('crypto.kx.remote', (t) => {
-  t.true('function' === typeof crypto.kx.remote)
+test('crypto.kx.server', (t) => {
+  t.true('function' === typeof crypto.kx.server)
 })
