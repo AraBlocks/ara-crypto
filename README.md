@@ -67,7 +67,7 @@ inputs should always be a [`Buffer`](https://nodejs.org/api/buffer.html).
 * [crypto.auth.verify(mac, message, key)](#auth-verify)
 * [crypto.kx.keyPair(\[seed\])](#kx-keyPair)
 * [crypto.kx.client(opts)](#kx-client)
-* [crypto.kx.remote(opts)](#kx-remote)
+* [crypto.kx.server(opts)](#kx-server)
 
 ### `crypto.randomBytes(size)` <a name="randomBytes"></a>
 
@@ -369,29 +369,29 @@ const kp = crypto.kx.keyPair(seed)
 > **Stability: 1** - Experimental
 
 Compute sender (tx) and receiver (rx) session keys for a client
-based on a remote's public key.
+based on a server's public key.
 
 ```js
-const remotePublicKey = getRemotePublicKey()
+const serverPublicKey = getServerPublicKey()
 const { publicKey, secretKey } = getClientKeyPair()
 const client = kx.client({
   publicKey,
   secretKey,
-  remote: { publicKey: remotePublicKey }
+  server: { publicKey: serverPublicKey }
 })
 ```
 
-### `crypto.kx.remote(opts)` <a name="kx-remote"></a>
+### `crypto.kx.server(opts)` <a name="kx-server"></a>
 
 > **Stability: 1** - Experimental
 
-Compute sender (tx) and receiver (rx) session keys for a remote
+Compute sender (tx) and receiver (rx) session keys for a server
 based on a client's public key.
 
 ```js
 const clientPublicKey = getClientPublicKey()
-const { publicKey, secretKey } = getRemoteKeyPair()
-const remote = kx.remote({
+const { publicKey, secretKey } = getServerKeyPair()
+const server = kx.server({
   publicKey,
   secretKey,
   client: { publicKey: clientPublicKey }
