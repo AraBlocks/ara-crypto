@@ -44,14 +44,14 @@ function keyPair(seed) {
 
 /**
  * Compute sender (tx) and receiver (rx) session keys for a client
- * based on a remote's public key.
+ * based on a server's public key.
  *
  * @public
  * @param {Object} opts
  * @param {Buffer} opts.publicKey
  * @param {Buffer} opts.secretKey
- * @param {Object} opts.remote
- * @param {Buffer} opts.remote.publicKey
+ * @param {Object} opts.server
+ * @param {Buffer} opts.server.publicKey
  * @return {Object}
  * @throws TypeError
  */
@@ -68,12 +68,12 @@ function client(opts) {
     throw new TypeError('kx.client: Expecting buffer for secret key.')
   }
 
-  if (!opts.remote || 'object' !== typeof opts.remote) {
-    throw new TypeError('kx.client: Expecting remote object.')
+  if (!opts.server || 'object' !== typeof opts.server) {
+    throw new TypeError('kx.client: Expecting server object.')
   }
 
-  if (!opts.remote.publicKey || false === isBuffer(opts.remote.publicKey)) {
-    throw new TypeError('kx.client: Expecting buffer for remote public key.')
+  if (!opts.server.publicKey || false === isBuffer(opts.server.publicKey)) {
+    throw new TypeError('kx.client: Expecting buffer for server public key.')
   }
 
   if (crypto_kx_PUBLICKEYBYTES !== opts.publicKey.length) {
@@ -86,9 +86,9 @@ function client(opts) {
     throw new TypeError(`kx.client: Invalid secret key length: ${len}`)
   }
 
-  if (crypto_kx_PUBLICKEYBYTES !== opts.remote.publicKey.length) {
-    const len = opts.remote.publicKey.length
-    throw new TypeError(`kx.client: Invalid remote public key length: ${len}`)
+  if (crypto_kx_PUBLICKEYBYTES !== opts.server.publicKey.length) {
+    const len = opts.server.publicKey.length
+    throw new TypeError(`kx.client: Invalid server public key length: ${len}`)
   }
 
   // reader/receiver
@@ -103,7 +103,7 @@ function client(opts) {
     sender,
     opts.publicKey,
     opts.secretKey,
-    opts.remote.publicKey
+    opts.server.publicKey
   )
 
   return {
@@ -116,19 +116,19 @@ function client(opts) {
 }
 
 /**
- * Compute sender (tx) and receiver (rx) session keys for a remote
+ * Compute sender (tx) and receiver (rx) session keys for a server
  * based on a client's public key.
  *
  * @public
  * @param {Object} opts
  * @param {Buffer} opts.publicKey
  * @param {Buffer} opts.secretKey
- * @param {Object} opts.remote
- * @param {Buffer} opts.remote.publicKey
+ * @param {Object} opts.server
+ * @param {Buffer} opts.server.publicKey
  * @return {Object}
  * @throws TypeError
  */
-function remote(opts) {
+function server(opts) {
   if (!opts || 'object' !== typeof opts) {
     throw new TypeError('kx.client: Expecting object.')
   }
@@ -151,17 +151,17 @@ function remote(opts) {
 
   if (crypto_kx_PUBLICKEYBYTES !== opts.publicKey.length) {
     const len = opts.publicKey.length
-    throw new TypeError(`kx.remote: Invalid public key length: ${len}`)
+    throw new TypeError(`kx.server: Invalid public key length: ${len}`)
   }
 
   if (crypto_kx_SECRETKEYBYTES !== opts.secretKey.length) {
     const len = opts.secretKey.length
-    throw new TypeError(`kx.remote: Invalid secret key length: ${len}`)
+    throw new TypeError(`kx.server: Invalid secret key length: ${len}`)
   }
 
   if (crypto_kx_PUBLICKEYBYTES !== opts.client.publicKey.length) {
     const len = opts.client.publicKey.length
-    throw new TypeError(`kx.remote: Invalid client  public key length: ${len}`)
+    throw new TypeError(`kx.server: Invalid client  public key length: ${len}`)
   }
 
   // reader/receiver
@@ -191,5 +191,5 @@ function remote(opts) {
 module.exports = {
   keyPair,
   client,
-  remote,
+  server,
 }
