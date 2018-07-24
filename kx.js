@@ -123,30 +123,30 @@ function client(opts) {
  * @param {Object} opts
  * @param {Buffer} opts.publicKey
  * @param {Buffer} opts.secretKey
- * @param {Object} opts.server
- * @param {Buffer} opts.server.publicKey
+ * @param {Object} opts.client
+ * @param {Buffer} opts.client.publicKey
  * @return {Object}
  * @throws TypeError
  */
 function server(opts) {
   if (!opts || 'object' !== typeof opts) {
-    throw new TypeError('kx.client: Expecting object.')
+    throw new TypeError('kx.server: Expecting object.')
   }
 
   if (!opts.publicKey || false === isBuffer(opts.publicKey)) {
-    throw new TypeError('kx.client: Expecting buffer for public key.')
+    throw new TypeError('kx.server: Expecting buffer for public key.')
   }
 
   if (!opts.secretKey || false === isBuffer(opts.secretKey)) {
-    throw new TypeError('kx.client: Expecting buffer for secret key.')
+    throw new TypeError('kx.server: Expecting buffer for secret key.')
   }
 
   if (!opts.client || 'object' !== typeof opts.client) {
-    throw new TypeError('kx.client: Expecting client object.')
+    throw new TypeError('kx.server: Expecting client object.')
   }
 
   if (!opts.client.publicKey || false === isBuffer(opts.client.publicKey)) {
-    throw new TypeError('kx.client: Expecting buffer for client public key.')
+    throw new TypeError('kx.server: Expecting buffer for client public key.')
   }
 
   if (crypto_kx_PUBLICKEYBYTES !== opts.publicKey.length) {
