@@ -348,19 +348,18 @@ class Codec {
   horner(x, coef) {
     const { logs, exps } = this.ctx.table
     const { maxShares } = this.ctx
-    let y = 0
+    const n = maxShares
+    let b = 0
 
     for (let i = coef.length - 1; i >= 0; --i) {
-      if (0 === y) {
-        y = coef[i]
+      if (0 === b) {
+        b = coef[i]
       } else {
-        const a = logs[x] + logs[y]
-        const b = coef[i]
         // eslint-disable-next-line no-bitwise
-        y = exps[a % maxShares] ^ b
+        b = exps[(logs[x] + logs[b]) % n] ^ coef[i]
       }
     }
-    return y
+    return b
   }
 
   /**
