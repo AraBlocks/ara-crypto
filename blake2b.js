@@ -3,7 +3,7 @@ const { crypto_generichash_batch } = require('sodium-universal')
 const isBuffer = require('is-buffer')
 const alloc = require('buffer-alloc-unsafe')
 
-const { kDefaultBlake2bSize } = require('./constants')
+const kDefaultBlake2bSize = 32
 
 /**
  * Generates a blake2b digest hash from input of a
