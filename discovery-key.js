@@ -1,7 +1,7 @@
 const isBuffer = require('is-buffer')
 const alloc = require('buffer-alloc-unsafe')
 
-const { kDefaultDiscoveryKeySize } = require('./constants')
+const kDefaultDiscoveryKeySize = 32
 
 /* eslint-disable camelcase */
 const {
