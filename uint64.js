@@ -2,10 +2,8 @@ const isBuffer = require('is-buffer')
 const uint64be = require('uint64be')
 const alloc = require('buffer-alloc-unsafe')
 
-const {
-  kMinUInt64Size,
-  kDefaultUInt64Size,
-} = require('./constants')
+const kMinUInt64Size = 8
+const kDefaultUInt64Size = kMinUInt64Size
 
 /**
  * Encode an unsigned 64-bit big endian number into a buffer
