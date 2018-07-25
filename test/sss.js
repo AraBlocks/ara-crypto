@@ -64,6 +64,15 @@ test('sss.recover(opts) throws on bad input', (t) => {
   t.throws(() => sss.recover(''), TypeError)
 })
 
+test('simple', (t) => {
+  const ctx = sss.init()
+  const key = Buffer.from('key')
+  const secret = ctx.secret(key)
+  const shares = ctx.shares(secret, { shares: 10, threshold: 5 })
+  const recovered = ctx.recover(shares)
+  t.true(0 === Buffer.compare(recovered.buffer, key))
+})
+
 test('compatibility', (t) => {
   const ctx = sss.init()
   t.true('object' === typeof ctx)
