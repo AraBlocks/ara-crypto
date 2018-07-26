@@ -1,3 +1,4 @@
+const isBuffer = require('is-buffer')
 const test = require('ava')
 const sss = require('../sss')
 
@@ -64,6 +65,43 @@ test('sss.recover(opts) throws on bad input', (t) => {
   t.throws(() => sss.recover(''), TypeError)
 })
 
+test('sss.init(opts) simple with defaults', (t) => {
+  const ctx = sss.init()
+  t.true('object' === typeof ctx)
+  t.true('number' === typeof ctx.bits)
+  t.true('number' === typeof ctx.size)
+  t.true('number' === typeof ctx.radix)
+  t.true('number' === typeof ctx.maxBits)
+  t.true('number' === typeof ctx.padding)
+  t.true('number' === typeof ctx.maxShares)
+  t.true('number' === typeof ctx.bytesPerChar)
+  t.true('number' === typeof ctx.maxBytesPerChar)
+  t.true('object' === typeof ctx.table)
+  t.true('object' === typeof ctx.codec)
+  t.true(isBuffer(ctx.entropy))
+})
+
+test('sss.secret(value) simple', (t) => {
+  const secret = sss.secret('secret key')
+  t.true('object' === typeof secret)
+  t.true(isBuffer(secret.buffer))
+})
+
+test('sss.shares(secret, opts) simple', (t) => {
+  const shares = sss.shares('secret key', { shares: 10, threshold: 5 })
+  t.true(Array.isArray(shares))
+  t.true(10 === shares.length)
+  t.true(shares.every(share => isBuffer(share)))
+})
+
+test('sss.recover(shares, opts) simple', (t) => {
+  const key = Buffer.from('secret key')
+  const secret = sss.secret(key)
+  const shares = sss.shares(secret, { shares: 10, threshold: 5 })
+  const recovered = sss.recover(shares.slice(2, 7))
+  t.true(0 === Buffer.compare(key, recovered.buffer))
+})
+
 test('simple', (t) => {
   const ctx = sss.init()
   const key = Buffer.from('key')
@@ -73,10 +111,12 @@ test('simple', (t) => {
   t.true(0 === Buffer.compare(recovered.buffer, key))
 })
 
-test('compatibility', (t) => {
+// as of 2018-07-26
+test('compatibility 1 (DO NOT REMOVE)', (t) => {
   const ctx = sss.init()
   t.true('object' === typeof ctx)
 
+  // DO NOT REMOVE
   // produced by https://github.com/grempe/secrets.js
   const knownKey = Buffer.from('key')
   const knownShares = [
@@ -96,4 +136,30 @@ test('compatibility', (t) => {
     ctx.recover(knownShares).buffer,
     knownKey
   ))
+})
+
+// as of 2018-07-26
+test('compatibility 2 (DO NOT REMOVE)', (t) => {
+  const ctx = sss.init()
+  t.true('object' === typeof ctx)
+
+  // DO NOT REMOVE
+  // copied from https://github.com/grempe/secrets.js/blob/master/spec/SecretsSpec.js
+  const knownKey = Buffer.from('82585c749a3db7f73009d0d6107dd650')
+  const knownShares = [
+    '80111001e523b02029c58aceebead70329000',
+    '802eeb362b5be82beae3499f09bd7f9f19b1c',
+    '803d5f7e5216d716a172ebe0af46ca81684f4',
+    '804e1fa5670ee4c919ffd9f8c71f32a7bfbb0',
+    '8050bd6ac05ceb3eeffcbbe251932ece37657',
+    '8064bb52a3db02b1962ff879d32bc56de4455',
+    '8078a5f11d20cbf8d907c1d295bbda1ee900a',
+    '808808ff7fae45529eb13b1e9d78faeab435f',
+    '809f3b0585740fd80830c355fa501a8057733',
+    '80aeca744ec715290906c995aac371ed118c2'
+  ]
+
+  const secret = ctx.secret(ctx.codec.decode(knownKey))
+  const recovered = ctx.recover(knownShares)
+  t.true(0 === Buffer.compare(secret.buffer, recovered.buffer))
 })
