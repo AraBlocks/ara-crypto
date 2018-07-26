@@ -216,7 +216,7 @@ class Context {
     }
 
     for (let i = 0; i < shares.length; ++i) {
-      const share = new Share(this, shares[i])
+      const share = new ShareData(this, shares[i])
       if (false === x.includes(share.id)) {
         const bin = this.codec.binary(share.data, 16)
         x.push(share.id)
@@ -748,7 +748,7 @@ class Secret {
  */
 class SharePoint {
   /**
-   * Share class constructor.
+   * SharePoint class constructor.
    * @public
    * @constructor
    * @param {Context} ctx
@@ -761,9 +761,18 @@ class SharePoint {
 }
 
 /**
+ * A class for representing share data.
+ * @public
+ * @class ShareData
  */
-class Share {
+class ShareData {
   /**
+   * Parse input into a ShareData instance.
+   * @public
+   * @static
+   * @param {String|Buffer|Object} input
+   * @param {?(Object)} opts
+   * @return {ShareData}
    */
   static parse(input, opts) {
     if (!opts) {
@@ -817,9 +826,14 @@ class Share {
   }
 
   /**
+   * ShareData class constructor.
+   * @public
+   * @constructor
+   * @param {Context} ctx
+   * @param {String|Buffer|Object} share
    */
   constructor(ctx, share) {
-    const parsed = Share.parse(share, ctx)
+    const parsed = ShareData.parse(share, ctx)
     this.id = parsed.id
     this.bits = parsed.bits
     this.data = parsed.data
@@ -894,7 +908,10 @@ function secret(value, opts) {
  * Create shares from a secret.
  * @public
  * @param {Secret|String|Buffer} secret
- * @param {?(Object)} opts
+ * @param {Object} opts
+ * @param {Number} opts.shares
+ * @param {Number} opts.threshold
+ * @param {?(Number)} opts.padding
  * @return {Array<Buffer>}
  * @throws TypeError
  * @throws Error
@@ -933,11 +950,11 @@ function shares(secret, opts) {
     throw new TypeError('shares: Options cannot be null.')
   }
 
-  if (undefined !== opts && 'object' !== typeof opts) {
+  if (undefined === opts || 'object' !== typeof opts) {
     throw new TypeError('shares: Expecting options to be an object.')
   }
 
-  return init(opts).shares(secret, opts)
+  return init().shares(secret, opts)
 }
 
 /**
@@ -969,7 +986,14 @@ function recover(shares, opts) {
  * @return {Boolena}
  */
 function isSecret(value) {
-  if (!value) { return false }
+  if (!value || 'object' !== typeof value) {
+    return false
+  }
+
+  if (value instanceof Secret) {
+    return true
+  }
+
   const { prototype } = Secret
   const names = Object.getOwnPropertyNames(prototype)
   const truths = names.map(map)
@@ -979,18 +1003,19 @@ function isSecret(value) {
 
   return truths.every(Boolean)
 
+  // quacks, walks, and talks like a Secret (:
   function map(k) {
-    return typeof prototype[k] === typeof value[k]
+    return k in value
   }
 }
 
 module.exports = {
   SharePoint,
+  ShareData,
   Context,
   Secret,
   Codec,
   Table,
-  Share,
 
   isSecret,
   recover,
