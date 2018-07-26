@@ -352,7 +352,7 @@ class Codec {
     let b = 0
 
     for (let i = coef.length - 1; i >= 0; --i) {
-      if (i === coef.length - 1) {
+      if (0 === b) {
         b = coef[i]
       } else {
         // eslint-disable-next-line no-bitwise
