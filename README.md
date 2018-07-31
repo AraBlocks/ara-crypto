@@ -52,6 +52,7 @@ inputs should always be a [`Buffer`](https://nodejs.org/api/buffer.html).
 * [crypto.sign(message, secretKey)](#sign)
 * [crypto.verify(signature, message, secretKey)](#verify)
 * [crypto.curve25519.keyPair(\[seed\])](#curve25519-keyPair)
+* [crypto.curve25519.shared(secretKey, publicKey)](#curve25519-shared)
 * [crypto.ed25519.keyPair(\[seed\])](#ed25519-keyPair)
 * [crypto.ed25519.sign(message, secretKey)](#ed25519-sign)
 * [crypto.ed25519.verify(signature, message, secretKey)](#ed25519-verify)
@@ -133,6 +134,17 @@ calling `crypto_sign_ed25519_pk_to_curve25519` and
 ```js
 const seed = crypto.randomBytes(32)
 const { publicKey, secretKey } = crypto.curve25519.keyPair(seed)
+```
+
+### `crypto.curve25519.shared(secretKey, publicKey)`
+
+Compute a shared key from a 32 byte secret key and a 32 byte public
+key. If keys are larger than 32 bytes, they will be truncated when read.
+
+```js
+const alice = crypto.curve25519.keyPair()
+const bob = crypto.curve25519.keyPair()
+const shared = crypto.curve25519.shared(alice.secretKey, bob.publicKey)
 ```
 
 ### `crypto.ed25519.keyPair([seed])` <a name="ed25519-keyPair"></a>
