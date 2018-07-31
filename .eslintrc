@@ -1,6 +1,6 @@
 {
   "extends": "ara",
-  rules: {
+  "rules": {
     "eqeqeq": "off"
   }
 }
