@@ -26,17 +26,17 @@ const {
  */
 function keyPair(seed) {
   if (null === seed) {
-    throw new TypeError('crypto.keyPair: Seed cannot be null.')
+    throw new TypeError('ed25519.keyPair: Seed cannot be null.')
   } else if (undefined !== seed) {
     if (false === isBuffer(seed)) {
-      throw new TypeError('crypto.keyPair: Expecting seed to be a buffer.')
+      throw new TypeError('ed25519.keyPair: Expecting seed to be a buffer.')
     } else if (0 === seed.length) {
-      throw new TypeError('crypto.keyPair: Cannot use empty buffer as seed.')
+      throw new TypeError('ed25519.keyPair: Cannot use empty buffer as seed.')
     } else if (seed.length < crypto_sign_SEEDBYTES) {
-      throw new TypeError('crypto.keyPair: Seed buffer length too small. ' +
+      throw new TypeError('ed25519.keyPair: Seed buffer length too small. ' +
         `Expecting size ${crypto_sign_SEEDBYTES}.`)
     } else if (seed.length > crypto_sign_SEEDBYTES) {
-      throw new TypeError('crypto.keyPair: Seed buffer length too large. ' +
+      throw new TypeError('ed25519.keyPair: Seed buffer length too large. ' +
         `Expecting size ${crypto_sign_SEEDBYTES}.`)
     }
   }
@@ -65,15 +65,15 @@ function keyPair(seed) {
  */
 function sign(message, secretKey) {
   if (!message || false === isBuffer(message)) {
-    throw new TypeError('crypto.sign: Expecting message to be a buffer.')
+    throw new TypeError('ed25519.sign: Expecting message to be a buffer.')
   } else if (0 === message.length) {
-    throw new TypeError('crypto.sign: Cannot sign an empty message.')
+    throw new TypeError('ed25519.sign: Cannot sign an empty message.')
   }
 
   if (!secretKey || false === isBuffer(secretKey)) {
-    throw new TypeError('crypto.sign: Expecting secretKey to be a buffer.')
+    throw new TypeError('ed25519.sign: Expecting secretKey to be a buffer.')
   } else if (0 === secretKey.length) {
-    throw new TypeError('crypto.sign: Cannot sign with an empty secretKey.')
+    throw new TypeError('ed25519.sign: Cannot sign with an empty secretKey.')
   }
 
   const buffer = alloc(crypto_sign_BYTES)
@@ -95,33 +95,33 @@ function sign(message, secretKey) {
  */
 function verify(signature, message, publicKey) {
   if (false === isBuffer(signature)) {
-    throw new TypeError('crypto.verify: Expecting signature to be a buffer.')
+    throw new TypeError('ed25519.verify: Expecting signature to be a buffer.')
   } else if (0 === signature.length) {
     /* eslint-disable-next-line function-paren-newline */
     throw new TypeError(
-      'crypto.verify: Cannot verify message with an signature buffer.')
+      'ed25519.verify: Cannot verify message with an signature buffer.')
   } else if (signature.length < crypto_sign_BYTES) {
-    throw new TypeError('crypto.verify: Signature buffer too small.')
+    throw new TypeError('ed25519.verify: Signature buffer too small.')
   } else if (signature.length > crypto_sign_BYTES) {
-    throw new TypeError('crypto.verify: Signature buffer too large.')
+    throw new TypeError('ed25519.verify: Signature buffer too large.')
   }
 
   if (false === isBuffer(message)) {
-    throw new TypeError('crypto.verify: Expecting message to be a buffer.')
+    throw new TypeError('ed25519.verify: Expecting message to be a buffer.')
   } else if (0 === message.length) {
-    throw new TypeError('crypto.verify: Cannot verify an empty message buffer.')
+    throw new TypeError('ed25519.verify: Cannot verify an empty message buffer.')
   }
 
   if (false === isBuffer(publicKey)) {
-    throw new TypeError('crypto.verify: Expecting publicKey to be a buffer.')
+    throw new TypeError('ed25519.verify: Expecting publicKey to be a buffer.')
   } else if (0 === publicKey.length) {
     /* eslint-disable-next-line function-paren-newline */
     throw new TypeError(
-      'crypto.verify: Cannot verify message with an publicKey buffer.')
+      'ed25519.verify: Cannot verify message with an publicKey buffer.')
   } else if (publicKey.length < crypto_sign_PUBLICKEYBYTES) {
-    throw new TypeError('crypto.verify: Public key buffer too small.')
+    throw new TypeError('ed25519.verify: Public key buffer too small.')
   } else if (publicKey.length > crypto_sign_PUBLICKEYBYTES) {
-    throw new TypeError('crypto.verify: Public key buffer too large.')
+    throw new TypeError('ed25519.verify: Public key buffer too large.')
   }
 
   return crypto_sign_verify_detached(signature, message, publicKey)
