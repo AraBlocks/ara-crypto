@@ -34,7 +34,7 @@ function keyPair(seed) {
     if (false === isBuffer(seed)) {
       throw new TypeError('curve25519.keyPair: Expecting seed to be a buffer.')
     } else if (0 === seed.length) {
-      throw new TypeError('curve25519.keyPair: Cannot use empty buffer as seed.')
+      throw new TypeError('curve25519.keyPair: Seed buffer cannot be empty.')
     } else if (seed.length < crypto_sign_SEEDBYTES) {
       throw new TypeError('curve25519.keyPair: Seed buffer length too small. ' +
         `Expecting size ${crypto_sign_SEEDBYTES}.`)
