@@ -447,7 +447,7 @@ a given secret key.
 const message = Buffer.from('message')
 const keyPair = crypto.curve25519.keyPair()
 const key = crypto.blake2b(keyPair.secretKey, 16)
-const mac = crypto.short(message, keyPair)
+const mac = crypto.short(message, key)
 ```
 
 ## Contributing
