@@ -71,6 +71,7 @@ inputs should always be a [`Buffer`](https://nodejs.org/api/buffer.html).
 * [crypto.kx.server(opts)](#kx-server)
 * [crypto.seal(message, opts)](#seal)
 * [crypto.seal.open(message, opts)](#seal-open)
+* [crypto.shash(message, secretKey)](#shash)
 
 ### `crypto.randomBytes(size)` <a name="randomBytes"></a>
 
@@ -435,6 +436,18 @@ who has the corresponding secret key.
 ```js
 const { publicKey, secretKey } = getKeyPair()
 const message = crypto.seal.open(ciphertext, { publicKey, secretKey })
+```
+
+### `crypto.shash(message, secretKey)` <a name="shash"></a>
+
+Compute a 8 byte short hash for some message buffer based on
+a given secret key.
+
+```js
+const message = Buffer.from('message')
+const keyPair = crypto.curve25519.keyPair()
+const key = crypto.blake2b(keyPair.secretKey, 16)
+const mac = crypto.short(message, keyPair)
 ```
 
 ## Contributing
