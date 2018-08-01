@@ -109,7 +109,7 @@ function verify(signature, message, publicKey) {
   if (false === isBuffer(message)) {
     throw new TypeError('ed25519.verify: Expecting message to be a buffer.')
   } else if (0 === message.length) {
-    throw new TypeError('ed25519.verify: Cannot verify an empty message buffer.')
+    throw new TypeError('ed25519.verify: Message buffer cannot be empty.')
   }
 
   if (false === isBuffer(publicKey)) {
