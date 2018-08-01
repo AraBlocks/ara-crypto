@@ -15,6 +15,7 @@ const ed25519 = require('./ed25519')
 const base58 = require('./base58')
 const base64 = require('./base64')
 const uint64 = require('./uint64')
+const shash = require('./shash')
 const sss = require('./sss')
 const kx = require('./kx')
 
@@ -34,6 +35,7 @@ module.exports = {
   uint64,
   verify,
   unbox,
+  shash,
   auth,
   sign,
   seal,
