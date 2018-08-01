@@ -140,3 +140,7 @@ test('crypto.seal', (t) => {
 test('crypto.seal.open', (t) => {
   t.true('function' === typeof crypto.seal.open)
 })
+
+test('crypto.shash', (t) => {
+  t.true('function' === typeof crypto.shash)
+})
