@@ -11,6 +11,7 @@ const {
   crypto_secretbox_easy,
 } = require('sodium-universal')
 
+const kBoxHeaderSize = 2 + (2 * crypto_secretbox_MACBYTES)
 const kBoxBufferSize = 4 * 1024
 
 /**
@@ -122,16 +123,13 @@ function createBoxStream(opts) {
     throw new TypeError('crypto.createBoxStream: Expecting nonce.')
   }
 
-  const final = isBuffer(opts.final)
-    ? opts.final
-    : zeroes(2 + crypto_secretbox_MACBYTES)
-
-  return through(transform, flush)
+  return through(transform)
 
   function transform(buffer, enc, done) {
     const chunks = split(buffer, kBoxBufferSize)
+
     for (const chunk of chunks) {
-      const offset = 2 + (2 * crypto_secretbox_MACBYTES)
+      const offset = kBoxHeaderSize
       const boxed = box(chunk, opts)
       const nonce = increment(copy(boxed.nonce))
       const head = boxed.slice(0, offset)
@@ -144,11 +142,6 @@ function createBoxStream(opts) {
     }
 
     done(null)
-  }
-
-  function flush(done) {
-    const end = box(final, opts)
-    done(null, end)
   }
 }
 
