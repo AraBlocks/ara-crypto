@@ -145,12 +145,6 @@ function createBoxStream(opts) {
   }
 }
 
-function zeroes(n) {
-  const z = Buffer.allocUnsafe(n)
-  z.fill(0)
-  return z
-}
-
 function copy(x) {
   const y = Buffer.allocUnsafe(x.length)
   x.copy(y, 0, 0, x.length)
