@@ -50,12 +50,12 @@ inputs should always be a [`Buffer`](https://nodejs.org/api/buffer.html).
 * [crypto.discoveryKey(\[seed\]\[, size\]\[, key\])](#discoveryKey)
 * [crypto.keyPair(\[seed\])](#keyPair)
 * [crypto.sign(message, secretKey)](#sign)
-* [crypto.verify(signature, message, secretKey)](#verify)
+* [crypto.verify(signature, message, publicKey)](#verify)
 * [crypto.curve25519.keyPair(\[seed\])](#curve25519-keyPair)
 * [crypto.curve25519.shared(secretKey, publicKey)](#curve25519-shared)
 * [crypto.ed25519.keyPair(\[seed\])](#ed25519-keyPair)
 * [crypto.ed25519.sign(message, secretKey)](#ed25519-sign)
-* [crypto.ed25519.verify(signature, message, secretKey)](#ed25519-verify)
+* [crypto.ed25519.verify(signature, message, publicKey)](#ed25519-verify)
 * [crypto.uint64.encode(number)](#uint64-encode)
 * [crypto.uint64.decode(buffer)](#uint64-decode)
 * [crypto.encrypt(buffer, opts)](#encrypt)
@@ -439,6 +439,8 @@ const message = crypto.seal.open(ciphertext, { publicKey, secretKey })
 ```
 
 ### `crypto.shash(message, secretKey)` <a name="shash"></a>
+
+> **Stability: 2** - Stable
 
 Compute a 8 byte short hash for some message buffer based on
 a given secret key.
