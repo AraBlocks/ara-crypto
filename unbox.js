@@ -10,6 +10,8 @@ const {
   crypto_secretbox_open_easy,
 } = require('sodium-universal')
 
+const kBoxHeaderSize = 2 + (2 * crypto_secretbox_MACBYTES)
+
 /**
  * "Unboxes" or decrypts a buffer from a 32-byte encryption key and
  * a 24-byte nonce.
@@ -105,42 +107,30 @@ function createUnboxStream(opts) {
   }
 
   const backlog = []
-  const final = isBuffer(opts.final)
-    ? opts.final
-    : zeroes(2 + crypto_secretbox_MACBYTES)
 
   Object.assign(opts, { nonce: copy(opts.nonce) })
 
-  return through(transform, flush)
+  return through(transform)
 
   function transform(chunk, enc, done) {
-    backlog.push(chunk)
-
     // group packets together
-    if (2 == backlog.length) {
+    if (kBoxHeaderSize === chunk.length) {
+      backlog.push(chunk)
+    } else if (backlog.length) {
       const head = backlog.shift()
-      const body = backlog.shift()
+      const body = chunk
       const combined = Buffer.concat([ head, body ])
       const unboxed = unbox(combined, opts)
+
+      increment(opts.nonce)
+      increment(opts.nonce)
+
       this.push(unboxed)
-      increment(opts.nonce)
-      increment(opts.nonce)
+    } else {
+      backlog.push(chunk)
     }
 
     done(null)
-  }
-
-  function flush(done) {
-    let fin = null
-
-    if (backlog.length) {
-      const end = unbox(backlog.shift(), opts)
-      if (0 === Buffer.compare(end, final)) {
-        fin = end
-      }
-    }
-
-    done(null, fin)
   }
 }
 
