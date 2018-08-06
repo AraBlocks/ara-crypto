@@ -61,15 +61,14 @@ test('createUnboxStream(opts) throws on bad input', (t) => {
 test.cb('createUnboxStream(opts) that unboxes piped input', (t) => {
   const key = Buffer.alloc(32)
   const nonce = randomBytes(crypto_secretbox_NONCEBYTES)
-  const final = randomBytes(2 + crypto_secretbox_MACBYTES)
-  const buffer = Buffer.alloc(2 * 65536)
+  const buffer = Buffer.alloc(2 * 64)
   const chunks = []
 
   key.fill('hello')
   buffer.fill('hello')
 
-  const boxer = createBoxStream({ key, nonce, final })
-  const unboxer = createUnboxStream({ key, nonce, final })
+  const boxer = createBoxStream({ key, nonce })
+  const unboxer = createUnboxStream({ key, nonce })
 
   unboxer.on('data', ondata)
   unboxer.on('end', onend)
@@ -83,7 +82,6 @@ test.cb('createUnboxStream(opts) that unboxes piped input', (t) => {
   }
 
   function onend() {
-    t.true(0 === Buffer.compare(chunks.pop(), final))
     t.true(0 === Buffer.compare(Buffer.concat(chunks), buffer))
     t.end()
   }
@@ -92,14 +90,13 @@ test.cb('createUnboxStream(opts) that unboxes piped input', (t) => {
 test.cb('createUnboxStream(opts) that unboxes boxed written input', (t) => {
   const key = Buffer.alloc(32)
   const nonce = randomBytes(crypto_secretbox_NONCEBYTES)
-  const final = randomBytes(2 + crypto_secretbox_MACBYTES)
   const buffer = Buffer.from('hello')
 
   key.fill('hello')
   buffer.fill('hello')
 
   const boxed = box(buffer, { key, nonce })
-  const unboxer = createUnboxStream({ key, nonce, final })
+  const unboxer = createUnboxStream({ key, nonce })
 
   unboxer.on('data', ondata)
   unboxer.on('end', onend)
