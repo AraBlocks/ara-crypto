@@ -84,14 +84,13 @@ test('createBoxStream(opts) throws on bad input', (t) => {
 test.cb('createBoxStream(opts) returns stream that boxes input', (t) => {
   const key = Buffer.alloc(32)
   const nonce = randomBytes(crypto_secretbox_NONCEBYTES)
-  const final = randomBytes(2 + crypto_secretbox_MACBYTES)
   const buffer = Buffer.alloc(2 * 65536)
   const chunks = []
 
   key.fill('hello')
   buffer.fill('hello')
 
-  const stream = createBoxStream({ key, nonce, final })
+  const stream = createBoxStream({ key, nonce })
 
   stream.on('data', ondata)
   stream.on('end', onend)
@@ -103,7 +102,6 @@ test.cb('createBoxStream(opts) returns stream that boxes input', (t) => {
   }
 
   function onend() {
-    const fin = chunks.pop()
     const parts = []
 
     do {
@@ -114,8 +112,6 @@ test.cb('createBoxStream(opts) returns stream that boxes input', (t) => {
       increment(nonce)
       increment(nonce)
     } while (chunks.length > 0)
-
-    t.true(0 === Buffer.compare(final, unbox(fin, { key, nonce })))
 
     const result = Buffer.concat(parts)
     t.true(0 === Buffer.compare(result, buffer))
