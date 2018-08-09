@@ -126,6 +126,13 @@ function createUnboxStream(opts) {
       increment(opts.nonce)
 
       this.push(unboxed)
+    } else {
+      const unboxed = unbox(chunk, opts)
+
+      increment(opts.nonce)
+      increment(opts.nonce)
+
+      this.push(unboxed)
     }
 
     done(null)
