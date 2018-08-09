@@ -126,8 +126,6 @@ function createUnboxStream(opts) {
       increment(opts.nonce)
 
       this.push(unboxed)
-    } else {
-      backlog.push(chunk)
     }
 
     done(null)
