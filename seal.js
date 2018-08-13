@@ -8,7 +8,7 @@ const {
 
   crypto_box_seal_open,
   crypto_box_seal,
-} = require('sodium-universal')
+} = require('./sodium')
 
 // export open so we can access it like `crypto.seal.open`
 seal.open = open

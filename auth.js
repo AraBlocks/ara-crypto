@@ -2,12 +2,12 @@ const isBuffer = require('is-buffer')
 
 /* eslint-disable camelcase */
 const {
-  crypto_auth_KEYBYTES,
-  crypto_auth_BYTES,
+  crypto_auth_KEYBYTES = 32,
+  crypto_auth_BYTES = 32,
 
   crypto_auth_verify,
   crypto_auth,
-} = require('sodium-universal')
+} = require('./sodium')
 
 // export verify so we can access it like `crypto.auth.verify`
 auth.verify = verify
@@ -72,7 +72,7 @@ function verify(mac, message, key) {
     throw new TypeError(`verify: Invalid key length: ${key.length}`)
   }
 
-  return crypto_auth_verify(mac, message, key)
+  return Boolean(crypto_auth_verify(mac, message, key))
 }
 
 module.exports = {

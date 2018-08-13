@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-const { crypto_generichash_batch } = require('sodium-universal')
+const { crypto_generichash_batch } = require('./sodium')
 const isBuffer = require('is-buffer')
 const alloc = require('buffer-alloc-unsafe')
 

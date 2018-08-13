@@ -9,7 +9,7 @@ const {
   crypto_secretbox_MACBYTES,
 
   crypto_secretbox_easy,
-} = require('sodium-universal')
+} = require('./sodium')
 
 const kBoxHeaderSize = 2 + (2 * crypto_secretbox_MACBYTES)
 const kBoxBufferSize = 4 * 1024

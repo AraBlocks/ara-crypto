@@ -12,7 +12,7 @@ const {
   crypto_sign_seed_keypair,
   crypto_sign_detached,
   crypto_sign_keypair,
-} = require('sodium-universal')
+} = require('./sodium')
 
 /**
  * Generate a public and secret key pair from an optional

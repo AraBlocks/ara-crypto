@@ -14,7 +14,7 @@ const {
   crypto_sign_seed_keypair,
   crypto_sign_keypair,
   crypto_scalarmult,
-} = require('sodium-universal')
+} = require('./sodium')
 
 /**
  * Generate a Curve25519 public and secret key pair from an optional

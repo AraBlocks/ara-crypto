@@ -31,9 +31,12 @@
     "increment-buffer": "^1.0.1",
     "is-buffer": "^2.0.2",
     "is-zero-buffer": "^1.0.1",
+    "sodium-browserify": "^1.2.4",
+    "sodium-javascript": "^0.5.5",
     "sodium-universal": "^2.0.0",
     "split-buffer": "^1.0.0",
     "through2": "^2.0.3",
+    "tweetnacl-auth": "^1.0.1",
     "uint64be": "^2.0.2",
     "uuid": "^3.2.1"
   },

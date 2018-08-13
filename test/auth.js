@@ -9,7 +9,7 @@ const {
   crypto_auth_BYTES,
   crypto_auth_verify,
   crypto_auth,
-} = require('sodium-universal')
+} = require('../sodium')
 
 test('auth(message, key) is a function', (t) => {
   t.true('function' === typeof auth)
@@ -59,7 +59,7 @@ test('auth(message, key) creates a MAC', (t) => {
   const mac = auth(message, key)
   t.true(isBuffer(mac))
   t.true(crypto_auth_BYTES === mac.length)
-  t.true(crypto_auth_verify(mac, message, key))
+  t.true(Boolean(crypto_auth_verify(mac, message, key)))
 })
 
 test('verify(mac, message, key) verifies a MAC', (t) => {
