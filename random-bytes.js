@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-const { randombytes_buf } = require('sodium-universal')
+const { randombytes_buf } = require('./sodium')
 const alloc = require('buffer-alloc-unsafe')
 
 /**

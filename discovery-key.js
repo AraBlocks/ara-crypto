@@ -7,7 +7,7 @@ const kDefaultDiscoveryKeySize = 32
 const {
   crypto_generichash,
   crypto_generichash_KEYBYTES_MIN,
-} = require('sodium-universal')
+} = require('./sodium')
 
 const kDefaultDiscoveryKeyMessageKey = alloc(crypto_generichash_KEYBYTES_MIN)
 kDefaultDiscoveryKeyMessageKey.fill('ara')

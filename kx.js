@@ -11,7 +11,7 @@ const {
   crypto_kx_client_session_keys,
   crypto_kx_server_session_keys,
   crypto_kx_seed_keypair,
-} = require('sodium-universal')
+} = require('./sodium')
 
 /**
  * Generates a key exchange key pair.

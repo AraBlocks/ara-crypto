@@ -6,7 +6,7 @@ const {
   crypto_shorthash_BYTES,
 
   crypto_shorthash,
-} = require('sodium-universal')
+} = require('./sodium')
 
 /**
  * Compute a 8 byte short hash for some message buffer based on
