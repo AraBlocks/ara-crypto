@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/AraBlocks/ara-crypto#readme",
   "dependencies": {
+    "ara-secret-storage": "github:arablocks/ara-secret-storage",
     "base-x": "^3.0.4",
     "buffer-alloc-unsafe": "^1.0.0",
     "increment-buffer": "^1.0.1",
