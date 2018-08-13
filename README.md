@@ -58,8 +58,8 @@ inputs should always be a [`Buffer`](https://nodejs.org/api/buffer.html).
 * [crypto.ed25519.verify(signature, message, publicKey)](#ed25519-verify)
 * [crypto.uint64.encode(number)](#uint64-encode)
 * [crypto.uint64.decode(buffer)](#uint64-decode)
-* [crypto.encrypt(buffer, opts)](#encrypt)
-* [crypto.decrypt(encrypted, opts)](#decrypt)
+* **DEPRECATED** [crypto.encrypt(buffer, opts)](#encrypt)
+* **DEPRECATED** [crypto.decrypt(encrypted, opts)](#decrypt)
 * [crypto.box(buffer, opts)](#box)
 * [crypto.unbox(buffer, opts)](#unbox)
 * [crypto.createBoxStream(opts)](#createBoxStream)
@@ -219,49 +219,15 @@ const number = crypto.uint64.decode(buffer) // 80
 
 ### `crypto.encrypt(value, opts)` <a name="encrypt"></a>
 
-> **Stability: 1** - Experimental
-
-Encrypts value into a "crypto" object configured by
-an initialization vector (iv) and secret key (key) with
-optional cipher and digest algorithms.
-
-```js
-const message = Buffer.from('hello')
-const key = Buffer.alloc(16).fill('key')
-const iv = crypto.randomBytes(16)
-const enc = crypto.encrypt(message, { key, iv })
-console.log(enc)
-```
-
-Should output:
-
-```js
-{ id: 'a83f4ea0-f486-4d32-82ec-8a047bd085a7',
-  version: 0,
-  crypto:
-    { cipherparams: { iv: 'a292924998b67cf8d1abcb5f1174e7de' },
-      ciphertext: '5e46475c92',
-      cipher: 'aes-128-ctr',
-      digest: 'sha1',
-      mac: '702deecad7b3bf12ae9bcff7cfd13ee24e43cd13' } }
-
-```
+**DEPRECATED** (_2018-08-13_) - Please use
+[ara-secret-storage](https://github.com/AraBlocks/ara-secret-storage#encrypt)
+instead.
 
 ### `crypto.decrypt(value, opts)` <a name="decrypt"></a>
 
-> **Stability: 1** - Experimental
-
-Decrypt an encrypted "crypto" object into the originally
-encoded buffer.
-
-```js
-const message = Buffer.from('hello')
-const key = Buffer.alloc(16).fill('key')
-const iv = crypto.randomBytes(16)
-const enc = crypto.encrypt(message, { key, iv })
-const dec = crypto.decrypt(enc, { key })
-assert(0 == Buffer.compare(dec, message))
-```
+**DEPRECATED** (_2018-08-13_) - Please use
+[ara-secret-storage](https://github.com/AraBlocks/ara-secret-storage#decrypt)
+instead.
 
 ### `crypto.box(buffer, opts)` <a name="box"></a>
 
