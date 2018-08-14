@@ -1,0 +1,17 @@
+require('../auth')
+require('../blake2b')
+require('../box')
+require('../curve25519')
+require('../discovery-key')
+require('../ed25519')
+require('../index')
+require('../key-pair')
+// require('../kx') // See #26
+require('../random-bytes')
+// require('../seal') // See #26
+require('../shash')
+require('../sign')
+require('../sss')
+require('../uint64')
+require('../unbox')
+require('../verify')
