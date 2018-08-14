@@ -1,9 +1,10 @@
 const { randomBytes } = require('../random-bytes')
 const isBuffer = require('is-buffer')
-const test = require('ava')
+const test = require('./helpers/runner')
 
-test('randomBytes(size)', async (t) => {
+test.cb('randomBytes(size)', (t) => {
   t.plan(13)
+
   t.throws(() => randomBytes(null), TypeError)
   t.throws(() => randomBytes(), TypeError)
   t.throws(() => randomBytes(0), TypeError)
@@ -17,4 +18,6 @@ test('randomBytes(size)', async (t) => {
   t.true(16 === randomBytes(16).length)
   t.true(8 === randomBytes(8).length)
   t.true(isBuffer(randomBytes(4)))
+
+  t.end()
 })

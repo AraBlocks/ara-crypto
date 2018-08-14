@@ -1,7 +1,7 @@
 const { auth, verify } = require('../auth')
 const { randomBytes } = require('../random-bytes')
 const isBuffer = require('is-buffer')
-const test = require('ava')
+const test = require('./helpers/runner')
 
 /* eslint-disable camelcase */
 const {
@@ -11,20 +11,23 @@ const {
   crypto_auth,
 } = require('../sodium')
 
-test('auth(message, key) is a function', (t) => {
+test.cb('auth(message, key) is a function', (t) => {
   t.true('function' === typeof auth)
+  t.end()
 })
 
-test('verify(mac, message, key) is a function', (t) => {
+test.cb('verify(mac, message, key) is a function', (t) => {
   t.true('function' === typeof verify)
+  t.end()
 })
 
-test('auth.verify(mac, message, key) is a function', (t) => {
+test.cb('auth.verify(mac, message, key) is a function', (t) => {
   t.true('function' === typeof auth.verify)
   t.true(auth.verify === verify)
+  t.end()
 })
 
-test('auth(message, key) throws on bad input', (t) => {
+test.cb('auth(message, key) throws on bad input', (t) => {
   t.throws(() => auth(), TypeError)
   t.throws(() => auth(null, null), TypeError)
   t.throws(() => auth(1, {}), TypeError)
@@ -33,9 +36,10 @@ test('auth(message, key) throws on bad input', (t) => {
   t.throws(() => auth(Buffer.alloc(0), Buffer.alloc(0)), TypeError)
   t.throws(() => auth(Buffer.from('hello'), Buffer.alloc(0)), TypeError)
   t.throws(() => auth(Buffer.from('hello'), Buffer.from('key')), TypeError)
+  t.end()
 })
 
-test('verify(mac, message, key) throws on bad input', (t) => {
+test.cb('verify(mac, message, key) throws on bad input', (t) => {
   const hello = Buffer.from('hello')
   const key = Buffer.from('key')
   t.throws(() => verify(), TypeError)
@@ -51,18 +55,20 @@ test('verify(mac, message, key) throws on bad input', (t) => {
   t.throws(() => verify(null, hello, key), TypeError)
   t.throws(() => verify('', hello, key), TypeError)
   t.throws(() => verify(hello, hello, key), TypeError)
+  t.end()
 })
 
-test('auth(message, key) creates a MAC', (t) => {
+test.cb('auth(message, key) creates a MAC', (t) => {
   const message = Buffer.from('hello')
   const key = randomBytes(crypto_auth_KEYBYTES)
   const mac = auth(message, key)
   t.true(isBuffer(mac))
   t.true(crypto_auth_BYTES === mac.length)
   t.true(Boolean(crypto_auth_verify(mac, message, key)))
+  t.end()
 })
 
-test('verify(mac, message, key) verifies a MAC', (t) => {
+test.cb('verify(mac, message, key) verifies a MAC', (t) => {
   const message = Buffer.from('hello')
   const key = randomBytes(crypto_auth_KEYBYTES)
   const mac = auth(message, key)
@@ -75,4 +81,5 @@ test('verify(mac, message, key) verifies a MAC', (t) => {
   const out = Buffer.allocUnsafe(crypto_auth_BYTES)
   crypto_auth(out, message, key)
   t.true(verify(out, message, key))
+  t.end()
 })

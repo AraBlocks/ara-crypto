@@ -1,38 +1,45 @@
 const isBuffer = require('is-buffer')
-const test = require('ava')
+const test = require('./helpers/runner')
 const sss = require('../sss')
 
 const ZERO = Buffer.alloc(16)
 ZERO.fill(0)
 
-test('sss.isSecret(secret) is a function', (t) => {
+test.cb('sss.isSecret(secret) is a function', (t) => {
   t.true('function' === typeof sss.isSecret)
+  t.end()
 })
 
-test('sss.init(opts) is a function', (t) => {
+test.cb('sss.init(opts) is a function', (t) => {
   t.true('function' === typeof sss.init)
+  t.end()
 })
 
-test('sss.secret(value, opts) is a function', (t) => {
+test.cb('sss.secret(value, opts) is a function', (t) => {
   t.true('function' === typeof sss.secret)
+  t.end()
 })
 
-test('sss.shares(secret, opts) is a function', (t) => {
+test.cb('sss.shares(secret, opts) is a function', (t) => {
   t.true('function' === typeof sss.shares)
+  t.end()
 })
 
-test('sss.recover(shares, opts) is a function', (t) => {
+test.cb('sss.recover(shares, opts) is a function', (t) => {
   t.true('function' === typeof sss.recover)
+  t.end()
 })
 
-test('sss.init(opts) throws on bad input', (t) => {
+test.cb('sss.init(opts) throws on bad input', (t) => {
   t.throws(() => sss.init(() => {}), TypeError)
   t.throws(() => sss.init(true), TypeError)
   t.throws(() => sss.init(123), TypeError)
   t.throws(() => sss.init(''), TypeError)
+
+  t.end()
 })
 
-test('sss.secret(opts) throws on bad input', (t) => {
+test.cb('sss.secret(opts) throws on bad input', (t) => {
   t.throws(() => sss.secret(undefined), TypeError)
   t.throws(() => sss.secret(null), TypeError)
   t.throws(() => sss.secret({}), TypeError)
@@ -49,24 +56,31 @@ test('sss.secret(opts) throws on bad input', (t) => {
   t.throws(() => sss.secret('secret', 123), TypeError)
   t.throws(() => sss.secret('secret', ''), TypeError)
   t.throws(() => sss.secret('secret', () => {}), TypeError)
+
+  t.end()
 })
 
-test('sss.shares(opts) throws on bad input', (t) => {
+test.cb('sss.shares(opts) throws on bad input', (t) => {
   t.throws(() => sss.shares(() => {}), TypeError)
   t.throws(() => sss.shares(true), TypeError)
   t.throws(() => sss.shares(123), TypeError)
   t.throws(() => sss.shares(''), TypeError)
+
+  t.end()
 })
 
-test('sss.recover(opts) throws on bad input', (t) => {
+test.cb('sss.recover(opts) throws on bad input', (t) => {
   t.throws(() => sss.recover(() => {}), TypeError)
   t.throws(() => sss.recover(true), TypeError)
   t.throws(() => sss.recover(123), TypeError)
   t.throws(() => sss.recover(''), TypeError)
+
+  t.end()
 })
 
-test('sss.init(opts) simple with defaults', (t) => {
+test.cb('sss.init(opts) simple with defaults', (t) => {
   const ctx = sss.init()
+
   t.true('object' === typeof ctx)
   t.true('number' === typeof ctx.bits)
   t.true('number' === typeof ctx.size)
@@ -79,40 +93,54 @@ test('sss.init(opts) simple with defaults', (t) => {
   t.true('object' === typeof ctx.table)
   t.true('object' === typeof ctx.codec)
   t.true(isBuffer(ctx.entropy))
+
+  t.end()
 })
 
-test('sss.secret(value) simple', (t) => {
+test.cb('sss.secret(value) simple', (t) => {
   const secret = sss.secret('secret key')
+
   t.true('object' === typeof secret)
   t.true(isBuffer(secret.buffer))
+
+  t.end()
 })
 
-test('sss.shares(secret, opts) simple', (t) => {
+test.cb('sss.shares(secret, opts) simple', (t) => {
   const shares = sss.shares('secret key', { shares: 10, threshold: 5 })
+
   t.true(Array.isArray(shares))
   t.true(10 === shares.length)
   t.true(shares.every(share => isBuffer(share)))
+
+  t.end()
 })
 
-test('sss.recover(shares, opts) simple', (t) => {
+test.cb('sss.recover(shares, opts) simple', (t) => {
   const key = Buffer.from('secret key')
   const secret = sss.secret(key)
   const shares = sss.shares(secret, { shares: 10, threshold: 5 })
   const recovered = sss.recover(shares.slice(2, 7))
+
   t.true(0 === Buffer.compare(key, recovered.buffer))
+
+  t.end()
 })
 
-test('simple', (t) => {
+test.cb('simple', (t) => {
   const ctx = sss.init()
   const key = Buffer.from('key')
   const secret = ctx.secret(key)
   const shares = ctx.shares(secret, { shares: 10, threshold: 5 })
   const recovered = ctx.recover(shares)
+
   t.true(0 === Buffer.compare(recovered.buffer, key))
+
+  t.end()
 })
 
 // as of 2018-07-26
-test('compatibility 1 (DO NOT REMOVE)', (t) => {
+test.cb('compatibility 1 (DO NOT REMOVE)', (t) => {
   const ctx = sss.init()
   t.true('object' === typeof ctx)
 
@@ -136,11 +164,14 @@ test('compatibility 1 (DO NOT REMOVE)', (t) => {
     ctx.recover(knownShares).buffer,
     knownKey
   ))
+
+  t.end()
 })
 
 // as of 2018-07-26
-test('compatibility 2 (DO NOT REMOVE)', (t) => {
+test.cb('compatibility 2 (DO NOT REMOVE)', (t) => {
   const ctx = sss.init()
+
   t.true('object' === typeof ctx)
 
   // DO NOT REMOVE
@@ -161,5 +192,8 @@ test('compatibility 2 (DO NOT REMOVE)', (t) => {
 
   const secret = ctx.secret(ctx.codec.decode(knownKey))
   const recovered = ctx.recover(knownShares)
+
   t.true(0 === Buffer.compare(secret.buffer, recovered.buffer))
+
+  t.end()
 })

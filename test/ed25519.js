@@ -1,6 +1,6 @@
 const { keyPair, verify, sign } = require('../ed25519')
 const isBuffer = require('is-buffer')
-const test = require('ava')
+const test = require('./helpers/runner')
 
 /* eslint-disable camelcase */
 const {
@@ -9,7 +9,7 @@ const {
   crypto_sign_BYTES,
 } = require('sodium-universal')
 
-test('ed25519.keyPair(seed)', (t) => {
+test.cb('ed25519.keyPair(seed)', (t) => {
   t.throws(() => keyPair(null), TypeError)
   t.throws(() => keyPair(0), TypeError)
   t.throws(() => keyPair(''), TypeError)
@@ -18,15 +18,18 @@ test('ed25519.keyPair(seed)', (t) => {
   t.throws(() => keyPair(Buffer.alloc(0)), TypeError)
   t.throws(() => keyPair(Buffer.alloc(crypto_sign_SEEDBYTES + 1)), TypeError)
   t.throws(() => keyPair(Buffer.alloc(crypto_sign_SEEDBYTES - 1)), TypeError)
+
   t.true('object' === typeof keyPair())
   t.true('object' === typeof keyPair(Buffer.alloc(32).fill('hello')))
   t.true(isBuffer(keyPair().publicKey))
   t.true(isBuffer(keyPair().secretKey))
   t.true(32 === keyPair().publicKey.length)
   t.true(64 === keyPair().secretKey.length)
+
+  t.end()
 })
 
-test('ed25519.verify(signature, message, publicKey)', (t) => {
+test.cb('ed25519.verify(signature, message, publicKey)', (t) => {
   const { publicKey, secretKey } = keyPair()
 
   t.throws(() => verify(0, 0, 0), TypeError)
@@ -102,9 +105,11 @@ test('ed25519.verify(signature, message, publicKey)', (t) => {
   t.throws(() => verify(signature, message, ''), TypeError)
 
   t.true(verify(signature, message, publicKey))
+
+  t.end()
 })
 
-test('ed25519.sign(message, secretKey)', (t) => {
+test.cb('ed25519.sign(message, secretKey)', (t) => {
   t.throws(() => sign(0, 0), TypeError)
   t.throws(() => sign(null, 0), TypeError)
   t.throws(() => sign(true, 0), TypeError)
@@ -127,4 +132,6 @@ test('ed25519.sign(message, secretKey)', (t) => {
   const { secretKey } = keyPair()
 
   t.true(isBuffer(sign(Buffer.from('message'), secretKey)))
+
+  t.end()
 })

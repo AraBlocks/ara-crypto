@@ -2,7 +2,7 @@ const { unbox, createUnboxStream } = require('../unbox')
 const { box, createBoxStream } = require('../box')
 const { randomBytes } = require('../random-bytes')
 const isBuffer = require('is-buffer')
-const test = require('ava')
+const test = require('./helpers/runner')
 
 /* eslint-disable camelcase */
 const {
@@ -10,11 +10,12 @@ const {
   crypto_secretbox_MACBYTES,
 } = require('sodium-universal')
 
-test('unbox(opts) is a function', (t) => {
+test.cb('unbox(opts) is a function', (t) => {
   t.true('function' === typeof unbox)
+  t.end()
 })
 
-test('unbox(opts) throws on bad input', (t) => {
+test.cb('unbox(opts) throws on bad input', (t) => {
   t.throws(() => unbox(), TypeError)
   t.throws(() => unbox(null), TypeError)
   t.throws(() => unbox(true), TypeError)
@@ -22,40 +23,55 @@ test('unbox(opts) throws on bad input', (t) => {
   t.throws(() => unbox('string'), TypeError)
   t.throws(() => unbox({ secret: null }), TypeError)
   t.throws(() => unbox({ key: null }), TypeError)
+
+  t.end()
 })
 
-test('unbox(opts) basic with key', (t) => {
+test.cb('unbox(opts) basic with key', (t) => {
   const buffer = Buffer.from('hello')
   const nonce = randomBytes(24)
   const key = Buffer.alloc(32)
+
   key.fill('key')
+
   const boxed = box(buffer, { nonce, key })
   const unboxed = unbox(boxed, { nonce, key })
+
   t.true(isBuffer(unboxed))
   t.true(0 == Buffer.compare(buffer, unboxed))
+
+  t.end()
 })
 
-test('unbox(opts) basic with secret', (t) => {
+test.cb('unbox(opts) basic with secret', (t) => {
   const buffer = Buffer.from('hello')
   const nonce = randomBytes(24)
   const key = Buffer.alloc(32)
+
   key.fill('key')
+
   const secret = Buffer.concat([ key, nonce ])
   const boxed = box(buffer, { secret })
   const unboxed = unbox(boxed, { secret })
+
   t.true(isBuffer(unboxed))
   t.true(0 == Buffer.compare(buffer, unboxed))
+
+  t.end()
 })
 
-test('createUnboxStream(opts) is a function', (t) => {
+test.cb('createUnboxStream(opts) is a function', (t) => {
   t.true('function' === typeof createUnboxStream)
+  t.end()
 })
 
-test('createUnboxStream(opts) throws on bad input', (t) => {
+test.cb('createUnboxStream(opts) throws on bad input', (t) => {
   t.throws(() => createUnboxStream(null), TypeError)
   t.throws(() => createUnboxStream(true), TypeError)
   t.throws(() => createUnboxStream(123), TypeError)
   t.throws(() => createUnboxStream(), TypeError)
+
+  t.end()
 })
 
 test.cb('createUnboxStream(opts) that unboxes piped input', (t) => {

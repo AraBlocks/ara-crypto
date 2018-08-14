@@ -1,138 +1,172 @@
 const crypto = require('../')
-const test = require('ava')
+const test = require('./helpers/runner')
 
-test('crypto.createUnboxStream', (t) => {
+test.cb('crypto.createUnboxStream', (t) => {
   t.true('function' === typeof crypto.createUnboxStream)
+  t.end()
 })
 
-test('crypto.createBoxStream', (t) => {
+test.cb('crypto.createBoxStream', (t) => {
   t.true('function' === typeof crypto.createBoxStream)
+  t.end()
 })
 
-test('crypto.discoveryKey', (t) => {
+test.cb('crypto.discoveryKey', (t) => {
   t.true('function' === typeof crypto.discoveryKey)
+  t.end()
 })
 
-test('crypto.randomBytes', (t) => {
+test.cb('crypto.randomBytes', (t) => {
   t.true('function' === typeof crypto.randomBytes)
+  t.end()
 })
 
-test('crypto.curve25519', (t) => {
+test.cb('crypto.curve25519', (t) => {
   t.true('object' === typeof crypto.curve25519)
+  t.end()
 })
 
-test('crypto.curve25519.keyPair', (t) => {
+test.cb('crypto.curve25519.keyPair', (t) => {
   t.true('function' === typeof crypto.curve25519.keyPair)
+  t.end()
 })
 
-test('crypto.ed25519', (t) => {
+test.cb('crypto.ed25519', (t) => {
   t.true('object' === typeof crypto.ed25519)
+  t.end()
 })
 
-test('crypto.ed25519.keyPair', (t) => {
+test.cb('crypto.ed25519.keyPair', (t) => {
   t.true('function' === typeof crypto.ed25519.keyPair)
+  t.end()
 })
 
-test('crypto.ed25519.sign', (t) => {
+test.cb('crypto.ed25519.sign', (t) => {
   t.true('function' === typeof crypto.ed25519.sign)
+  t.end()
 })
 
-test('crypto.ed25519.verify', (t) => {
+test.cb('crypto.ed25519.verify', (t) => {
   t.true('function' === typeof crypto.ed25519.verify)
+  t.end()
 })
 
-test('crypto.blake2b', (t) => {
+test.cb('crypto.blake2b', (t) => {
   t.true('function' === typeof crypto.blake2b)
+  t.end()
 })
 
-test('crypto.keyPair', (t) => {
+test.cb('crypto.keyPair', (t) => {
   t.true('function' === typeof crypto.keyPair)
+  t.end()
 })
 
-test('crypto.base58', (t) => {
+test.cb('crypto.base58', (t) => {
   t.true('object' === typeof crypto.base58)
+  t.end()
 })
 
-test('crypto.base58.encode', (t) => {
+test.cb('crypto.base58.encode', (t) => {
   t.true('function' === typeof crypto.base58.encode)
+  t.end()
 })
 
-test('crypto.base58.decode', (t) => {
+test.cb('crypto.base58.decode', (t) => {
   t.true('function' === typeof crypto.base58.decode)
+  t.end()
 })
 
-test('crypto.base64', (t) => {
+test.cb('crypto.base64', (t) => {
   t.true('object' === typeof crypto.base64)
+  t.end()
 })
 
-test('crypto.base64.encode', (t) => {
+test.cb('crypto.base64.encode', (t) => {
   t.true('function' === typeof crypto.base64.encode)
+  t.end()
 })
 
-test('crypto.base64.decode', (t) => {
+test.cb('crypto.base64.decode', (t) => {
   t.true('function' === typeof crypto.base64.decode)
+  t.end()
 })
 
-test('crypto.uint64', (t) => {
+test.cb('crypto.uint64', (t) => {
   t.true('object' === typeof crypto.uint64)
+  t.end()
 })
 
-test('crypto.uint64.encode', (t) => {
+test.cb('crypto.uint64.encode', (t) => {
   t.true('function' === typeof crypto.uint64.encode)
+  t.end()
 })
 
-test('crypto.uint64.decode', (t) => {
+test.cb('crypto.uint64.decode', (t) => {
   t.true('function' === typeof crypto.uint64.decode)
+  t.end()
 })
 
-test('crypto.verify', (t) => {
+test.cb('crypto.verify', (t) => {
   t.true('function' === typeof crypto.verify)
+  t.end()
 })
 
-test('crypto.unbox', (t) => {
+test.cb('crypto.unbox', (t) => {
   t.true('function' === typeof crypto.unbox)
+  t.end()
 })
 
-test('crypto.auth', (t) => {
+test.cb('crypto.auth', (t) => {
   t.true('function' === typeof crypto.auth)
+  t.end()
 })
 
-test('crypto.auth.verify', (t) => {
+test.cb('crypto.auth.verify', (t) => {
   t.true('function' === typeof crypto.auth.verify)
+  t.end()
 })
 
-test('crypto.sign', (t) => {
+test.cb('crypto.sign', (t) => {
   t.true('function' === typeof crypto.sign)
+  t.end()
 })
 
-test('crypto.box', (t) => {
+test.cb('crypto.box', (t) => {
   t.true('function' === typeof crypto.box)
+  t.end()
 })
 
-test('crypto.kx', (t) => {
+test.cb('crypto.kx', (t) => {
   t.true('object' === typeof crypto.kx)
+  t.end()
 })
 
-test('crypto.kx.keyPair', (t) => {
+test.cb('crypto.kx.keyPair', (t) => {
   t.true('function' === typeof crypto.kx.keyPair)
+  t.end()
 })
 
-test('crypto.kx.client', (t) => {
+test.cb('crypto.kx.client', (t) => {
   t.true('function' === typeof crypto.kx.client)
+  t.end()
 })
 
-test('crypto.kx.server', (t) => {
+test.cb('crypto.kx.server', (t) => {
   t.true('function' === typeof crypto.kx.server)
+  t.end()
 })
 
-test('crypto.seal', (t) => {
+test.cb('crypto.seal', (t) => {
   t.true('function' === typeof crypto.seal)
+  t.end()
 })
 
-test('crypto.seal.open', (t) => {
+test.cb('crypto.seal.open', (t) => {
   t.true('function' === typeof crypto.seal.open)
+  t.end()
 })
 
-test('crypto.shash', (t) => {
+test.cb('crypto.shash', (t) => {
   t.true('function' === typeof crypto.shash)
+  t.end()
 })
