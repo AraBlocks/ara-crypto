@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
     "coverage": "npm run nyc",
-    "nyc": "nyc -x bench -a ava test"
+    "nyc": "nyc -x bench -x test/helpers -a ava test"
   },
   "repository": {
     "type": "git",
