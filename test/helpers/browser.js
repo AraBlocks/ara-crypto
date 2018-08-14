@@ -6,9 +6,9 @@ require('../discovery-key')
 require('../ed25519')
 require('../index')
 require('../key-pair')
-// require('../kx') // See #26
+// require('../kx') // See #21, #24
 require('../random-bytes')
-// require('../seal') // See #26
+// require('../seal') // See #21, #23
 require('../shash')
 require('../sign')
 require('../sss')
