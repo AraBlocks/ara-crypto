@@ -1,8 +1,8 @@
 const { keyPair, shared } = require('../curve25519')
 const isBuffer = require('is-buffer')
-const test = require('ava')
+const test = require('./helpers/runner')
 
-test('curve25519.keyPair(seed)', (t) => {
+test.cb('curve25519.keyPair(seed)', (t) => {
   t.throws(() => keyPair(null), TypeError)
   t.throws(() => keyPair(0), TypeError)
   t.throws(() => keyPair(''), TypeError)
@@ -18,9 +18,11 @@ test('curve25519.keyPair(seed)', (t) => {
   t.true(isBuffer(keyPair().secretKey))
   t.true(32 === keyPair().publicKey.length)
   t.true(32 === keyPair().secretKey.length)
+
+  t.end()
 })
 
-test('curve25519.shared(secretKey, publicKey)', (t) => {
+test.cb('curve25519.shared(secretKey, publicKey)', (t) => {
   t.throws(() => shared(), TypeError)
   t.throws(() => shared(0, 0), TypeError)
   t.throws(() => shared('', ''), TypeError)
@@ -37,4 +39,6 @@ test('curve25519.shared(secretKey, publicKey)', (t) => {
 
   t.true(isBuffer(key))
   t.true(32 === key.length)
+
+  t.end()
 })

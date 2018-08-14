@@ -1,6 +1,6 @@
 const isBuffer = require('is-buffer')
 const { shash } = require('../shash')
-const test = require('ava')
+const test = require('./helpers/runner')
 
 /* eslint-disable camelcase */
 const {
@@ -8,11 +8,12 @@ const {
   crypto_shorthash_BYTES,
 } = require('sodium-universal')
 
-test('shash(message, secretKey) is a function', (t) => {
+test.cb('shash(message, secretKey) is a function', (t) => {
   t.true('function' === typeof shash)
+  t.end()
 })
 
-test('shash(message, secretKey) throws on bad input', (t) => {
+test.cb('shash(message, secretKey) throws on bad input', (t) => {
   t.throws(() => shash(), TypeError)
   t.throws(() => shash(null, null), TypeError)
   t.throws(() => shash(123, null), TypeError)
@@ -34,14 +35,19 @@ test('shash(message, secretKey) throws on bad input', (t) => {
     Buffer.alloc(0),
     Buffer.alloc(crypto_shorthash_KEYBYTES)
   ), RangeError)
+
+  t.end()
 })
 
-test('shash(message, secretKey) simple', (t) => {
+test.cb('shash(message, secretKey) simple', (t) => {
   const message = Buffer.from('hello')
   const key = Buffer.alloc(crypto_shorthash_KEYBYTES).fill('secret')
   const hash = shash(message, key)
+
   t.true(isBuffer(hash))
   t.true(crypto_shorthash_BYTES === hash.length)
   t.true(0 === Buffer.compare(hash, shash(message, key)))
   t.true(0 !== Buffer.compare(shash(hash, key), shash(message, key)))
+
+  t.end()
 })

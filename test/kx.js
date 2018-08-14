@@ -1,6 +1,6 @@
 const { randomBytes } = require('../random-bytes')
 const isBuffer = require('is-buffer')
-const test = require('ava')
+const test = require('./helpers/runner')
 const kx = require('../kx')
 
 /* eslint-disable camelcase */
@@ -11,11 +11,12 @@ const {
   crypto_kx_SEEDBYTES,
 } = require('sodium-universal')
 
-test('kx.keyPair(seed) is a function', (t) => {
+test.cb('kx.keyPair(seed) is a function', (t) => {
   t.true('function' === typeof kx.keyPair)
+  t.end()
 })
 
-test('kx.keyPair(seed) throws on bad input', (t) => {
+test.cb('kx.keyPair(seed) throws on bad input', (t) => {
   t.throws(() => kx.keyPair(null), TypeError)
   t.throws(() => kx.keyPair(1), TypeError)
   t.throws(() => kx.keyPair({}), TypeError)
@@ -26,18 +27,22 @@ test('kx.keyPair(seed) throws on bad input', (t) => {
   t.throws(() => kx.keyPair(randomBytes(0)), TypeError)
   t.throws(() => kx.keyPair(randomBytes(crypto_kx_SEEDBYTES + 1)), TypeError)
   t.throws(() => kx.keyPair(randomBytes(crypto_kx_SEEDBYTES - 1)), TypeError)
+  t.end()
 })
 
-test('kx.keyPair(seed) returns a random key pair without seed', (t) => {
+test.cb('kx.keyPair(seed) returns a random key pair without seed', (t) => {
   const kp = kx.keyPair()
+
   t.true('object' === typeof kp)
   t.true(isBuffer(kp.publicKey))
   t.true(isBuffer(kp.secretKey))
   t.true(crypto_kx_PUBLICKEYBYTES === kp.publicKey.length)
   t.true(crypto_kx_SECRETKEYBYTES === kp.secretKey.length)
+
+  t.end()
 })
 
-test('kx.keyPair(seed) returns a key pair from seed', (t) => {
+test.cb('kx.keyPair(seed) returns a key pair from seed', (t) => {
   const seed = randomBytes(crypto_kx_SEEDBYTES)
   const kp1 = kx.keyPair(seed)
   const kp2 = kx.keyPair(seed)
@@ -49,13 +54,16 @@ test('kx.keyPair(seed) returns a key pair from seed', (t) => {
   t.true(crypto_kx_SECRETKEYBYTES === kp1.secretKey.length)
   t.true(0 === Buffer.compare(kp1.publicKey, kp2.publicKey))
   t.true(0 === Buffer.compare(kp1.secretKey, kp2.secretKey))
+
+  t.end()
 })
 
-test('kx.client(opts) is a function', (t) => {
+test.cb('kx.client(opts) is a function', (t) => {
   t.true('function' === typeof kx.client)
+  t.end()
 })
 
-test('kx.client(opts) throws on bad input', (t) => {
+test.cb('kx.client(opts) throws on bad input', (t) => {
   t.throws(() => kx.client(), TypeError)
   t.throws(() => kx.client(null), TypeError)
   t.throws(() => kx.client(123), TypeError)
@@ -118,12 +126,15 @@ test('kx.client(opts) throws on bad input', (t) => {
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES - 1),
     server: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES) },
   }), TypeError)
+
+  t.end()
 })
 
-test('kx.client(opts) computes session keys for client', (t) => {
+test.cb('kx.client(opts) computes session keys for client', (t) => {
   const server = kx.keyPair()
   const { publicKey, secretKey } = kx.keyPair()
   const client = kx.client({ publicKey, secretKey, server })
+
   t.true('object' === typeof client)
   t.true(isBuffer(client.receiver))
   t.true(isBuffer(client.sender))
@@ -131,13 +142,16 @@ test('kx.client(opts) computes session keys for client', (t) => {
   t.true(0 === Buffer.compare(client.tx, client.sender))
   t.true(crypto_kx_SESSIONKEYBYTES === client.receiver.length)
   t.true(crypto_kx_SESSIONKEYBYTES === client.sender.length)
+
+  t.end()
 })
 
-test('kx.server(opts) is a function', (t) => {
+test.cb('kx.server(opts) is a function', (t) => {
   t.true('function' === typeof kx.server)
+  t.end()
 })
 
-test('kx.server(opts) throws on bad input', (t) => {
+test.cb('kx.server(opts) throws on bad input', (t) => {
   t.throws(() => kx.server(), TypeError)
   t.throws(() => kx.server(null), TypeError)
   t.throws(() => kx.server(123), TypeError)
@@ -200,12 +214,15 @@ test('kx.server(opts) throws on bad input', (t) => {
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES - 1),
     client: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES) },
   }), TypeError)
+
+  t.end()
 })
 
-test('kx.server(opts) computes session keys for server', (t) => {
+test.cb('kx.server(opts) computes session keys for server', (t) => {
   const client = kx.keyPair()
   const { publicKey, secretKey } = kx.keyPair()
   const server = kx.server({ publicKey, secretKey, client })
+
   t.true('object' === typeof server)
   t.true(isBuffer(server.receiver))
   t.true(isBuffer(server.sender))
@@ -213,4 +230,6 @@ test('kx.server(opts) computes session keys for server', (t) => {
   t.true(0 === Buffer.compare(server.tx, server.sender))
   t.true(crypto_kx_SESSIONKEYBYTES === server.receiver.length)
   t.true(crypto_kx_SESSIONKEYBYTES === server.sender.length)
+
+  t.end()
 })

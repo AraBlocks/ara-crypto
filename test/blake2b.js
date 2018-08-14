@@ -1,6 +1,6 @@
 const { blake2b } = require('../blake2b')
 const isBuffer = require('is-buffer')
-const test = require('ava')
+const test = require('./helpers/runner')
 
 test('blake2b(buffer, size)', async (t) => {
   t.throws(() => blake2b(0, 0), TypeError)
