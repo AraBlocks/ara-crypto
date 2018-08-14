@@ -45,14 +45,6 @@ test('crypto.blake2b', (t) => {
   t.true('function' === typeof crypto.blake2b)
 })
 
-test('crypto.decrypt', (t) => {
-  t.true('function' === typeof crypto.decrypt)
-})
-
-test('crypto.encrypt', (t) => {
-  t.true('function' === typeof crypto.encrypt)
-})
-
 test('crypto.keyPair', (t) => {
   t.true('function' === typeof crypto.keyPair)
 })
