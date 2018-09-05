@@ -20,7 +20,7 @@ This project is in active development.
 ## Installation
 
 ```sh
-$ npm install ara-crypto
+$ npm install arablocks/ara-crypto
 ```
 
 ## Usage
@@ -30,8 +30,8 @@ const crypto = require('ara-crypto')
 
 const message = Buffer.from('message')
 const bytes = crypto.randomBytes(32)
-const hash = crypto.blake2b(Buffer.from("message"))
-const { publicKey, secretKey } = crypto.keyPair()
+const hash = crypto.blake2b(message)
+const { publicKey, secretKey } = crypto.keyPair(hash) // hash seed optional
 const signature = crypto.sign(message, secretKey)
 const verified = crypto.verify(signature, message, publicKey)
 const buffer = crypto.uint64.encode(80)
