@@ -9,7 +9,8 @@
     "lintfix": "eslint . --fix",
     "coverage": "npm run nyc",
     "nyc": "nyc -x bench -x test/helpers -a ava test",
-    "changelog": "conventional-changelog --same-file --preset angular --release-count 0 --infile CHANGELOG.md"
+    "changelog": "conventional-changelog --same-file --preset angular --release-count 0 --infile CHANGELOG.md",
+    "version": "npm run changelog && git add CHANGELOG.md"
   },
   "repository": {
     "type": "git",
