@@ -1,3 +1,8 @@
+<a name="0.7.1"></a>
+## [0.7.1](https://github.com/AraBlocks/ara-crypto/compare/0.7.0...0.7.1) (2018-10-17)
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/AraBlocks/ara-crypto/compare/0.6.0...0.7.0) (2018-08-14)
 
