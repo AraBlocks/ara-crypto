@@ -6,7 +6,7 @@
   "scripts": {
     "test": "ava test",
     "lint": "eslint .",
-    "lintfix": "eslint . --fix",
+    "lint-fix": "eslint . --fix",
     "coverage": "npm run nyc",
     "nyc": "nyc -x bench -x test/helpers -a ava test",
     "changelog": "conventional-changelog --same-file --preset angular --release-count 0 --infile CHANGELOG.md",
