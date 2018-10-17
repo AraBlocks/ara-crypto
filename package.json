@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/AraBlocks/ara-crypto#readme",
   "dependencies": {
-    "ara-secret-storage": "github:arablocks/ara-secret-storage",
+    "ara-secret-storage": "github:arablocks/ara-secret-storage#semver:0.1.x",
     "base-x": "^3.0.4",
     "buffer-alloc-unsafe": "^1.0.0",
     "increment-buffer": "^1.0.1",
@@ -48,7 +48,7 @@
     "blue-tape": "^1.0.0",
     "conventional-changelog-cli": "^2.0.5",
     "eslint": "^4.19.1",
-    "eslint-config-ara": "github:arablocks/eslint-config-ara",
+    "eslint-config-ara": "github:arablocks/eslint-config-ara#semver:2.1.x",
     "eslint-plugin-import": "^2.12.0",
     "nyc": "^12.0.2",
     "pretty-bytes": "^5.1.0",
