@@ -389,7 +389,7 @@ who has the corresponding secret key.
 ```js
 const publicKey = getServerPublicKey()
 const message = Buffer.from('hello')
-const sealed = crypto.seal(message, publicKey)
+const sealed = crypto.seal(message, { publicKey })
 ```
 
 ### `crypto.seal.open(message, opts)` <a name="seal-open"></a>
