@@ -1,4 +1,3 @@
-// const { randomBytes } = require('./random-bytes')
 const isBuffer = require('is-buffer')
 
 /* eslint-disable camelcase */
@@ -6,7 +5,6 @@ const {
   crypto_kdf_CONTEXTBYTES,
   crypto_kdf_BYTES_MAX,
   crypto_kdf_BYTES_MIN,
-  crypto_kdf_PRIMITIVE,
   crypto_kdf_KEYBYTES,
 
   crypto_kdf_derive_from_key,
@@ -50,8 +48,6 @@ function keygen(key) {
  * @throws TypeError
  */
 function derive(subkey, subkeyId, ctx, key) {
-
-  // Handle subkey
   if (subkey && false === isBuffer(subkey)) {
     throw new TypeError('kdf.derive: Expecting subkey to be a buffer.')
   }
@@ -64,7 +60,6 @@ function derive(subkey, subkeyId, ctx, key) {
     throw new TypeError(`kdf.derive: Invalid subkey length: ${subkey.length}`)
   }
 
-  // Handle subkey ID
   if (subkeyId && 'number' !== typeof subkeyId) {
     throw new TypeError('kdf.derive: Expecting subkeyId to be a number.')
   }
@@ -73,11 +68,10 @@ function derive(subkey, subkeyId, ctx, key) {
     subkeyId = 0
   }
 
-  if (subkeyId < 0 || subkeyId > 2**64 - 1) {
+  if (subkeyId < 0 || subkeyId > (2 ** 64) - 1) {
     throw new TypeError('kdf.derive: Expecting subkeyId to be between 0 and (2^64)-1.')
   }
 
-  // Handle context
   if (ctx && false === isBuffer(ctx)) {
     throw new TypeError('kdf.derive: Expecting context to be a buffer.')
   }
@@ -90,7 +84,6 @@ function derive(subkey, subkeyId, ctx, key) {
     throw new TypeError(`kdf.derive: Invalid context length: ${ctx.length}`)
   }
 
-  // Handle master key
   if (key && false === isBuffer(key)) {
     throw new TypeError('kdf.derive: Expecting master key to be a buffer.')
   }
