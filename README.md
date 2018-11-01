@@ -379,6 +379,38 @@ const server = kx.server({
 })
 ```
 
+### `crypto.kdf.keygen(key)` <a name="kdf-keygen"></a>
+
+> **Stability: 2** - Stable
+
+Generate a key of length `crypto_kdf_KEYBYTES`.
+
+```js
+const { crypto_kdf_KEYBYTES } = require('ara-crypto/sodium')
+
+const key = Buffer.allocUnsafe(crypto_kdf_KEYBYTES)
+kdf.keygen(key)
+```
+
+### `crypto.kdf.derive(subkey, subkeyId, ctx, key)` <a name="kdf-derive"></a>
+
+> **Stability: 2** - Stable
+
+Derives a subkey from a subkey ID, context, and master ("secret") key.
+
+```js
+const {
+  crypto_kdf_CONTEXTBYTES,
+  crypto_kdf_KEYBYTES
+} = require('ara-crypto/sodium')
+
+const subkey = Buffer.allocUnsafe(crypto_kdf_KEYBYTES)
+const ctx = Buffer.allocUnsafe(crypto_kdf_CONTEXTBYTES)
+const key = Buffer.allocUnsafe(crypto_kdf_KEYBYTES)
+kdf.keygen(key)
+kdf.derive(subkey, 1, ctx, key)
+```
+
 ### `crypto.seal(message, opts)` <a name="seal"></a>
 
 > **Stability: 2** - Stable

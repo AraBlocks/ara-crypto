@@ -136,6 +136,16 @@ test.cb('crypto.box', (t) => {
   t.end()
 })
 
+test.cb('crypto.kdf.keygen', (t) => {
+  t.true('function' === typeof crypto.kdf.keygen)
+  t.end()
+})
+
+test.cb('crypto.kdf.derive', (t) => {
+  t.true('function' === typeof crypto.kdf.derive)
+  t.end()
+})
+
 test.cb('crypto.kx', (t) => {
   t.true('object' === typeof crypto.kx)
   t.end()
