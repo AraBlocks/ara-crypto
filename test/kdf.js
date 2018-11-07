@@ -6,8 +6,6 @@ const kdf = require('../kdf')
 /* eslint-disable camelcase */
 const {
   crypto_kdf_CONTEXTBYTES,
-  crypto_kdf_BYTES_MAX,
-  crypto_kdf_BYTES_MIN,
   crypto_kdf_KEYBYTES,
 } = require('sodium-universal')
 
