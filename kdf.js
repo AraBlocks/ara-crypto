@@ -134,7 +134,7 @@ function final(ctx) {
     throw new TypeError('kdf.final: Expecting ctx to be an object.')
   }
 
-  const subkey = ctx.subkey
+  const { subkey } = ctx
   ctx.subkey = null
 
   return subkey
