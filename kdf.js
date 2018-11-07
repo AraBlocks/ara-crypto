@@ -37,71 +37,147 @@ function keygen(key) {
 }
 
 /**
- * Derives a subkey using the master key and context.
+ * Initializes key derivation.
  *
  * @public
- * @param {?(Buffer)} [subkey]
- * @param {?(Number)} [subkeyId]
- * @param {Buffer} ctx
+ * @param {Buffer} buffer
  * @param {Buffer} key
- * @return {Buffer}
+ * @return {Object}
  * @throws TypeError
  */
-function derive(subkey, subkeyId, ctx, key) {
-  if (subkey && false === isBuffer(subkey)) {
-    throw new TypeError('kdf.derive: Expecting subkey to be a buffer.')
-  }
+function init(buffer, key) {
+  if (buffer) {
+    if (false === isBuffer(buffer)) {
+      throw new TypeError('kdf.init: Expecting context to be a buffer.')
+    }
 
-  if (undefined === subkey) {
-    subkey = Buffer.allocUnsafe(crypto_kdf_KEYBYTES)
-  }
-
-  if (crypto_kdf_BYTES_MIN > subkey.length || crypto_kdf_BYTES_MAX < subkey.length) {
-    throw new TypeError(`kdf.derive: Invalid subkey length: ${subkey.length}`)
-  }
-
-  if (subkeyId && 'number' !== typeof subkeyId) {
-    throw new TypeError('kdf.derive: Expecting subkeyId to be a number.')
-  }
-
-  if (undefined === subkeyId) {
-    subkeyId = 0
-  }
-
-  if (subkeyId < 0 || subkeyId > (2 ** 64) - 1) {
-    throw new TypeError('kdf.derive: Expecting subkeyId to be between 0 and (2^64)-1.')
-  }
-
-  if (ctx && false === isBuffer(ctx)) {
-    throw new TypeError('kdf.derive: Expecting context to be a buffer.')
-  }
-
-  if (undefined === ctx) {
-    throw new TypeError('kdf.derive: Expecting context to be defined.')
-  }
-
-  if (crypto_kdf_CONTEXTBYTES !== ctx.length) {
-    throw new TypeError(`kdf.derive: Invalid context length: ${ctx.length}`)
+    if (crypto_kdf_CONTEXTBYTES !== buffer.length) {
+      throw new TypeError(`kdf.init: Invalid context length: ${buffer.length}`)
+    }
   }
 
   if (key && false === isBuffer(key)) {
-    throw new TypeError('kdf.derive: Expecting master key to be a buffer.')
+    throw new TypeError('kdf.init: Expecting key to be a buffer.')
   }
 
   if (undefined === key) {
-    throw new TypeError('kdf.derive: Expecting master key to be defined.')
+    throw new TypeError('kdf.init: Expecting key to be defined.')
   }
 
   if (crypto_kdf_KEYBYTES !== key.length) {
-    throw new TypeError(`kdf.derive: Invalid master key length: ${key.length}`)
+    throw new TypeError(`kdf.init: Invalid key length: ${key.length}`)
   }
 
-  // derive subkey
-  crypto_kdf_derive_from_key(subkey, subkeyId, ctx, key)
+  return {
+    buffer: buffer || Buffer.allocUnsafe(crypto_kdf_CONTEXTBYTES),
+    subkey: null,
+    key
+  }
+}
+
+/**
+ * Updates the subkey in the context object.
+ *
+ * @public
+ * @param {Object} ctx
+ * @param {Number} id
+ * @return {Buffer}
+ * @throws TypeError
+ */
+function update(ctx, id) {
+  if ('object' !== typeof ctx) {
+    throw new TypeError('kdf.update: Expecting ctx to be an object.')
+  }
+
+  if (ctx.subkey && !isBuffer(ctx.subkey)) {
+    throw new TypeError('kdf.update: Expecting ctx.subkey to be a buffer.')
+  }
+
+  if (!isBuffer(ctx.buffer)) {
+    throw new TypeError('kdf.update: Expecting ctx.buffer to be a buffer.')
+  }
+
+  if (crypto_kdf_CONTEXTBYTES !== ctx.buffer.length) {
+    throw new TypeError(`kdf.update: Invalid buffer length: ${ctx.buffer.length}.`)
+  }
+
+  if (!isBuffer(ctx.key)) {
+    throw new TypeError('kdf.update: Expecting ctx.key to be a buffer.')
+  }
+
+  if (crypto_kdf_KEYBYTES !== ctx.key.length) {
+    throw new TypeError(`kdf.update: Invalid buffer length: ${ctx.key.length}.`)
+  }
+
+  if ('number' !== typeof id) {
+    throw new TypeError('kdf.update: Expecting id to be a number.')
+  }
+
+  if (id < 0 || id > (2 ** 64) - 1) {
+    throw new TypeError('kdf.update: Expecting id to be between 0 and (2^64)-1.')
+  }
+
+  ctx.subkey = ctx.subkey || Buffer.allocUnsafe(crypto_kdf_KEYBYTES)
+  crypto_kdf_derive_from_key(ctx.subkey, id, ctx.buffer, ctx.key)
+
+  return ctx.subkey
+}
+
+/**
+ * Final step to null the original context subkey.
+ *
+ * @public
+ * @param {Object} ctx
+ * @return {Buffer}
+ * @throws TypeError
+ */
+function final(ctx) {
+  if ('object' !== typeof ctx) {
+    throw new TypeError('kdf.final: Expecting ctx to be an object.')
+  }
+
+  const subkey = ctx.subkey
+  ctx.subkey = null
+
   return subkey
+}
+
+/**
+ * Derives a subkey using the master key and context.
+ *
+ * @public
+ * @param {Buffer} buffer
+ * @param {Buffer} key
+ * @param {Number} iterations
+ * @return {Buffer}
+ * @throws TypeError
+ */
+function derive(buffer, key, iterations) {
+  const ctx = init(buffer, key)
+
+  if (iterations && 'number' !== typeof iterations) {
+    throw new TypeError('kdf.derive: Expecting subkeyId to be a number.')
+  }
+
+  if (iterations < 1 || iterations > (2 ** 64) - 1) {
+    throw new TypeError('kdf.derive: Expecting iterations to be between 1 and (2^64)-1.')
+  }
+
+  if (undefined === iterations) {
+    throw new TypeError('kdf.derive: Expecting iterations to be defined.')
+  }
+
+  for (let i = 0; i < iterations; ++i) {
+    update(ctx, i)
+  }
+
+  return final(ctx)
 }
 
 module.exports = {
   derive,
   keygen,
+  update,
+  final,
+  init,
 }
