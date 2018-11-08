@@ -166,7 +166,7 @@ function derive(key, iterations, buffer) {
   }
 
   for (let i = 0; i < iterations; ++i) {
-    update(ctx, i)
+    update(ctx, i + 1)
   }
 
   return final(ctx)
