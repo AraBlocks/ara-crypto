@@ -67,7 +67,7 @@ function init(key, buffer) {
   }
 
   return {
-    buffer: buffer || Buffer.allocUnsafe(crypto_kdf_CONTEXTBYTES),
+    buffer: buffer || Buffer.alloc(crypto_kdf_CONTEXTBYTES),
     subkey: null,
     key
   }

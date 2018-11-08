@@ -85,10 +85,9 @@ test.cb('kdf.init(key, buffer) throws on bad input', (t) => {
 })
 
 test.cb('kdf.init(key, buffer) returns a context object without a context buffer.', (t) => {
-  const buffer = null
   const key = randomBytes(crypto_kdf_KEYBYTES)
-  const c1 = kdf.init(key, buffer)
-  // const c2 = kdf.init(key, buffer)
+  const c1 = kdf.init(key)
+  const c2 = kdf.init(key)
 
   t.true('object' === typeof c1)
   t.true(null === c1.subkey)
@@ -97,7 +96,7 @@ test.cb('kdf.init(key, buffer) returns a context object without a context buffer
   t.true(crypto_kdf_CONTEXTBYTES === c1.buffer.length)
   t.true(crypto_kdf_KEYBYTES === c1.key.length)
   t.true(0 === Buffer.compare(key, c1.key))
-  // t.true(0 === Buffer.compare(c1.buffer, c2.buffer))
+  t.true(0 === Buffer.compare(c1.buffer, c2.buffer))
   t.end()
 })
 
