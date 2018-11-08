@@ -492,6 +492,7 @@ const mac = crypto.shash(message, key)
 - [libsodium](https://download.libsodium.org/doc/)
 - [sodium-universal](https://github.com/sodium-friends/sodium-universal)
 - [ara-identity](https://github.com/arablocks/ara-identity)
+- [Key derivation function](https://en.wikipedia.org/wiki/Key_derivation_function)
 - [Stability index][stability-index]
 
 ## License
