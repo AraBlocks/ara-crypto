@@ -383,28 +383,63 @@ const server = kx.server({
 
 > **Stability: 2** - Stable
 
-Generate a master ("secret") key.
+Generate a master ("secret") key. This function calls `crypto_kdf_keygen`
+internally.
 
 ```js
 const key = crypto.kdf.keygen()
 ```
 
-### `crypto.kdf.derive(subkey, subkeyId, ctx, key)` <a name="kdf-derive"></a>
+### `crypto.kdf.init(key, buffer)` <a name="kdf-init"></a>
 
 > **Stability: 2** - Stable
 
-Derives a subkey from a subkey ID, context, and master ("secret") key.
+Initializes key and buffer with null subkey to return an object to update.
 
 ```js
-const {
-  crypto_kdf_CONTEXTBYTES,
-  crypto_kdf_KEYBYTES
-} = require('ara-crypto/sodium')
-
-const subkey = Buffer.allocUnsafe(32) // size between 16 and 64 bytes
-const ctx = Buffer.from('example1') // 8 bytes
+const buffer = Buffer.from('examples')
 const key = crypto.kdf.keygen()
-crypto.kdf.derive(subkey, 1, ctx, key)
+const ctx = crypto.kdf.init(key, buffer) // buffer optional
+```
+
+### `crypto.kdf.update(ctx, id)` <a name="kdf-update"></a>
+
+> **Stability: 2** - Stable
+
+Updates context subkey from an ID. This function calls `crypto_kdf_derive`
+internally.
+
+```js
+const buffer = Buffer.from('examples')
+const key = crypto.kdf.keygen()
+const ctx = crypto.kdf.init(key, buffer)
+const subkey = crypto.kdf.update(ctx, 1)
+```
+
+### `crypto.kdf.final(ctx)` <a name="kdf-final"></a>
+
+> **Stability: 2** - Stable
+
+Finalizes context by setting `ctx.subkey` to `null`.
+
+```js
+const buffer = Buffer.from('examples')
+const key = crypto.kdf.keygen()
+const ctx = crypto.kdf.init(key, buffer)
+const subkey = crypto.kdf.final(ctx)
+```
+
+### `crypto.kdf.derive(key, iterations, buffer)` <a name="kdf-derive"></a>
+
+> **Stability: 2** - Stable
+
+Derives a subkey from a key, number of iterations, and a context buffer.
+This function calls `kdf.init`, `kdf.update`, and `kdf.final` internally.
+
+```js
+const buffer = Buffer.from('examples')
+const key = crypto.kdf.keygen()
+const subkey = crypto.kdf.derive(key, 1, buffer) // buffer optional
 ```
 
 ### `crypto.seal(message, opts)` <a name="seal"></a>
