@@ -38,22 +38,12 @@ function keygen(key) {
  * Initializes key derivation.
  *
  * @public
- * @param {Buffer} buffer
  * @param {Buffer} key
+ * @param {?(Buffer)} [buffer]
  * @return {Object}
  * @throws TypeError
  */
-function init(buffer, key) {
-  if (buffer) {
-    if (false === isBuffer(buffer)) {
-      throw new TypeError('kdf.init: Expecting context to be a buffer.')
-    }
-
-    if (crypto_kdf_CONTEXTBYTES !== buffer.length) {
-      throw new TypeError(`kdf.init: Invalid context length: ${buffer.length}`)
-    }
-  }
-
+function init(key, buffer) {
   if (key && false === isBuffer(key)) {
     throw new TypeError('kdf.init: Expecting key to be a buffer.')
   }
@@ -64,6 +54,16 @@ function init(buffer, key) {
 
   if (crypto_kdf_KEYBYTES !== key.length) {
     throw new TypeError(`kdf.init: Invalid key length: ${key.length}`)
+  }
+
+  if (buffer) {
+    if (false === isBuffer(buffer)) {
+      throw new TypeError('kdf.init: Expecting context to be a buffer.')
+    }
+
+    if (crypto_kdf_CONTEXTBYTES !== buffer.length) {
+      throw new TypeError(`kdf.init: Invalid context length: ${buffer.length}`)
+    }
   }
 
   return {
@@ -144,14 +144,14 @@ function final(ctx) {
  * Derives a subkey using the master key and context.
  *
  * @public
- * @param {Buffer} buffer
  * @param {Buffer} key
  * @param {Number} iterations
+ * @param {?(Buffer)} [buffer]
  * @return {Buffer}
  * @throws TypeError
  */
-function derive(buffer, key, iterations) {
-  const ctx = init(buffer, key)
+function derive(key, iterations, buffer) {
+  const ctx = init(key, buffer)
 
   if (iterations && 'number' !== typeof iterations) {
     throw new TypeError('kdf.derive: Expecting subkeyId to be a number.')

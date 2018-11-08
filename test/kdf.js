@@ -51,66 +51,61 @@ test.cb('kdf.keygen(seed) returns a key pair from seed', (t) => {
   t.end()
 })
 
-test.cb('kdf.init(buffer, key) is a function', (t) => {
+test.cb('kdf.init(key, buffer) is a function', (t) => {
   t.true('function' === typeof kdf.init)
   t.end()
 })
 
-test.cb('kdf.init(buffer, key) throws on bad input', (t) => {
+test.cb('kdf.init(key, buffer) throws on bad input', (t) => {
+  t.throws(() => kdf.init(), TypeError)
   t.throws(() => kdf.init(123), TypeError)
   t.throws(() => kdf.init(true), TypeError)
   t.throws(() => kdf.init(() => undefined), TypeError)
   t.throws(() => kdf.init(''), TypeError)
   t.throws(() => kdf.init({}), TypeError)
 
-  const smallCtx = randomBytes(crypto_kdf_CONTEXTBYTES - 1)
-  const largeCtx = randomBytes(crypto_kdf_CONTEXTBYTES + 1)
-  t.throws(() => kdf.init(smallCtx), TypeError)
-  t.throws(() => kdf.init(largeCtx), TypeError)
-
-  const ctx = randomBytes(crypto_kdf_CONTEXTBYTES)
-  t.throws(() => kdf.init(null), TypeError)
-  t.throws(() => kdf.init(ctx, 123), TypeError)
-  t.throws(() => kdf.init(ctx, true), TypeError)
-  t.throws(() => kdf.init(ctx, () => undefined), TypeError)
-  t.throws(() => kdf.init(ctx, ''), TypeError)
-  t.throws(() => kdf.init(ctx, {}), TypeError)
-
   const smallKey = randomBytes(crypto_kdf_KEYBYTES - 1)
   const largeKey = randomBytes(crypto_kdf_KEYBYTES + 1)
-  t.throws(() => kdf.init(ctx, smallKey), TypeError)
-  t.throws(() => kdf.init(ctx, largeKey), TypeError)
+  t.throws(() => kdf.init(smallKey), TypeError)
+  t.throws(() => kdf.init(largeKey), TypeError)
 
-  // const smallSubkey = Buffer.allocUnsafe(crypto_kdf_BYTES_MIN - 1)
-  // const largeSubkey = Buffer.allocUnsafe(crypto_kdf_BYTES_MAX + 1)
-  // t.throws(() => kdf.init(smallSubkey), TypeError)
-  // t.throws(() => kdf.init(largeSubkey), TypeError)
+  const key = randomBytes(crypto_kdf_KEYBYTES)
+  t.throws(() => kdf.init(key, 123), TypeError)
+  t.throws(() => kdf.init(key, true), TypeError)
+  t.throws(() => kdf.init(key, () => undefined), TypeError)
+  t.throws(() => kdf.init(key, 'a'), TypeError)
+  t.throws(() => kdf.init(key, {}), TypeError)
 
-  // const subkey = Buffer.allocUnsafe(crypto_kdf_KEYBYTES)
-  // t.throws(() => kdf.init(subkey, -1), TypeError)
+  const smallCtx = randomBytes(crypto_kdf_CONTEXTBYTES - 1)
+  const largeCtx = randomBytes(crypto_kdf_CONTEXTBYTES + 1)
+  t.throws(() => kdf.init(key, smallCtx), TypeError)
+  t.throws(() => kdf.init(key, largeCtx), TypeError)
+
   t.end()
 })
 
-test.cb('kdf.init(buffer, key) returns a context object without a context buffer.', (t) => {
+test.cb('kdf.init(key, buffer) returns a context object without a context buffer.', (t) => {
   const buffer = null
   const key = randomBytes(crypto_kdf_KEYBYTES)
-  const ctx = kdf.init(buffer, key)
+  const c1 = kdf.init(key, buffer)
+  // const c2 = kdf.init(key, buffer)
 
-  t.true('object' === typeof ctx)
-  t.true(null === ctx.subkey)
-  t.true(isBuffer(ctx.buffer))
-  t.true(isBuffer(ctx.key))
-  t.true(crypto_kdf_CONTEXTBYTES === ctx.buffer.length)
-  t.true(crypto_kdf_KEYBYTES === ctx.key.length)
-  t.true(0 === Buffer.compare(key, ctx.key))
+  t.true('object' === typeof c1)
+  t.true(null === c1.subkey)
+  t.true(isBuffer(c1.buffer))
+  t.true(isBuffer(c1.key))
+  t.true(crypto_kdf_CONTEXTBYTES === c1.buffer.length)
+  t.true(crypto_kdf_KEYBYTES === c1.key.length)
+  t.true(0 === Buffer.compare(key, c1.key))
+  // t.true(0 === Buffer.compare(c1.buffer, c2.buffer))
   t.end()
 })
 
-test.cb('kdf.init(buffer, key) returns a context object with a context buffer.', (t) => {
+test.cb('kdf.init(key, buffer) returns a context object with a context buffer.', (t) => {
   const buffer = randomBytes(crypto_kdf_CONTEXTBYTES)
   const key = randomBytes(crypto_kdf_KEYBYTES)
-  const c1 = kdf.init(buffer, key)
-  const c2 = kdf.init(buffer, key)
+  const c1 = kdf.init(key, buffer)
+  const c2 = kdf.init(key, buffer)
 
   t.true('object' === typeof c1)
   t.true(null === c1.subkey)
@@ -223,38 +218,43 @@ test.cb('kdf.final(ctx) returns subkey from context', (t) => {
   t.end()
 })
 
-test.cb('kdf.derive(buffer, key, iterations) is a function', (t) => {
+test.cb('kdf.derive(key, iterations, buffer) is a function', (t) => {
   t.true('function' === typeof kdf.derive)
   t.end()
 })
 
-test.cb('kdf.derive(buffer, key, iterations) throws on bad input', (t) => {
-  const buffer = randomBytes(crypto_kdf_CONTEXTBYTES)
-  const key = randomBytes(crypto_kdf_KEYBYTES)
+test.cb('kdf.derive(key, iterations, buffer) throws on bad input', (t) => {
+  const key = kdf.keygen()
 
-  t.throws(() => kdf.derive(buffer, key), TypeError)
-  t.throws(() => kdf.derive(buffer, key, true), TypeError)
-  t.throws(() => kdf.derive(buffer, key, () => undefined), TypeError)
-  t.throws(() => kdf.derive(buffer, key, ''), TypeError)
-  t.throws(() => kdf.derive(buffer, key, {}), TypeError)
-  t.throws(() => kdf.derive(buffer, key, 0), TypeError)
-  t.throws(() => kdf.derive(buffer, key, 2 ** 65), TypeError)
+  t.throws(() => kdf.derive(key), TypeError)
+  t.throws(() => kdf.derive(key, true), TypeError)
+  t.throws(() => kdf.derive(key, () => undefined), TypeError)
+  t.throws(() => kdf.derive(key, ''), TypeError)
+  t.throws(() => kdf.derive(key, {}), TypeError)
+  t.throws(() => kdf.derive(key, 0), TypeError)
+  t.throws(() => kdf.derive(key, 2 ** 65), TypeError)
 
   t.end()
 })
 
-test.cb('kdf.derive(buffer, key, iterations) returns a derived subkey', (t) => {
+test.cb('kdf.derive(key, iterations, buffer) without buffer returns a derived subkey', (t) => {
+  const key = kdf.keygen()
+  const k1 = kdf.derive(key, 2)
+  t.true(isBuffer(k1))
+  t.true(crypto_kdf_KEYBYTES === k1.length)
+  t.end()
+})
+
+test.cb('kdf.derive(key, iterations, buffer) with buffer returns a derived subkey', (t) => {
   const buffer = randomBytes(crypto_kdf_CONTEXTBYTES)
   const key = kdf.keygen()
-
-  const k1 = kdf.derive(buffer, key, 2)
-  const k2 = kdf.derive(buffer, key, 2)
+  const k1 = kdf.derive(key, 2, buffer)
+  const k2 = kdf.derive(key, 2, buffer)
 
   t.true(isBuffer(k1))
   t.true(isBuffer(k2))
   t.true(crypto_kdf_KEYBYTES === k1.length)
   t.true(crypto_kdf_KEYBYTES === k2.length)
   t.true(0 === Buffer.compare(k1, k2))
-
   t.end()
 })
