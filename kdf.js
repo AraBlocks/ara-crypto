@@ -52,10 +52,6 @@ function init(key, buffer) {
     throw new TypeError('kdf.init: Expecting key to be defined.')
   }
 
-  if (crypto_kdf_KEYBYTES !== key.length) {
-    throw new TypeError(`kdf.init: Invalid key length: ${key.length}`)
-  }
-
   if (buffer) {
     if (false === isBuffer(buffer)) {
       throw new TypeError('kdf.init: Expecting context to be a buffer.')
@@ -101,10 +97,6 @@ function update(ctx, id) {
 
   if (!isBuffer(ctx.key)) {
     throw new TypeError('kdf.update: Expecting ctx.key to be a buffer.')
-  }
-
-  if (crypto_kdf_KEYBYTES !== ctx.key.length) {
-    throw new TypeError(`kdf.update: Invalid buffer length: ${ctx.key.length}.`)
   }
 
   if ('number' !== typeof id) {
