@@ -16,6 +16,7 @@ const ed25519 = require('./ed25519')
 const base58 = require('./base58')
 const base64 = require('./base64')
 const uint64 = require('./uint64')
+const kdf = require('./kdf')
 const sss = require('./sss')
 const kx = require('./kx')
 
@@ -40,6 +41,7 @@ module.exports = {
   sign,
   seal,
   box,
+  kdf,
   sss,
   kx,
 }
