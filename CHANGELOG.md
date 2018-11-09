@@ -1,5 +1,20 @@
-<a name="0.7.1"></a>
-## [0.7.1](https://github.com/AraBlocks/ara-crypto/compare/0.7.0...0.7.1) (2018-10-17)
+<a name="0.8.1"></a>
+## [0.8.1](https://github.com/AraBlocks/ara-crypto/compare/0.7.0...0.8.1) (2018-11-09)
+
+
+### Bug Fixes
+
+* **kdf:** Alloc context buffer in init instead of allocUnsafe ([7c6d261](https://github.com/AraBlocks/ara-crypto/commit/7c6d261))
+* **kdf:** Make buffer optional for 'init' and 'derive'. ([99d46f1](https://github.com/AraBlocks/ara-crypto/commit/99d46f1))
+* **kdf:** Remove unused constants crypto_kdf_BYTES_M* ([b485c9c](https://github.com/AraBlocks/ara-crypto/commit/b485c9c))
+* **kdf.js:** Destructure value in ctx object. ([8dffd65](https://github.com/AraBlocks/ara-crypto/commit/8dffd65))
+* **kdf.js:** Fix eslint formatting ([a912996](https://github.com/AraBlocks/ara-crypto/commit/a912996))
+* **kdf.js:** Update at i + 1 ([fe92c45](https://github.com/AraBlocks/ara-crypto/commit/fe92c45))
+
+
+### Features
+
+* **kdf.js:** Introduce key derivation functions ([b7d8bf0](https://github.com/AraBlocks/ara-crypto/commit/b7d8bf0))
 
 
 
