@@ -61,13 +61,8 @@ test.cb('kdf.init(key, buffer) throws on bad input', (t) => {
   t.throws(() => kdf.init(123), TypeError)
   t.throws(() => kdf.init(true), TypeError)
   t.throws(() => kdf.init(() => undefined), TypeError)
-  t.throws(() => kdf.init(''), TypeError)
+  t.throws(() => kdf.init('a'), TypeError)
   t.throws(() => kdf.init({}), TypeError)
-
-  const smallKey = randomBytes(crypto_kdf_KEYBYTES - 1)
-  const largeKey = randomBytes(crypto_kdf_KEYBYTES + 1)
-  t.throws(() => kdf.init(smallKey), TypeError)
-  t.throws(() => kdf.init(largeKey), TypeError)
 
   const key = randomBytes(crypto_kdf_KEYBYTES)
   t.throws(() => kdf.init(key, 123), TypeError)
@@ -94,7 +89,6 @@ test.cb('kdf.init(key, buffer) returns a context object without a context buffer
   t.true(isBuffer(c1.buffer))
   t.true(isBuffer(c1.key))
   t.true(crypto_kdf_CONTEXTBYTES === c1.buffer.length)
-  t.true(crypto_kdf_KEYBYTES === c1.key.length)
   t.true(0 === Buffer.compare(key, c1.key))
   t.true(0 === Buffer.compare(c1.buffer, c2.buffer))
   t.end()
@@ -112,7 +106,6 @@ test.cb('kdf.init(key, buffer) returns a context object with a context buffer.',
   t.true(isBuffer(c1.buffer))
   t.true(isBuffer(c1.key))
   t.true(crypto_kdf_CONTEXTBYTES === c1.buffer.length)
-  t.true(crypto_kdf_KEYBYTES === c1.key.length)
   t.true(0 === Buffer.compare(buffer, c1.buffer))
   t.true(0 === Buffer.compare(buffer, c2.buffer))
   t.true(0 === Buffer.compare(key, c1.key))
@@ -153,11 +146,6 @@ test.cb('kdf.update(ctx, id) throws on bad input', (t) => {
   t.throws(() => kdf.update({ buffer, key: () => undefined }), TypeError)
   t.throws(() => kdf.update({ buffer, key: '' }), TypeError)
   t.throws(() => kdf.update({ buffer, key: {} }), TypeError)
-
-  const smallKey = randomBytes(crypto_kdf_KEYBYTES - 1)
-  const largeKey = randomBytes(crypto_kdf_KEYBYTES + 1)
-  t.throws(() => kdf.update({ buffer, key: smallKey }), TypeError)
-  t.throws(() => kdf.update({ buffer, key: largeKey }), TypeError)
 
   const key = randomBytes(crypto_kdf_KEYBYTES)
   const ctx = { buffer, key }
