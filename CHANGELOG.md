@@ -1,5 +1,20 @@
+<a name="0.8.2"></a>
+## [0.8.2](https://github.com/AraBlocks/ara-crypto/compare/0.8.1...0.8.2) (2018-11-12)
+
+
+### Bug Fixes
+
+* **kdf:** Remove key length constraint. ([2f3103f](https://github.com/AraBlocks/ara-crypto/commit/2f3103f))
+
+
+
 <a name="0.8.1"></a>
-## [0.8.1](https://github.com/AraBlocks/ara-crypto/compare/0.7.0...0.8.1) (2018-11-09)
+## [0.8.1](https://github.com/AraBlocks/ara-crypto/compare/0.8.0...0.8.1) (2018-11-09)
+
+
+
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/AraBlocks/ara-crypto/compare/0.7.1...0.8.0) (2018-11-09)
 
 
 ### Bug Fixes
@@ -15,6 +30,11 @@
 ### Features
 
 * **kdf.js:** Introduce key derivation functions ([b7d8bf0](https://github.com/AraBlocks/ara-crypto/commit/b7d8bf0))
+
+
+
+<a name="0.7.1"></a>
+## [0.7.1](https://github.com/AraBlocks/ara-crypto/compare/0.7.0...0.7.1) (2018-10-17)
 
 
 
