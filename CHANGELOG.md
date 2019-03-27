@@ -1,3 +1,13 @@
+<a name="0.8.4"></a>
+## [0.8.4](https://github.com/AraBlocks/ara-crypto/compare/0.8.3...0.8.4) (2019-03-27)
+
+
+### Bug Fixes
+
+* **package.json:** Lock in sodium-browserify@1.2.6 ([b389138](https://github.com/AraBlocks/ara-crypto/commit/b389138))
+
+
+
 <a name="0.8.3"></a>
 ## [0.8.3](https://github.com/AraBlocks/ara-crypto/compare/0.8.1...0.8.3) (2019-03-27)
 
