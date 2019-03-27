@@ -33,7 +33,7 @@
     "increment-buffer": "^1.0.1",
     "is-buffer": "^2.0.2",
     "is-zero-buffer": "^1.0.1",
-    "sodium-browserify": "^1.2.4",
+    "sodium-browserify": "1.2.6",
     "sodium-javascript": "^0.5.5",
     "sodium-universal": "^2.0.0",
     "split-buffer": "^1.0.0",
