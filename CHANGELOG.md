@@ -1,5 +1,5 @@
-<a name="0.8.2"></a>
-## [0.8.2](https://github.com/AraBlocks/ara-crypto/compare/0.8.1...0.8.2) (2018-11-12)
+<a name="0.8.3"></a>
+## [0.8.3](https://github.com/AraBlocks/ara-crypto/compare/0.8.1...0.8.3) (2019-03-27)
 
 
 ### Bug Fixes
