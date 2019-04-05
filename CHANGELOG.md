@@ -1,4 +1,7 @@
-<a name="0.8.4"></a>
+## [0.8.5](https://github.com/AraBlocks/ara-crypto/compare/0.8.4...0.8.5) (2019-04-05)
+
+
+
 ## [0.8.4](https://github.com/AraBlocks/ara-crypto/compare/0.8.3...0.8.4) (2019-03-27)
 
 
@@ -8,7 +11,6 @@
 
 
 
-<a name="0.8.3"></a>
 ## [0.8.3](https://github.com/AraBlocks/ara-crypto/compare/0.8.1...0.8.3) (2019-03-27)
 
 
@@ -18,12 +20,10 @@
 
 
 
-<a name="0.8.1"></a>
 ## [0.8.1](https://github.com/AraBlocks/ara-crypto/compare/0.8.0...0.8.1) (2018-11-09)
 
 
 
-<a name="0.8.0"></a>
 # [0.8.0](https://github.com/AraBlocks/ara-crypto/compare/0.7.1...0.8.0) (2018-11-09)
 
 
@@ -43,12 +43,10 @@
 
 
 
-<a name="0.7.1"></a>
 ## [0.7.1](https://github.com/AraBlocks/ara-crypto/compare/0.7.0...0.7.1) (2018-10-17)
 
 
 
-<a name="0.7.0"></a>
 # [0.7.0](https://github.com/AraBlocks/ara-crypto/compare/0.6.0...0.7.0) (2018-08-14)
 
 
@@ -58,22 +56,18 @@
 
 
 
-<a name="0.6.0"></a>
 # [0.6.0](https://github.com/AraBlocks/ara-crypto/compare/0.5.1...0.6.0) (2018-08-14)
 
 
 
-<a name="0.5.1"></a>
 ## [0.5.1](https://github.com/AraBlocks/ara-crypto/compare/0.5.0...0.5.1) (2018-08-09)
 
 
 
-<a name="0.5.0"></a>
 # [0.5.0](https://github.com/AraBlocks/ara-crypto/compare/0.4.2...0.5.0) (2018-08-06)
 
 
 
-<a name="0.4.2"></a>
 ## [0.4.2](https://github.com/AraBlocks/ara-crypto/compare/0.4.1...0.4.2) (2018-08-01)
 
 
@@ -83,7 +77,6 @@
 
 
 
-<a name="0.4.1"></a>
 ## [0.4.1](https://github.com/AraBlocks/ara-crypto/compare/0.4.0...0.4.1) (2018-07-31)
 
 
@@ -93,7 +86,6 @@
 
 
 
-<a name="0.4.0"></a>
 # [0.4.0](https://github.com/AraBlocks/ara-crypto/compare/0.3.2...0.4.0) (2018-07-30)
 
 
@@ -108,7 +100,6 @@
 
 
 
-<a name="0.3.2"></a>
 ## [0.3.2](https://github.com/AraBlocks/ara-crypto/compare/0.3.1...0.3.2) (2018-06-19)
 
 
@@ -118,12 +109,10 @@
 
 
 
-<a name="0.3.1"></a>
 ## [0.3.1](https://github.com/AraBlocks/ara-crypto/compare/0.3.0...0.3.1) (2018-05-30)
 
 
 
-<a name="0.3.0"></a>
 # [0.3.0](https://github.com/AraBlocks/ara-crypto/compare/0.2.4...0.3.0) (2018-05-30)
 
 
@@ -134,22 +123,18 @@
 
 
 
-<a name="0.2.4"></a>
 ## [0.2.4](https://github.com/AraBlocks/ara-crypto/compare/0.2.3...0.2.4) (2018-05-27)
 
 
 
-<a name="0.2.3"></a>
 ## [0.2.3](https://github.com/AraBlocks/ara-crypto/compare/0.2.2...0.2.3) (2018-05-24)
 
 
 
-<a name="0.2.2"></a>
 ## [0.2.2](https://github.com/AraBlocks/ara-crypto/compare/0.2.1...0.2.2) (2018-05-22)
 
 
 
-<a name="0.2.1"></a>
 ## [0.2.1](https://github.com/AraBlocks/ara-crypto/compare/0.2.0...0.2.1) (2018-05-22)
 
 
@@ -160,12 +145,10 @@
 
 
 
-<a name="0.2.0"></a>
 # [0.2.0](https://github.com/AraBlocks/ara-crypto/compare/0.1.0...0.2.0) (2018-05-19)
 
 
 
-<a name="0.1.0"></a>
 # [0.1.0](https://github.com/AraBlocks/ara-crypto/compare/1659ef7...0.1.0) (2018-05-18)
 
 
