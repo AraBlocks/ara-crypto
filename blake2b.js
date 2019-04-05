@@ -15,9 +15,12 @@ const kDefaultBlake2bSize = 32
  * @return {Buffer}
  * @throws TypeError
  */
-function blake2b(buffer, size) {
+function blake2b(buffer, size, key) {
   /* eslint-disable no-param-reassign */
   if (null == size || 'number' !== typeof size) {
+    if (Buffer.isBuffer(size)) {
+      key = size
+    }
     size = kDefaultBlake2bSize
   } else if (size <= 0) {
     throw new TypeError('crypto.blake2b: Expecting size to be greater than 0.')
@@ -41,7 +44,7 @@ function blake2b(buffer, size) {
   }
 
   const digest = alloc(size)
-  crypto_generichash_batch(digest, buffer)
+  crypto_generichash_batch(digest, buffer, key)
   return digest
 }
 
