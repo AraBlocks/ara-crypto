@@ -16,13 +16,13 @@ test.cb('unbox(opts) is a function', (t) => {
 })
 
 test.cb('unbox(opts) throws on bad input', (t) => {
-  t.throws(() => unbox(), TypeError)
-  t.throws(() => unbox(null), TypeError)
-  t.throws(() => unbox(true), TypeError)
-  t.throws(() => unbox(123), TypeError)
-  t.throws(() => unbox('string'), TypeError)
-  t.throws(() => unbox({ secret: null }), TypeError)
-  t.throws(() => unbox({ key: null }), TypeError)
+  t.throws(() => unbox(), {instanceOf: TypeError})
+  t.throws(() => unbox(null), {instanceOf: TypeError})
+  t.throws(() => unbox(true), {instanceOf: TypeError})
+  t.throws(() => unbox(123), {instanceOf: TypeError})
+  t.throws(() => unbox('string'), {instanceOf: TypeError})
+  t.throws(() => unbox({ secret: null }), {instanceOf: TypeError})
+  t.throws(() => unbox({ key: null }), {instanceOf: TypeError})
 
   t.end()
 })
@@ -66,10 +66,10 @@ test.cb('createUnboxStream(opts) is a function', (t) => {
 })
 
 test.cb('createUnboxStream(opts) throws on bad input', (t) => {
-  t.throws(() => createUnboxStream(null), TypeError)
-  t.throws(() => createUnboxStream(true), TypeError)
-  t.throws(() => createUnboxStream(123), TypeError)
-  t.throws(() => createUnboxStream(), TypeError)
+  t.throws(() => createUnboxStream(null), {instanceOf: TypeError})
+  t.throws(() => createUnboxStream(true), {instanceOf: TypeError})
+  t.throws(() => createUnboxStream(123), {instanceOf: TypeError})
+  t.throws(() => createUnboxStream(), {instanceOf: TypeError})
 
   t.end()
 })

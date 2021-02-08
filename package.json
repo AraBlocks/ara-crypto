@@ -4,11 +4,11 @@
   "description": "Cryptographic functions used in Ara modules",
   "main": "index.js",
   "scripts": {
-    "test": "ava test",
+    "test": "ava test/*",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "coverage": "npm run nyc",
-    "nyc": "nyc -x bench -x test/helpers -a ava test",
+    "nyc": "nyc -x bench/* -x test/helpers/* -a ava test/*",
     "changelog": "conventional-changelog --same-file --preset angular --release-count 0 --infile CHANGELOG.md",
     "version": "npm run changelog && git add CHANGELOG.md"
   },
@@ -33,9 +33,9 @@
     "increment-buffer": "^1.0.1",
     "is-buffer": "^2.0.2",
     "is-zero-buffer": "^1.0.1",
-    "sodium-browserify": "1.2.6",
-    "sodium-javascript": "^0.5.5",
-    "sodium-universal": "^2.0.0",
+    "sodium-browserify": "^1.3.0",
+    "sodium-javascript": "^0.7.3",
+    "sodium-universal": "^3.0.4",
     "split-buffer": "^1.0.0",
     "through2": "^2.0.3",
     "tweetnacl-auth": "^1.0.1",
@@ -44,13 +44,13 @@
   },
   "devDependencies": {
     "ansi-diff": "^1.1.1",
-    "ava": "^0.25.0",
+    "ava": "^3.15.0",
     "blue-tape": "^1.0.0",
     "conventional-changelog-cli": "^2.0.5",
-    "eslint": "^4.19.1",
+    "eslint": "^7.19.0",
     "eslint-config-ara": "github:arablocks/eslint-config-ara#semver:2.1.x",
     "eslint-plugin-import": "^2.12.0",
-    "nyc": "^12.0.2",
+    "nyc": "^15.1.0",
     "pretty-bytes": "^5.1.0",
     "speedometer": "^1.1.0"
   }

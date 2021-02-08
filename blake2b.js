@@ -12,6 +12,7 @@ const kDefaultBlake2bSize = 32
  * @public
  * @param {Buffer|Array<Buffer>} buffer
  * @param {?(Number)} [size = 32]
+ * @param {?(Uint8Array)} key
  * @return {Buffer}
  * @throws TypeError
  */
@@ -19,11 +20,19 @@ function blake2b(buffer, size, key) {
   /* eslint-disable no-param-reassign */
   if (null == size || 'number' !== typeof size) {
     if (Buffer.isBuffer(size)) {
-      key = size
+      key = new Uint8Array(size)
     }
     size = kDefaultBlake2bSize
   } else if (size <= 0) {
     throw new TypeError('crypto.blake2b: Expecting size to be greater than 0.')
+  }
+
+  if (null != key) {
+    if ('Uint8Array' !== typeof key && Buffer.isBuffer(key)) {
+      key = new Uint8Array(key)
+    } else {
+      throw new TypeError('crypto.blake2b: Expecting key to be Uint8Array or Buffer.')
+    }
   }
 
   if (isBuffer(buffer)) {
@@ -44,7 +53,11 @@ function blake2b(buffer, size, key) {
   }
 
   const digest = alloc(size)
-  crypto_generichash_batch(digest, buffer, key)
+  if (key) {
+    crypto_generichash_batch(digest, buffer, key)
+  } else {
+    crypto_generichash_batch(digest, buffer)
+  }
   return digest
 }
 
