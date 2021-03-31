@@ -18,7 +18,6 @@ const polyfill = {
   // box
   crypto_box_PUBLICKEYBYTES: 32,
   crypto_box_SECRETKEYBYTES: 32,
-  crypto_box_SEALBYTES: 32,
 
   // secretbox
   crypto_secretbox_NONCEBYTES: 24,
@@ -48,7 +47,7 @@ const polyfill = {
 
 // const sodium = Object.assign({}, browser, javascript)
 // const sodium = Object.assign({}, browser, javascript, polyfill)
-const sodium = Object.assign({}, browser, javascript, polyfill, universal)
+const sodium = Object.assign({}, universal, browser, javascript, polyfill)
 
 module.exports = sodium
 

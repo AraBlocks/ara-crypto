@@ -108,7 +108,7 @@ function update(ctx, id) {
   }
 
   ctx.subkey = ctx.subkey || Buffer.allocUnsafe(crypto_kdf_KEYBYTES)
-  crypto_kdf_derive_from_key(ctx.subkey, id, ctx.buffer, ctx.key.subarray(0, crypto_kdf_KEYBYTES))
+  crypto_kdf_derive_from_key(ctx.subkey, id, ctx.buffer, ctx.key)
 
   return ctx.subkey
 }
