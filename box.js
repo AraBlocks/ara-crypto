@@ -75,7 +75,7 @@ function box(buffer, opts) {
   header.writeUInt16BE(buffer.length, 0)
 
   // box message buffer
-  crypto_secretbox_easy(body, buffer, nonces[1].subArray(0, crypto_secretbox_NONCEBYTES), key)
+  crypto_secretbox_easy(body, buffer, nonces[1].subarray(0, crypto_secretbox_NONCEBYTES), key)
 
   // copy MAC into header after length (offset 2)
   body.copy(
@@ -94,7 +94,7 @@ function box(buffer, opts) {
   )
 
   // box header buffer into frame[0] based on current nonces[0] and key
-  crypto_secretbox_easy(frames[0], header, nonces[0].subArray(0, crypto_secretbox_NONCEBYTES), key)
+  crypto_secretbox_easy(frames[0], header, nonces[0].subarray(0, crypto_secretbox_NONCEBYTES), key)
 
   return Object.assign(Buffer.concat(frames), { nonce: nonces[1] })
 }
