@@ -117,7 +117,7 @@ function createBoxStream(opts) {
 
   // create new reference
   /* eslint-disable-next-line no-param-reassign */
-  opts = Object.assign({}, opts)
+  opts = { ...opts }
 
   if (false === isBuffer(opts.nonce)) {
     throw new TypeError('crypto.createBoxStream: Expecting nonce.')

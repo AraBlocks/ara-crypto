@@ -21,7 +21,8 @@ function encode(value, size) {
   if ('number' !== typeof size || size < kMinUInt64Size) {
     /* eslint-disable-next-line  function-paren-newline */
     throw new TypeError(
-      'crypto.uint64.encode: Expecting size to greater than 8.')
+      'crypto.uint64.encode: Expecting size to greater than 8.'
+    )
   } else if (Number.isNaN(value)) {
     throw new TypeError('crypto.uint64.encode: Cannot encode NaN.')
   } else if ('number' !== typeof value) {
@@ -43,7 +44,8 @@ function decode(buffer) {
   } else if (0 === buffer.length) {
     /* eslint-disable-next-line  function-paren-newline */
     throw new TypeError(
-      'crypto.uint64.decode: Cannot decode buffer of 0 length.')
+      'crypto.uint64.decode: Cannot decode buffer of 0 length.'
+    )
   }
   return uint64be.decode(buffer)
 }

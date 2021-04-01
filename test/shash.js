@@ -1,12 +1,12 @@
 const isBuffer = require('is-buffer')
-const { shash } = require('../shash')
-const test = require('./helpers/runner')
-
 /* eslint-disable camelcase */
 const {
   crypto_shorthash_KEYBYTES,
   crypto_shorthash_BYTES,
 } = require('sodium-universal')
+
+const { shash } = require('../shash')
+const test = require('./helpers/runner')
 
 test.cb('shash(message, secretKey) is a function', (t) => {
   t.true('function' === typeof shash)
@@ -14,27 +14,27 @@ test.cb('shash(message, secretKey) is a function', (t) => {
 })
 
 test.cb('shash(message, secretKey) throws on bad input', (t) => {
-  t.throws(() => shash(), TypeError)
-  t.throws(() => shash(null, null), TypeError)
-  t.throws(() => shash(123, null), TypeError)
-  t.throws(() => shash(true, null), TypeError)
-  t.throws(() => shash('hello', null), TypeError)
-  t.throws(() => shash(Buffer.alloc(0), null), TypeError)
-  t.throws(() => shash(Buffer.alloc(8), null), TypeError)
-  t.throws(() => shash(Buffer.alloc(8), true), TypeError)
-  t.throws(() => shash(Buffer.alloc(8), 123), TypeError)
-  t.throws(() => shash(Buffer.alloc(8), 'hello'), TypeError)
-  t.throws(() => shash(Buffer.alloc(8), 'hello'), TypeError)
-  t.throws(() => shash(Buffer.alloc(8), Buffer.alloc(0)), RangeError)
+  t.throws(() => shash(), { instanceOf: TypeError })
+  t.throws(() => shash(null, null), { instanceOf: TypeError })
+  t.throws(() => shash(123, null), { instanceOf: TypeError })
+  t.throws(() => shash(true, null), { instanceOf: TypeError })
+  t.throws(() => shash('hello', null), { instanceOf: TypeError })
+  t.throws(() => shash(Buffer.alloc(0), null), { instanceOf: TypeError })
+  t.throws(() => shash(Buffer.alloc(8), null), { instanceOf: TypeError })
+  t.throws(() => shash(Buffer.alloc(8), true), { instanceOf: TypeError })
+  t.throws(() => shash(Buffer.alloc(8), 123), { instanceOf: TypeError })
+  t.throws(() => shash(Buffer.alloc(8), 'hello'), { instanceOf: TypeError })
+  t.throws(() => shash(Buffer.alloc(8), 'hello'), { instanceOf: TypeError })
+  t.throws(() => shash(Buffer.alloc(8), Buffer.alloc(0)), { instanceOf: RangeError })
   t.throws(() => shash(
     Buffer.alloc(8),
     Buffer.alloc(crypto_shorthash_KEYBYTES + 1)
-  ), RangeError)
+  ), { instanceOf: RangeError })
 
   t.throws(() => shash(
     Buffer.alloc(0),
     Buffer.alloc(crypto_shorthash_KEYBYTES)
-  ), RangeError)
+  ), { instanceOf: RangeError })
 
   t.end()
 })

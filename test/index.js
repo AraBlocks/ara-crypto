@@ -1,4 +1,4 @@
-const crypto = require('../')
+const crypto = require('..')
 const test = require('./helpers/runner')
 
 test.cb('crypto.createUnboxStream', (t) => {

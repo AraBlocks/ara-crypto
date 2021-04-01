@@ -100,7 +100,7 @@ function createUnboxStream(opts) {
 
   // create new reference
   /* eslint-disable-next-line no-param-reassign */
-  opts = Object.assign({}, opts)
+  opts = { ...opts }
 
   if (false === isBuffer(opts.nonce)) {
     throw new TypeError('crypto.createUnboxStream: Expecting nonce.')

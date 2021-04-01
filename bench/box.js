@@ -1,6 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const { createBoxStream } = require('../box')
-const { randomBytes } = require('../random-bytes')
 const speedometer = require('speedometer')
 const { format } = require('util')
 const pretty = require('pretty-bytes')
@@ -11,6 +9,8 @@ const diff = require('ansi-diff')
 const {
   crypto_secretbox_NONCEBYTES,
 } = require('sodium-universal')
+const { randomBytes } = require('../random-bytes')
+const { createBoxStream } = require('../box')
 
 const key = Buffer.alloc(32)
 const speed = speedometer()

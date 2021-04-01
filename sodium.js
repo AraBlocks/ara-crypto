@@ -46,9 +46,12 @@ const polyfill = {
   crypto_shorthash_BYTES: 8,
 }
 
-// const sodium = Object.assign({}, browser, javascript)
-// const sodium = Object.assign({}, browser, javascript, polyfill)
-const sodium = Object.assign({}, browser, javascript, polyfill, universal)
+const sodium = {
+  ...browser,
+  ...javascript,
+  ...polyfill,
+  ...universal
+}
 
 module.exports = sodium
 

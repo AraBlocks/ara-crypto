@@ -36,11 +36,15 @@ function keyPair(seed) {
     } else if (0 === seed.length) {
       throw new TypeError('curve25519.keyPair: Seed buffer cannot be empty.')
     } else if (seed.length < crypto_sign_SEEDBYTES) {
-      throw new TypeError('curve25519.keyPair: Seed buffer length too small. ' +
-        `Expecting size ${crypto_sign_SEEDBYTES}.`)
+      throw new TypeError(
+        'curve25519.keyPair: Seed buffer length too small. '
+        + `Expecting size ${crypto_sign_SEEDBYTES}.`
+      )
     } else if (seed.length > crypto_sign_SEEDBYTES) {
-      throw new TypeError('curve25519.keyPair: Seed buffer length too large. ' +
-        `Expecting size ${crypto_sign_SEEDBYTES}.`)
+      throw new TypeError(
+        'curve25519.keyPair: Seed buffer length too large. '
+        + `Expecting size ${crypto_sign_SEEDBYTES}.`
+      )
     }
   }
 

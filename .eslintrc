@@ -1,6 +1,7 @@
 {
   "extends": "ara",
   "rules": {
-    "eqeqeq": "off"
+    "eqeqeq": "off",
+    "max-classes-per-file": "warn"
   }
 }

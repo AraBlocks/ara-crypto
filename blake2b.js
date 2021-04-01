@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
-const { crypto_generichash_batch } = require('./sodium')
 const isBuffer = require('is-buffer')
 const alloc = require('buffer-alloc-unsafe')
+
+const { crypto_generichash_batch } = require('./sodium')
 
 const kDefaultBlake2bSize = 32
 
@@ -44,7 +45,12 @@ function blake2b(buffer, size, key) {
   }
 
   const digest = alloc(size)
-  crypto_generichash_batch(digest, buffer, key)
+
+  if (digest && buffer && key) {
+    crypto_generichash_batch(digest, buffer, key)
+  } else {
+    crypto_generichash_batch(digest, buffer)
+  }
   return digest
 }
 

@@ -1,8 +1,4 @@
-const { randomBytes } = require('../random-bytes')
 const isBuffer = require('is-buffer')
-const test = require('./helpers/runner')
-const kx = require('../kx')
-
 /* eslint-disable camelcase */
 const {
   crypto_kx_SESSIONKEYBYTES,
@@ -11,22 +7,26 @@ const {
   crypto_kx_SEEDBYTES,
 } = require('sodium-universal')
 
+const { randomBytes } = require('../random-bytes')
+const test = require('./helpers/runner')
+const kx = require('../kx')
+
 test.cb('kx.keyPair(seed) is a function', (t) => {
   t.true('function' === typeof kx.keyPair)
   t.end()
 })
 
 test.cb('kx.keyPair(seed) throws on bad input', (t) => {
-  t.throws(() => kx.keyPair(null), TypeError)
-  t.throws(() => kx.keyPair(1), TypeError)
-  t.throws(() => kx.keyPair({}), TypeError)
-  t.throws(() => kx.keyPair(''), TypeError)
-  t.throws(() => kx.keyPair(true), TypeError)
-  t.throws(() => kx.keyPair([]), TypeError)
-  t.throws(() => kx.keyPair(() => undefined), TypeError)
-  t.throws(() => kx.keyPair(randomBytes(0)), TypeError)
-  t.throws(() => kx.keyPair(randomBytes(crypto_kx_SEEDBYTES + 1)), TypeError)
-  t.throws(() => kx.keyPair(randomBytes(crypto_kx_SEEDBYTES - 1)), TypeError)
+  t.throws(() => kx.keyPair(null), { instanceOf: TypeError })
+  t.throws(() => kx.keyPair(1), { instanceOf: TypeError })
+  t.throws(() => kx.keyPair({}), { instanceOf: TypeError })
+  t.throws(() => kx.keyPair(''), { instanceOf: TypeError })
+  t.throws(() => kx.keyPair(true), { instanceOf: TypeError })
+  t.throws(() => kx.keyPair([]), { instanceOf: TypeError })
+  t.throws(() => kx.keyPair(() => undefined), { instanceOf: TypeError })
+  t.throws(() => kx.keyPair(randomBytes(0)), { instanceOf: TypeError })
+  t.throws(() => kx.keyPair(randomBytes(crypto_kx_SEEDBYTES + 1)), { instanceOf: TypeError })
+  t.throws(() => kx.keyPair(randomBytes(crypto_kx_SEEDBYTES - 1)), { instanceOf: TypeError })
   t.end()
 })
 
@@ -64,68 +64,68 @@ test.cb('kx.client(opts) is a function', (t) => {
 })
 
 test.cb('kx.client(opts) throws on bad input', (t) => {
-  t.throws(() => kx.client(), TypeError)
-  t.throws(() => kx.client(null), TypeError)
-  t.throws(() => kx.client(123), TypeError)
-  t.throws(() => kx.client(true), TypeError)
-  t.throws(() => kx.client(() => undefined), TypeError)
-  t.throws(() => kx.client(''), TypeError)
-  t.throws(() => kx.client({}), TypeError)
-  t.throws(() => kx.client({ publicKey: null }), TypeError)
-  t.throws(() => kx.client({ publicKey: randomBytes(16) }), TypeError)
+  t.throws(() => kx.client(), { instanceOf: TypeError })
+  t.throws(() => kx.client(null), { instanceOf: TypeError })
+  t.throws(() => kx.client(123), { instanceOf: TypeError })
+  t.throws(() => kx.client(true), { instanceOf: TypeError })
+  t.throws(() => kx.client(() => undefined), { instanceOf: TypeError })
+  t.throws(() => kx.client(''), { instanceOf: TypeError })
+  t.throws(() => kx.client({}), { instanceOf: TypeError })
+  t.throws(() => kx.client({ publicKey: null }), { instanceOf: TypeError })
+  t.throws(() => kx.client({ publicKey: randomBytes(16) }), { instanceOf: TypeError })
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: null,
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     server: null,
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     server: 123,
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     server: {},
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     server: { publicKey: null },
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     server: { publicKey: randomBytes(16) },
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     server: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES - 1) },
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES - 1),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     server: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES) },
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.client({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES - 1),
     server: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES) },
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.end()
 })
@@ -152,68 +152,68 @@ test.cb('kx.server(opts) is a function', (t) => {
 })
 
 test.cb('kx.server(opts) throws on bad input', (t) => {
-  t.throws(() => kx.server(), TypeError)
-  t.throws(() => kx.server(null), TypeError)
-  t.throws(() => kx.server(123), TypeError)
-  t.throws(() => kx.server(true), TypeError)
-  t.throws(() => kx.server(() => undefined), TypeError)
-  t.throws(() => kx.server(''), TypeError)
-  t.throws(() => kx.server({}), TypeError)
-  t.throws(() => kx.server({ publicKey: null }), TypeError)
-  t.throws(() => kx.server({ publicKey: randomBytes(16) }), TypeError)
+  t.throws(() => kx.server(), { instanceOf: TypeError })
+  t.throws(() => kx.server(null), { instanceOf: TypeError })
+  t.throws(() => kx.server(123), { instanceOf: TypeError })
+  t.throws(() => kx.server(true), { instanceOf: TypeError })
+  t.throws(() => kx.server(() => undefined), { instanceOf: TypeError })
+  t.throws(() => kx.server(''), { instanceOf: TypeError })
+  t.throws(() => kx.server({}), { instanceOf: TypeError })
+  t.throws(() => kx.server({ publicKey: null }), { instanceOf: TypeError })
+  t.throws(() => kx.server({ publicKey: randomBytes(16) }), { instanceOf: TypeError })
 
   t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: null,
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: null,
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: 123,
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: {},
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: { publicKey: null },
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: { publicKey: randomBytes(16) },
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES - 1) },
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES - 1),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES),
     client: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES) },
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.throws(() => kx.server({
     publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES),
     secretKey: randomBytes(crypto_kx_SECRETKEYBYTES - 1),
     client: { publicKey: randomBytes(crypto_kx_PUBLICKEYBYTES) },
-  }), TypeError)
+  }), { instanceOf: TypeError })
 
   t.end()
 })

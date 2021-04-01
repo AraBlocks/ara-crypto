@@ -1,9 +1,9 @@
 /* eslint-disable no-inline-comments */
+const isBuffer = require('is-buffer')
 const { ShareData } = require('./share')
 const { Secret } = require('./secret')
 const { Table } = require('./table')
 const { Codec } = require('./codec')
-const isBuffer = require('is-buffer')
 
 /**
  * Shamir Secret Sharing state context.

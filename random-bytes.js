@@ -1,6 +1,6 @@
+const alloc = require('buffer-alloc-unsafe')
 /* eslint-disable camelcase */
 const { randombytes_buf } = require('./sodium')
-const alloc = require('buffer-alloc-unsafe')
 
 /**
  * Generate a sized buffer of random bytes. This function calls

@@ -31,49 +31,49 @@ test.cb('sss.recover(shares, opts) is a function', (t) => {
 })
 
 test.cb('sss.init(opts) throws on bad input', (t) => {
-  t.throws(() => sss.init(() => {}), TypeError)
-  t.throws(() => sss.init(true), TypeError)
-  t.throws(() => sss.init(123), TypeError)
-  t.throws(() => sss.init(''), TypeError)
+  t.throws(() => sss.init(() => {}), { instanceOf: TypeError })
+  t.throws(() => sss.init(true), { instanceOf: TypeError })
+  t.throws(() => sss.init(123), { instanceOf: TypeError })
+  t.throws(() => sss.init(''), { instanceOf: TypeError })
 
   t.end()
 })
 
 test.cb('sss.secret(opts) throws on bad input', (t) => {
-  t.throws(() => sss.secret(undefined), TypeError)
-  t.throws(() => sss.secret(null), TypeError)
-  t.throws(() => sss.secret({}), TypeError)
-  t.throws(() => sss.secret([]), TypeError)
-  t.throws(() => sss.secret(() => {}), TypeError)
-  t.throws(() => sss.secret(true), TypeError)
-  t.throws(() => sss.secret(123), TypeError)
-  t.throws(() => sss.secret(''), TypeError)
-  t.throws(() => sss.secret(Buffer.alloc(0)), TypeError)
-  t.throws(() => sss.secret(ZERO), TypeError)
+  t.throws(() => sss.secret(undefined), { instanceOf: TypeError })
+  t.throws(() => sss.secret(null), { instanceOf: TypeError })
+  t.throws(() => sss.secret({}), { instanceOf: TypeError })
+  t.throws(() => sss.secret([]), { instanceOf: TypeError })
+  t.throws(() => sss.secret(() => {}), { instanceOf: TypeError })
+  t.throws(() => sss.secret(true), { instanceOf: TypeError })
+  t.throws(() => sss.secret(123), { instanceOf: TypeError })
+  t.throws(() => sss.secret(''), { instanceOf: TypeError })
+  t.throws(() => sss.secret(Buffer.alloc(0)), { instanceOf: TypeError })
+  t.throws(() => sss.secret(ZERO), { instanceOf: TypeError })
 
-  t.throws(() => sss.secret('secret', null), TypeError)
-  t.throws(() => sss.secret('secret', true), TypeError)
-  t.throws(() => sss.secret('secret', 123), TypeError)
-  t.throws(() => sss.secret('secret', ''), TypeError)
-  t.throws(() => sss.secret('secret', () => {}), TypeError)
+  t.throws(() => sss.secret('secret', null), { instanceOf: TypeError })
+  t.throws(() => sss.secret('secret', true), { instanceOf: TypeError })
+  t.throws(() => sss.secret('secret', 123), { instanceOf: TypeError })
+  t.throws(() => sss.secret('secret', ''), { instanceOf: TypeError })
+  t.throws(() => sss.secret('secret', () => {}), { instanceOf: TypeError })
 
   t.end()
 })
 
 test.cb('sss.shares(opts) throws on bad input', (t) => {
-  t.throws(() => sss.shares(() => {}), TypeError)
-  t.throws(() => sss.shares(true), TypeError)
-  t.throws(() => sss.shares(123), TypeError)
-  t.throws(() => sss.shares(''), TypeError)
+  t.throws(() => sss.shares(() => {}), { instanceOf: TypeError })
+  t.throws(() => sss.shares(true), { instanceOf: TypeError })
+  t.throws(() => sss.shares(123), { instanceOf: TypeError })
+  t.throws(() => sss.shares(''), { instanceOf: TypeError })
 
   t.end()
 })
 
 test.cb('sss.recover(opts) throws on bad input', (t) => {
-  t.throws(() => sss.recover(() => {}), TypeError)
-  t.throws(() => sss.recover(true), TypeError)
-  t.throws(() => sss.recover(123), TypeError)
-  t.throws(() => sss.recover(''), TypeError)
+  t.throws(() => sss.recover(() => {}), { instanceOf: TypeError })
+  t.throws(() => sss.recover(true), { instanceOf: TypeError })
+  t.throws(() => sss.recover(123), { instanceOf: TypeError })
+  t.throws(() => sss.recover(''), { instanceOf: TypeError })
 
   t.end()
 })
@@ -111,7 +111,7 @@ test.cb('sss.shares(secret, opts) simple', (t) => {
 
   t.true(Array.isArray(shares))
   t.true(10 === shares.length)
-  t.true(shares.every(share => isBuffer(share)))
+  t.true(shares.every((share) => isBuffer(share)))
 
   t.end()
 })

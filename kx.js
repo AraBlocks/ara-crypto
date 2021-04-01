@@ -1,5 +1,5 @@
-const { randomBytes } = require('./random-bytes')
 const isBuffer = require('is-buffer')
+const { randomBytes } = require('./random-bytes')
 
 /* eslint-disable camelcase */
 const {

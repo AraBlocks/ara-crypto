@@ -29,11 +29,13 @@ function discoveryKey(buffer, size, key) {
   } else if (Number.isNaN(size) || 'number' !== typeof size) {
     /* eslint-disable-next-line function-paren-newline */
     throw new TypeError(
-      'crypto.discoveryKey: Expecting size to be a number.')
+      'crypto.discoveryKey: Expecting size to be a number.'
+    )
   } else if (size <= 0) {
     /* eslint-disable-next-line function-paren-newline */
     throw new TypeError(
-      'crypto.discoveryKey: Expecting size to be greater than 0.')
+      'crypto.discoveryKey: Expecting size to be greater than 0.'
+    )
   }
 
   if (!key) {

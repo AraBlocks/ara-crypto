@@ -1,8 +1,8 @@
 /* eslint-disable no-inline-comments */
+const isBuffer = require('is-buffer')
 const { randomBytes } = require('../random-bytes')
 const { SharePoint } = require('./share')
 const { blake2b } = require('../blake2b')
-const isBuffer = require('is-buffer')
 
 const kZeroes = new Array(1024).join('0')
 
@@ -307,7 +307,7 @@ class Codec {
     function fromString() {
       if ('utf8' === encoding) {
         return fromUTF8String()
-      } else if ('binary' === encoding) {
+      } if ('binary' === encoding) {
         return fromBinaryString()
       }
 

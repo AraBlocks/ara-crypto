@@ -1,9 +1,9 @@
 /* eslint-disable no-inline-comments */
-const { randomBytes } = require('../random-bytes')
 const isZeroBuffer = require('is-zero-buffer')
+const isBuffer = require('is-buffer')
+const { randomBytes } = require('../random-bytes')
 const { isSecret } = require('./secret')
 const { Context } = require('./context')
-const isBuffer = require('is-buffer')
 
 const kContextDefaults = {
   bits: 8,
@@ -33,7 +33,7 @@ function init(opts) {
     throw new TypeError('init: Expecting object.')
   }
 
-  const ctx = new Context(Object.assign({}, kContextDefaults, opts))
+  const ctx = new Context({ ...kContextDefaults, ...opts })
   return ctx
 }
 
@@ -106,9 +106,9 @@ function shares(secret, opts) {
   }
 
   if (
-    false === isBuffer(secret) &&
-    false === isSecret(secret) &&
-    'string' !== typeof secret
+    false === isBuffer(secret)
+    && false === isSecret(secret)
+    && 'string' !== typeof secret
   ) {
     throw new TypeError('shares: Invalid secret type.')
   }

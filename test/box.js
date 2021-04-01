@@ -1,15 +1,15 @@
-const { box, createBoxStream } = require('../box')
-const { randomBytes } = require('../random-bytes')
 const increment = require('increment-buffer')
-const { unbox } = require('../unbox')
 const isBuffer = require('is-buffer')
-const test = require('./helpers/runner')
-
 /* eslint-disable camelcase */
 const {
   crypto_secretbox_MACBYTES,
   crypto_secretbox_NONCEBYTES,
 } = require('sodium-universal')
+
+const { box, createBoxStream } = require('../box')
+const { randomBytes } = require('../random-bytes')
+const { unbox } = require('../unbox')
+const test = require('./helpers/runner')
 
 test.cb('box(buffer, opts) is a function', (t) => {
   t.true('function' === typeof box)
@@ -17,14 +17,14 @@ test.cb('box(buffer, opts) is a function', (t) => {
 })
 
 test.cb('box(buffer, opts) throws on bad input', (t) => {
-  t.throws(() => box(), TypeError)
-  t.throws(() => box(null), TypeError)
-  t.throws(() => box(true), TypeError)
-  t.throws(() => box(123), TypeError)
-  t.throws(() => box('string'), TypeError)
-  t.throws(() => box(Buffer.from('hello')), TypeError)
-  t.throws(() => box(Buffer.from('hello'), { secret: null }), TypeError)
-  t.throws(() => box(Buffer.from('hello'), { key: null }), TypeError)
+  t.throws(() => box(), { instanceOf: TypeError })
+  t.throws(() => box(null), { instanceOf: TypeError })
+  t.throws(() => box(true), { instanceOf: TypeError })
+  t.throws(() => box(123), { instanceOf: TypeError })
+  t.throws(() => box('string'), { instanceOf: TypeError })
+  t.throws(() => box(Buffer.from('hello')), { instanceOf: TypeError })
+  t.throws(() => box(Buffer.from('hello'), { secret: null }), { instanceOf: TypeError })
+  t.throws(() => box(Buffer.from('hello'), { key: null }), { instanceOf: TypeError })
   t.end()
 })
 
@@ -83,10 +83,10 @@ test.cb('createBoxStream(opts) is a function', (t) => {
 })
 
 test.cb('createBoxStream(opts) throws on bad input', (t) => {
-  t.throws(() => createBoxStream(null), TypeError)
-  t.throws(() => createBoxStream(true), TypeError)
-  t.throws(() => createBoxStream(123), TypeError)
-  t.throws(() => createBoxStream(), TypeError)
+  t.throws(() => createBoxStream(null), { instanceOf: TypeError })
+  t.throws(() => createBoxStream(true), { instanceOf: TypeError })
+  t.throws(() => createBoxStream(123), { instanceOf: TypeError })
+  t.throws(() => createBoxStream(), { instanceOf: TypeError })
   t.end()
 })
 
