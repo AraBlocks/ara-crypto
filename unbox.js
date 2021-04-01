@@ -6,6 +6,7 @@ const through = require('through2')
 const {
   crypto_secretbox_KEYBYTES,
   crypto_secretbox_MACBYTES,
+  crypto_secretbox_NONCEBYTES,
 
   crypto_secretbox_open_easy,
 } = require('./sodium')
@@ -46,14 +47,15 @@ function unbox(buffer, opts) {
   if (false === isBuffer(key)) {
     throw new TypeError('crypto.unbox: Expecting secret key.')
   }
-
+  
+  key = key.slice(0, crypto_secretbox_KEYBYTES)
   const nonces = [ copy(nonce), increment(copy(nonce)) ]
   const header = Buffer.allocUnsafe(2 + crypto_secretbox_MACBYTES)
 
   crypto_secretbox_open_easy(
     header,
     buffer.slice(0, 2 + (2 * crypto_secretbox_MACBYTES)),
-    nonces[0],
+    nonces[0].slice(0, crypto_secretbox_NONCEBYTES),
     key
   )
 
@@ -75,7 +77,7 @@ function unbox(buffer, opts) {
   crypto_secretbox_open_easy(
     unboxed,
     combined,
-    nonces[1],
+    nonces[1].slice(0, crypto_secretbox_NONCEBYTES),
     key
   )
 
