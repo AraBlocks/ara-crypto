@@ -1,8 +1,6 @@
 <img src="https://github.com/AraBlocks/docs/blob/master/ara.png" width="30" height="30" /> ara-crypto
 ==========
 
-[![Build Status](https://travis-ci.com/AraBlocks/ara-crypto.svg?token=r6p7pesHZ9MRJsVsrYFe&branch=master)](https://travis-ci.com/AraBlocks/ara-crypto)
-
 Cryptographic functions used in ARA modules for Node.js.
 
 ## Status
