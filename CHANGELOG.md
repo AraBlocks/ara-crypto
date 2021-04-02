@@ -1,3 +1,12 @@
+## [0.9.1](https://github.com/AraBlocks/ara-crypto/compare/0.9.0...0.9.1) (2021-04-02)
+
+
+### Bug Fixes
+
+* **kdf.js:** truncate key to exact bytes needed ([e502c6b](https://github.com/AraBlocks/ara-crypto/commit/e502c6befd4ed4bd8a3505c22feff351f3d3e833))
+
+
+
 # [0.9.0](https://github.com/AraBlocks/ara-crypto/compare/0.8.5...0.9.0) (2021-04-01)
 
 
