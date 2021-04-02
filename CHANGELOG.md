@@ -1,3 +1,12 @@
+## [0.9.2](https://github.com/AraBlocks/ara-crypto/compare/0.9.1...0.9.2) (2021-04-02)
+
+
+### Bug Fixes
+
+* unbox nonce and key length ([033d294](https://github.com/AraBlocks/ara-crypto/commit/033d2944e50e2d9e10d6157bd851da5812c946b7))
+
+
+
 ## [0.9.1](https://github.com/AraBlocks/ara-crypto/compare/0.9.0...0.9.1) (2021-04-02)
 
 

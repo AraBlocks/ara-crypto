@@ -1,6 +1,6 @@
 {
   "name": "ara-crypto",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Cryptographic functions used in Ara modules",
   "main": "index.js",
   "scripts": {
