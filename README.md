@@ -56,8 +56,6 @@ inputs should always be a [`Buffer`](https://nodejs.org/api/buffer.html).
 - [crypto.ed25519.verify(signature, message, publicKey)](#ed25519-verify)
 - [crypto.uint64.encode(number)](#uint64-encode)
 - [crypto.uint64.decode(buffer)](#uint64-decode)
-- **DEPRECATED** [crypto.encrypt(buffer, opts)](#encrypt)
-- **DEPRECATED** [crypto.decrypt(encrypted, opts)](#decrypt)
 - [crypto.box(buffer, opts)](#box)
 - [crypto.unbox(buffer, opts)](#unbox)
 - [crypto.createBoxStream(opts)](#createBoxStream)
@@ -214,18 +212,6 @@ Decode an unsigned 64-bit big endian buffer into a number
 const buffer = crypto.uint64.encode(80)
 const number = crypto.uint64.decode(buffer) // 80
 ```
-
-### `crypto.encrypt(value, opts)` <a name="encrypt"></a>
-
-**DEPRECATED** (_2018-08-13_) - Please use
-[ara-secret-storage](https://github.com/AraBlocks/ara-secret-storage#encrypt)
-instead.
-
-### `crypto.decrypt(value, opts)` <a name="decrypt"></a>
-
-**DEPRECATED** (_2018-08-13_) - Please use
-[ara-secret-storage](https://github.com/AraBlocks/ara-secret-storage#decrypt)
-instead.
 
 ### `crypto.box(buffer, opts)` <a name="box"></a>
 
