@@ -5,6 +5,7 @@ const split = require('split-buffer')
 
 /* eslint-disable camelcase */
 const {
+  crypto_secretbox_NONCEBYTES,
   crypto_secretbox_KEYBYTES,
   crypto_secretbox_MACBYTES,
 
@@ -54,6 +55,10 @@ function box(buffer, opts) {
   if (false === isBuffer(key)) {
     throw new TypeError('crypto.box: Expecting secret key.')
   }
+
+  // truncate key and nonce
+  nonce = nonce.slice(0, crypto_secretbox_NONCEBYTES)
+  key = key.slice(0, crypto_secretbox_KEYBYTES)
 
   // ephemeral nonces used for header and body buffer boxing
   const nonces = [ copy(nonce), increment(copy(nonce)) ]
