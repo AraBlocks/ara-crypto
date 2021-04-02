@@ -16,8 +16,16 @@ test.cb('ed25519.keyPair(seed)', (t) => {
   t.throws(() => keyPair(true), { instanceOf: TypeError })
   t.throws(() => keyPair([]), { instanceOf: TypeError })
   t.throws(() => keyPair(Buffer.alloc(0)), { instanceOf: TypeError })
-  t.throws(() => keyPair(Buffer.alloc(crypto_sign_SEEDBYTES + 1)), { instanceOf: TypeError })
-  t.throws(() => keyPair(Buffer.alloc(crypto_sign_SEEDBYTES - 1)), { instanceOf: TypeError })
+
+  t.throws(
+    () => keyPair(Buffer.alloc(crypto_sign_SEEDBYTES + 1)),
+    { instanceOf: TypeError }
+  )
+
+  t.throws(
+    () => keyPair(Buffer.alloc(crypto_sign_SEEDBYTES - 1)),
+    { instanceOf: TypeError }
+  )
 
   t.true('object' === typeof keyPair())
   t.true('object' === typeof keyPair(Buffer.alloc(32).fill('hello')))

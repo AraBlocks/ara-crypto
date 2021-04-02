@@ -33,9 +33,12 @@ test.cb('auth(message, key) throws on bad input', (t) => {
   t.throws(() => auth(1, {}), { instanceOf: TypeError })
   t.throws(() => auth([], false), { instanceOf: TypeError })
   t.throws(() => auth('', Buffer.alloc(0)), { instanceOf: TypeError })
-  t.throws(() => auth(Buffer.alloc(0), Buffer.alloc(0)), { instanceOf: TypeError })
   t.throws(() => auth(Buffer.from('hello'), Buffer.alloc(0)), { instanceOf: TypeError })
   t.throws(() => auth(Buffer.from('hello'), Buffer.from('key')), { instanceOf: TypeError })
+  t.throws(
+    () => auth(Buffer.alloc(0), Buffer.alloc(0)),
+    { instanceOf: TypeError }
+  )
   t.end()
 })
 
@@ -47,14 +50,27 @@ test.cb('verify(mac, message, key) throws on bad input', (t) => {
   t.throws(() => verify(1, {}), { instanceOf: TypeError })
   t.throws(() => verify([], false), { instanceOf: TypeError })
   t.throws(() => verify('', Buffer.alloc(0)), { instanceOf: TypeError })
-  t.throws(() => verify(Buffer.alloc(0), Buffer.alloc(0)), { instanceOf: TypeError })
   t.throws(() => verify(hello, Buffer.alloc(0)), { instanceOf: TypeError })
   t.throws(() => verify(hello, key), { instanceOf: TypeError })
-  t.throws(() => verify(null, Buffer.alloc(0), Buffer.alloc(0)), { instanceOf: TypeError })
-  t.throws(() => verify(null, hello, Buffer.alloc(0)), { instanceOf: TypeError })
   t.throws(() => verify(null, hello, key), { instanceOf: TypeError })
   t.throws(() => verify('', hello, key), { instanceOf: TypeError })
   t.throws(() => verify(hello, hello, key), { instanceOf: TypeError })
+
+  t.throws(
+    () => verify(Buffer.alloc(0), Buffer.alloc(0)),
+    { instanceOf: TypeError }
+  )
+
+  t.throws(
+    () => verify(null, Buffer.alloc(0), Buffer.alloc(0)),
+    { instanceOf: TypeError }
+  )
+
+  t.throws(
+    () => verify(null, hello, Buffer.alloc(0)),
+    { instanceOf: TypeError }
+  )
+
   t.end()
 })
 

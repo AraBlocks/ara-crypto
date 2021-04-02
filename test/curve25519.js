@@ -30,9 +30,21 @@ test.cb('curve25519.shared(secretKey, publicKey)', (t) => {
   t.throws(() => shared(null, null), { instanceOf: TypeError })
   t.throws(() => shared(null, Buffer.alloc(32)), { instanceOf: TypeError })
   t.throws(() => shared(Buffer.alloc(32), null), { instanceOf: TypeError })
-  t.throws(() => shared(Buffer.alloc(0), Buffer.alloc(0)), { instanceOf: RangeError })
-  t.throws(() => shared(Buffer.alloc(32), Buffer.alloc(0)), { instanceOf: RangeError })
-  t.throws(() => shared(Buffer.alloc(0), Buffer.alloc(32)), { instanceOf: RangeError })
+
+  t.throws(
+    () => shared(Buffer.alloc(0), Buffer.alloc(0)),
+    { instanceOf: RangeError }
+  )
+
+  t.throws(
+    () => shared(Buffer.alloc(32), Buffer.alloc(0)),
+    { instanceOf: RangeError }
+  )
+
+  t.throws(
+    () => shared(Buffer.alloc(0), Buffer.alloc(32)),
+    { instanceOf: RangeError }
+  )
 
   const alice = keyPair()
   const bob = keyPair()

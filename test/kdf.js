@@ -23,8 +23,16 @@ test.cb('kdf.keygen(key) throws on bad input', (t) => {
   t.throws(() => kdf.keygen([]), { instanceOf: TypeError })
   t.throws(() => kdf.keygen(() => undefined), { instanceOf: TypeError })
   t.throws(() => kdf.keygen(randomBytes(0)), { instanceOf: TypeError })
-  t.throws(() => kdf.keygen(randomBytes(crypto_kdf_KEYBYTES + 1)), { instanceOf: TypeError })
-  t.throws(() => kdf.keygen(randomBytes(crypto_kdf_KEYBYTES - 1)), { instanceOf: TypeError })
+  t.throws(
+    () => kdf.keygen(randomBytes(crypto_kdf_KEYBYTES + 1)),
+    { instanceOf: TypeError }
+  )
+
+  t.throws(
+    () => kdf.keygen(randomBytes(crypto_kdf_KEYBYTES - 1)),
+    { instanceOf: TypeError }
+  )
+
   t.end()
 })
 
@@ -126,14 +134,21 @@ test.cb('kdf.update(ctx, id) throws on bad input', (t) => {
   t.throws(() => kdf.update({}), { instanceOf: TypeError })
   t.throws(() => kdf.update({ subkey: 123 }), { instanceOf: TypeError })
   t.throws(() => kdf.update({ subkey: true }), { instanceOf: TypeError })
-  t.throws(() => kdf.update({ subkey: () => undefined }), { instanceOf: TypeError })
   t.throws(() => kdf.update({ subkey: '' }), { instanceOf: TypeError })
   t.throws(() => kdf.update({ subkey: {} }), { instanceOf: TypeError })
   t.throws(() => kdf.update({ buffer: 123 }), { instanceOf: TypeError })
   t.throws(() => kdf.update({ buffer: true }), { instanceOf: TypeError })
-  t.throws(() => kdf.update({ buffer: () => undefined }), { instanceOf: TypeError })
   t.throws(() => kdf.update({ buffer: '' }), { instanceOf: TypeError })
   t.throws(() => kdf.update({ buffer: {} }), { instanceOf: TypeError })
+  t.throws(
+    () => kdf.update({ buffer: () => undefined }),
+    { instanceOf: TypeError }
+  )
+
+  t.throws(
+    () => kdf.update({ subkey: () => undefined }),
+    { instanceOf: TypeError }
+  )
 
   const smallCtx = randomBytes(crypto_kdf_CONTEXTBYTES - 1)
   const largeCtx = randomBytes(crypto_kdf_CONTEXTBYTES + 1)
@@ -143,9 +158,13 @@ test.cb('kdf.update(ctx, id) throws on bad input', (t) => {
   const buffer = randomBytes(crypto_kdf_CONTEXTBYTES)
   t.throws(() => kdf.update({ buffer, key: 123 }), { instanceOf: TypeError })
   t.throws(() => kdf.update({ buffer, key: true }), { instanceOf: TypeError })
-  t.throws(() => kdf.update({ buffer, key: () => undefined }), { instanceOf: TypeError })
   t.throws(() => kdf.update({ buffer, key: '' }), { instanceOf: TypeError })
   t.throws(() => kdf.update({ buffer, key: {} }), { instanceOf: TypeError })
+
+  t.throws(
+    () => kdf.update({ buffer, key: () => undefined }),
+    { instanceOf: TypeError }
+  )
 
   const key = randomBytes(crypto_kdf_KEYBYTES)
   const ctx = { buffer, key }

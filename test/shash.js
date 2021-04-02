@@ -25,7 +25,12 @@ test.cb('shash(message, secretKey) throws on bad input', (t) => {
   t.throws(() => shash(Buffer.alloc(8), 123), { instanceOf: TypeError })
   t.throws(() => shash(Buffer.alloc(8), 'hello'), { instanceOf: TypeError })
   t.throws(() => shash(Buffer.alloc(8), 'hello'), { instanceOf: TypeError })
-  t.throws(() => shash(Buffer.alloc(8), Buffer.alloc(0)), { instanceOf: RangeError })
+
+  t.throws(
+    () => shash(Buffer.alloc(8), Buffer.alloc(0)),
+    { instanceOf: RangeError }
+  )
+
   t.throws(() => shash(
     Buffer.alloc(8),
     Buffer.alloc(crypto_shorthash_KEYBYTES + 1)
