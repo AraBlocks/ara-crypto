@@ -1,3 +1,7 @@
+## [0.9.3](https://github.com/AraBlocks/ara-crypto/compare/0.9.2...0.9.3) (2021-04-02)
+
+
+
 ## [0.9.2](https://github.com/AraBlocks/ara-crypto/compare/0.9.1...0.9.2) (2021-04-02)
 
 
