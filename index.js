@@ -3,8 +3,6 @@ const { createBoxStream, box } = require('./box')
 const { discoveryKey } = require('./discovery-key')
 const { randomBytes } = require('./random-bytes')
 const { blake2b } = require('./blake2b')
-const { decrypt } = require('./decrypt')
-const { encrypt } = require('./encrypt')
 const { keyPair } = require('./key-pair')
 const curve25519 = require('./curve25519')
 const { verify } = require('./verify')
@@ -28,8 +26,6 @@ module.exports = {
   curve25519,
   ed25519,
   blake2b,
-  decrypt,
-  encrypt,
   keyPair,
   base58,
   base64,
